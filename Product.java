@@ -20,7 +20,7 @@ public class Product implements Serializable {
   public String getName() {
     return name;
   }
-  public String getPrice() {
+  public float getPrice() {
     return price;
   }
 
