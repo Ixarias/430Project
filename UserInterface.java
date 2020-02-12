@@ -7,13 +7,14 @@ public class UserInterface {
   private static Warehouse warehouse;
   private static final int EXIT = 0;
   private static final int ADD_CLIENT = 1;
+  private static final int SHOW_CLIENTS = 2;
   private static final int HELP = 15;
 
   private UserInterface() {
     //if (yesOrNo("Look for saved data and  use it?")) {
       //retrieve();
     //} else {
-      warehouse = Warehouse.instance();
+      warehouse = Warehouse.instance(); // Instantiate Warehouse singleton
     //}
   }
   public static UserInterface instance() {
@@ -85,6 +86,7 @@ public class UserInterface {
     System.out.println("Enter a number between 0 and 12 as explained below:");
     System.out.println(EXIT + " to Exit\n");
     System.out.println(ADD_CLIENT + " to add a client");
+    System.out.println(SHOW_CLIENTS + " to display list of clients");
 
   }
 
@@ -195,6 +197,10 @@ public class UserInterface {
     while ((command = getCommand()) != EXIT) {
       switch (command) {
         case ADD_CLIENT:        addClient();
+                                break;
+        case SHOW_CLIENTS:      showClients();
+                                break;
+        case HELP:              help();
                                 break;
 
       }
