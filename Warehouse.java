@@ -12,7 +12,7 @@ public class Warehouse implements Serializable {
   }
   public static Warehouse instance() {
     if (warehouse == null) {
-      MemberIdServer.instance(); // instantiate all singletons
+      //MemberIdServer.instance(); // instantiate all singletons
       return (warehouse = new Warehouse());
     } else {
       return warehouse;
@@ -28,8 +28,8 @@ public class Warehouse implements Serializable {
     return null;
   }
   */
-  public Client addClient(String name, String address, String phone) {
-    Client client = new Client(name, address, phone);
+  public Client addClient(String name, String address, String phone, String id) {
+    Client client = new Client(name, address, phone, id);
     if (clientList.insertClient(client)) {
       return (client);
     }

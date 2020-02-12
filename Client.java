@@ -11,11 +11,12 @@ public class Client implements Serializable {
   //private List booksOnHold = new LinkedList();
   private List transactions = new LinkedList();
   
-  public Client (String name, String address, String phone) {
+  public  Client (String name, String address, String phone, String id) {
     this.name = name;
     this.address = address;
     this.phone = phone;
-    id = CLIENT_STRING + (MemberIdServer.instance()).getId();
+    this.id = id;
+    //id = CLIENT_STRING + (MemberIdServer.instance()).getId();
   }
 
   public String getName() {
