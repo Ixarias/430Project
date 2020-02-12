@@ -11,7 +11,7 @@ public class Client implements Serializable {
   //private List booksOnHold = new LinkedList();
   private List transactions = new LinkedList();
   
-  public  Client (String name, String address, String phone, String id) {
+  public Client (String name, String address, String phone, String id) {
     this.name = name;
     this.address = address;
     this.phone = phone;
