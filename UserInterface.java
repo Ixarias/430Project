@@ -8,6 +8,8 @@ public class UserInterface {
   private static final int EXIT = 0;
   private static final int ADD_CLIENT = 1;
   private static final int SHOW_CLIENTS = 2;
+  private static final int EDIT_CLIENT_ADDRESS = 3;
+  private static final int EDIT_CLIENT_PHONE = 4;
   private static final int HELP = 15;
 
   private UserInterface() {
@@ -144,6 +146,28 @@ public class UserInterface {
           System.out.println(client.toString());
       }
   }
+
+  public void editClientAddress() {
+    Iterator allClients = warehouse.getClients();
+    // get client id
+    String id = getToken("Please enter ID of target client");
+    // get new address
+    String address = getToken("Please enter new address of client");
+    // search for client by id
+    // (iterate until client.id == id)
+
+    // set client's address to the new value
+
+  }
+
+  public void editClientPhone() {
+    Iterator allClients = warehouse.getClients();
+    // get client id
+    String id = getToken("Please enter ID of target client");
+    // get new phone number
+    String phone = getToken("Please enter new phone number of client");
+    // set client's phone number to the new value
+  }
   
   /*
 
@@ -196,12 +220,21 @@ public class UserInterface {
     help();
     while ((command = getCommand()) != EXIT) {
       switch (command) {
-        case ADD_CLIENT:        addClient();
-                                break;
-        case SHOW_CLIENTS:      showClients();
-                                break;
-        case HELP:              help();
-                                break;
+        case ADD_CLIENT:
+          addClient();
+          break;
+        case SHOW_CLIENTS:
+          showClients();
+          break;
+        case EDIT_CLIENT_ADDRESS:
+          editClientAddress();
+          break;
+        case EDIT_CLIENT_PHONE:
+          editClientPhone();
+          break;
+        case HELP:
+          help();
+          break;
 
       }
     }
