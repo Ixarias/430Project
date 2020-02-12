@@ -3,7 +3,7 @@ import java.io.*;
 
 public class SupplierList implements Serializable {
     private static final long serialVersionUID = 1L;
-    private List suppliers = new LinkedList(); // Linked list of suppliers
+    private List<Supplier> suppliers = new LinkedList<Supplier>(); // Linked list of suppliers
     private static SupplierList SupplierList;
     private SupplierList() {
     }
