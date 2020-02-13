@@ -14,14 +14,24 @@ public class Product implements Serializable {
     this.price = price;
   }
 
-  public String getSupplier() {
-    return supplier;
-  }
   public String getName() {
     return name;
   }
+  public String getSupplier() {
+    return supplier;
+  }
   public double getPrice() {
     return price;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+  public void setSupplier(String supplier) {
+    this.supplier = supplier;
+  }
+  public void setPrice(double price) {
+    this.price = price;
   }
 
   public String toString() {

@@ -223,20 +223,16 @@ public class UserInterface {
   }
 
   public void editProductPrice() {
-    Scanner input = new Scanner(System.in);
-
-    Iterator allProducts = warehouse.getProducts();
+    //Iterator allProducts = warehouse.getProducts();
   
     String name = getToken("Please enter name of target product");
-    
-    System.out.print("Enter new product price ");
-    double price = input.nextDouble();
+    Double price = Double.parseDouble(getToken("Enter new product price "));
 
-    if(warehouse.editProductPrice(targetName, newPrice)) {
+    if(warehouse.editProductPrice(name, price)) {
       System.out.println("Price updated.");
     }
     else {
-      System.out.println("Product name " + targetName + " not found.");
+      System.out.println("Product name " + name + " not found.");
     }
   }
 
