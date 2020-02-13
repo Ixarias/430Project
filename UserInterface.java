@@ -94,11 +94,15 @@ public class UserInterface {
   }
 
   public void help() {
-    System.out.println("Enter a number between 0 and 12 as explained below:");
+    System.out.println("Enter a number corresponding to a command as indicated below:");
     System.out.println(EXIT + " to Exit\n");
     System.out.println(ADD_CLIENT + " to add a client");
     System.out.println(SHOW_CLIENTS + " to display list of clients");
-
+    System.out.println(EDIT_CLIENT_ADDRESS + " to edit the address of a client");
+    System.out.println(EDIT_CLIENT_PHONE + " to edit the phone number of a client");
+    System.out.println(ADD_PRODUCT + " to add a product to the catalog");
+    System.out.println(SHOW_PRODUCTS + " to display the list of products in the catalog");
+    System.out.println(EDIT_PRODUCT_PRICE + " to edit the sales price of a product");
   }
 
   public void addClient() {
@@ -135,20 +139,6 @@ public class UserInterface {
       }
     } while (true);
   }
-  /*
-   * public void addBooks() { Book result; do { String title =
-   * getToken("Enter  title"); String bookID = getToken("Enter id"); String author
-   * = getToken("Enter author"); result = library.addBook(title, author, bookID);
-   * if (result != null) { System.out.println(result); } else {
-   * System.out.println("Book could not be added"); } if
-   * (!yesOrNo("Add more books?")) { break; } } while (true); } public void
-   * issueBooks() { System.out.println("Dummy Action"); } public void renewBooks()
-   * { System.out.println("Dummy Action"); }
-   * 
-   * public void showBooks() { Iterator allBooks = library.getBooks(); while
-   * (allBooks.hasNext()){ Book book = (Book)(allBooks.next());
-   * System.out.println(book.toString()); } }
-   */
 
   public void showClients() {
     Iterator allClients = warehouse.getClients();
@@ -180,34 +170,20 @@ public class UserInterface {
     else {
       System.out.println("Client ID " + targetId + " not found.");
     }
-    /*
-    while (allClients.hasNext()) {
-      Client client = (Client) (allClients.next());
-      String id = client.getId();
-      System.out.println(id);
-      if (client.equals(targetId)) {
-        System.out.println("ID " + targetId + " found.");
-        client.setAddress(newAddress);
-        System.out.println("Address updated.");
-        return;
-      }
-
-    }
-    */
-    // end of list reached without finding ID
-    
-
-    // set client's address to the new value
-
   }
 
   public void editClientPhone() {
-    Iterator allClients = warehouse.getClients();
     // get client id
-    String id = getToken("Please enter ID of target client");
+    String targetId = getToken("Please enter ID of target client");
     // get new phone number
-    String phone = getToken("Please enter new phone number of client");
+    String newPhone = getToken("Please enter new phone number of client");
     // set client's phone number to the new value
+    if(warehouse.editClientPhone(targetId, newPhone)) {
+      System.out.println("Phone number updated.");
+    }
+    else {
+      System.out.println("Client ID " + targetId + " not found.");
+    }
   }
 
   public void editProductPrice() {
@@ -227,28 +203,6 @@ public class UserInterface {
       System.out.println("Product name " + targetName + " not found.");
     }
   }
-
-  /*
-   * 
-   * public void returnBooks() { System.out.println("Dummy Action"); } public void
-   * removeBooks() { System.out.println("Dummy Action"); } public void placeHold()
-   * { System.out.println("Dummy Action"); } public void removeHold() {
-   * System.out.println("Dummy Action"); } public void processHolds() {
-   * System.out.println("Dummy Action"); } public void getTransactions() {
-   * System.out.println("Dummy Action"); } private void save() { if
-   * (library.save()) { System.out.
-   * println(" The library has been successfully saved in the file LibraryData \n"
-   * ); } else { System.out.println(" There has been an error in saving \n" ); } }
-   */
-
-  /*
-   * private void retrieve() { try { Library tempLibrary = Library.retrieve(); if
-   * (tempLibrary != null) { System.out.
-   * println(" The library has been successfully retrieved from the file LibraryData \n"
-   * ); library = tempLibrary; } else {
-   * System.out.println("File doesnt exist; creating new library" ); library =
-   * Library.instance(); } } catch(Exception cnfe) { cnfe.printStackTrace(); } }
-   */
 
   public void process() {
     int command;

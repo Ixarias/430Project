@@ -95,6 +95,23 @@ public class Warehouse implements Serializable {
     return false;
   }
 
+  public boolean editClientPhone(String targetId, String newPhone) {
+    Iterator allClients = getClients();
+    // search for client by id
+    // (iterate until client.id == id)
+    while (allClients.hasNext()) {
+      Client client = (Client)(allClients.next());
+      String id = client.getId();
+      System.out.println(id);
+      if (client.equals(targetId)) {
+        System.out.println("ID " + targetId + " found.");
+        client.setPhone(newPhone);
+        return true;
+      }
+    }
+    return false;
+  }
+
   public boolean editProductPrice(String targetName, double newPrice) {
     Iterator allProducts = getProducts();
       
@@ -110,7 +127,6 @@ public class Warehouse implements Serializable {
     }
     return false;
   }
-
   
   public static  boolean save() {
     try {
