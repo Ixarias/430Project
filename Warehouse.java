@@ -95,6 +95,22 @@ public class Warehouse implements Serializable {
     return false;
   }
 
+  public boolean editProductPrice(String targetName, double newPrice) {
+    Iterator allProducts = getProducts();
+      
+    while (allProducts.hasNext()) {
+      Product product = (Product)(allProducts.next());
+      String name = product.getName();
+      System.out.println(name);
+      if (product.equals(targetName)) {
+        System.out.println("Name " + targetName + " found.");
+        product.setPrice(newPrice);
+        return true;
+      }
+    }
+    return false;
+  }
+
   
   public static  boolean save() {
     try {

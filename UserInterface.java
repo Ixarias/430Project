@@ -216,8 +216,16 @@ public class UserInterface {
     Iterator allProducts = warehouse.getProducts();
   
     String name = getToken("Please enter name of target product");
+    
     System.out.print("Enter new product price ");
     double price = input.nextDouble();
+
+    if(warehouse.editProductPrice(targetName, newPrice)) {
+      System.out.println("Price updated.");
+    }
+    else {
+      System.out.println("Product name " + targetName + " not found.");
+    }
   }
 
   /*
