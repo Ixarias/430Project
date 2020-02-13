@@ -5,12 +5,12 @@ public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String address;
-    private List<Product> catalogue = new LinkedList<Product>();
+    private List<Product> catalog = new LinkedList<Product>();
 
-    public Supplier (String name, String address, List<Product> catalogue) {
+    public Supplier(String name, String address, List<Product> catalog) {
         this.name = name;
         this.address = address;
-        this.catalogue = catalogue;
+        this.catalog = catalog;
     }
 
     public String getName() {
@@ -22,7 +22,7 @@ public class Supplier implements Serializable {
     }
 
     public List<Product> getCatalogue() {
-        return catalogue;
+        return catalog;
     }
 
 }
