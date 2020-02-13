@@ -5,10 +5,10 @@ public class Product implements Serializable {
   private static final long serialVersionUID = 1L;
   private String name;
   private String supplier;
-  private float price;
+  private double price;
 
 
-  public Product(String name, String supplier, float price) {
+  public Product(String name, String supplier, double price) {
     this.name = name;
     this.supplier = supplier;
     this.price = price;
@@ -20,7 +20,7 @@ public class Product implements Serializable {
   public String getName() {
     return name;
   }
-  public float getPrice() {
+  public double getPrice() {
     return price;
   }
 
