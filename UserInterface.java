@@ -115,7 +115,9 @@ public class UserInterface {
     if (result == null) {
       System.out.println("Could not add member");
     }
+    else {
     System.out.println(result);
+    }
   }
 
   public void addProduct() {
