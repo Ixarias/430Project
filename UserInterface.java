@@ -135,6 +135,15 @@ public class UserInterface {
       }
     } while (true);
   }
+
+  public void addSupplier() {
+      Supplier supplier;
+      Scanner in = new Scanner(System.in);
+
+      
+
+  }
+
   /*
    * public void addBooks() { Book result; do { String title =
    * getToken("Enter  title"); String bookID = getToken("Enter id"); String author

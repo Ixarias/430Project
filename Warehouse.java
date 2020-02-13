@@ -6,6 +6,7 @@ public class Warehouse implements Serializable {
   //private Catalog catalog;
   private ProductList productList;  
   private ClientList clientList;
+  private SupplierList supplierList;
   private static Warehouse warehouse;
   private Warehouse() {
     //catalog = Catalog.instance();
@@ -46,6 +47,14 @@ public class Warehouse implements Serializable {
     return null;
   }
 
+  public Supplier addSupplier(String name, String address, List<Product> catalog) {
+    Supplier supplier = new Supplier(name, address, catalog);
+    if (supplierList.insertSupplier(supplier)) {
+      return (supplier);
+    }
+    return null;
+  }
+
 /*
   public Iterator getBooks() {
       return catalog.getBooks();
@@ -59,6 +68,10 @@ public class Warehouse implements Serializable {
   public Iterator getProducts() {
     return productList.getProducts();
 }
+
+  public Iterator getSuppliers() {
+    return supplierList.getSuppliers();
+  }
 
   public static Warehouse retrieve() {
     try {
@@ -89,6 +102,23 @@ public class Warehouse implements Serializable {
       if (client.equals(targetId)) {
         System.out.println("ID " + targetId + " found.");
         client.setAddress(newAddress);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean editSupplierAddress(String targetId, String newAddress) {
+    Iterator allSuppliers = getSuppliers();
+    // search for supplier by id
+    // (iterate until supplier.id == id)
+    while (allSuppliers.hasNext()) {
+      Client supplier = (Client) (allSuppliers.next());
+      String id = supplier.getId();
+      System.out.println(id);
+      if (supplier.equals(targetId)) {
+        System.out.println("ID " + targetId + " found.");
+        supplier.setAddress(newAddress);
         return true;
       }
     }

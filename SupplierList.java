@@ -22,7 +22,7 @@ public class SupplierList implements Serializable {
         return true;
     }
 
-    public Iterator getsuppliers() {
+    public Iterator getSuppliers() {
         return suppliers.iterator();
     }
 
