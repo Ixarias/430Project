@@ -69,7 +69,7 @@ public class Warehouse implements Serializable {
     return productList.getProducts();
 }
 
-  public Iterator getSuppliers() {
+  public Iterator<Supplier> getSuppliers() {
     return supplierList.getSuppliers();
   }
 
@@ -108,23 +108,6 @@ public class Warehouse implements Serializable {
     return false;
   }
 
-  public boolean editSupplierAddress(String targetId, String newAddress) {
-    Iterator allSuppliers = getSuppliers();
-    // search for supplier by id
-    // (iterate until supplier.id == id)
-    while (allSuppliers.hasNext()) {
-      Client supplier = (Client) (allSuppliers.next());
-      String id = supplier.getId();
-      System.out.println(id);
-      if (supplier.equals(targetId)) {
-        System.out.println("ID " + targetId + " found.");
-        supplier.setAddress(newAddress);
-                return true;
-      }
-    }
-    return false;
-  }
-
   public boolean editClientPhone(String targetId, String newPhone) {
     Iterator allClients = getClients();
     // search for client by id
@@ -152,6 +135,23 @@ public class Warehouse implements Serializable {
       if (product.equals(targetName)) {
         System.out.println("Name " + targetName + " found.");
         product.setPrice(newPrice);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean editSupplierAddress(String targetName, String newAddress) {
+    Iterator<Supplier> allSuppliers = getSuppliers();
+    // search for supplier by name
+    // (iterate until supplier.name == name)
+    while (allSuppliers.hasNext()) {
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      String name = supplier.getName();
+      System.out.println(name);
+      if (supplier.equals(targetName)) {
+        System.out.println("Name " + targetName + " found.");
+        supplier.setAddress(newAddress);
         return true;
       }
     }

@@ -42,4 +42,11 @@ public class Supplier implements Serializable {
         this.catalog = catalog;
     }
 
+    public boolean equals(String name) {
+        return this.name.equals(name);
+    }
+
+    public String toString() {
+        return "Supplier name " + name + " address " + address;
+    }
 }

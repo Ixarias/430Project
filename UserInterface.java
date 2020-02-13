@@ -146,7 +146,7 @@ public class UserInterface {
       Supplier result = warehouse.addSupplier(name, address);
       if (result == null) {
         System.out.println("Unable to add supplier");
-      } else{
+      } else {
         System.out.println(result);
       }
   }
@@ -177,8 +177,16 @@ public class UserInterface {
   public void showProducts() {
     Iterator allProducts = warehouse.getProducts();
     while (allProducts.hasNext()){
-  Product product = (Product)(allProducts.next());
+        Product product = (Product)(allProducts.next());
         System.out.println(product.toString());
+    }
+  }
+
+  public void showSuppliers() {
+    Iterator allSuppliers = warehouse.getSuppliers();
+    while (allSuppliers.hasNext()) {
+      Product product = (Product) (allSuppliers.next());
+      System.out.println(product.toString());
     }
   }
 
@@ -227,6 +235,21 @@ public class UserInterface {
     }
     else {
       System.out.println("Product name " + targetName + " not found.");
+    }
+  }
+
+  public void editSupplierAddress() {
+    // Iterator allSuppliers = warehouse.getSuppliers();
+    // get supplier name
+    String targetId = getToken("Please enter Name of target supplier");
+    // get new address
+    String newAddress = getToken("Please enter new address of supplier");
+    // search for supplier by name
+    // pass information to warehouse (bool function, false if not found)
+    if (warehouse.editSupplierAddress(targetId, newAddress)) {
+      System.out.println("Address updated.");
+    } else {
+      System.out.println("Supplier ID " + targetId + " not found.");
     }
   }
 
