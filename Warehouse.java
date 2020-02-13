@@ -47,8 +47,8 @@ public class Warehouse implements Serializable {
     return null;
   }
 
-  public Supplier addSupplier(String name, String address, List<Product> catalog) {
-    Supplier supplier = new Supplier(name, address, catalog);
+  public Supplier addSupplier(String name, String address) {
+    Supplier supplier = new Supplier(name, address);
     if (supplierList.insertSupplier(supplier)) {
       return (supplier);
     }
