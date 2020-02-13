@@ -38,6 +38,6 @@ public class Product implements Serializable {
     return this.name.equals(name);
   }
   public String toString() {
-      return "name " + name + " supplier " + supplier + " price " + price;
+      return "name: " + name + " | supplier: " + supplier + " | price: " + price;
   }
 }

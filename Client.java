@@ -53,7 +53,6 @@ public class Client implements Serializable {
   }
 
   public String toString() {
-    String string = "Client name " + name + " address " + address + " id " + id + "phone " + phone;
-    return string;
+    return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
   }
 }
