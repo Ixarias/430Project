@@ -156,7 +156,7 @@ public class UserInterface {
   }
 
   public void showProducts() {
-    Iterator allClients = warehouse.getProducts();
+    Iterator allProducts = warehouse.getProducts();
     while (allProducts.hasNext()) {
       Product product = (Product) (allProducts.next());
       System.out.println(product.toString());
