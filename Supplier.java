@@ -21,25 +21,27 @@ public class Supplier implements Serializable {
     public String getName() {
         return name;
     }
-
     public String getAddress() {
         return address;
     }
-
-    public List<Product> getCatalog() {
-        return catalog;
+    public void getCatalog() {
+        Iterator<Product> cat = catalog.iterator();
+        // search for supplier by name
+        // (iterate until supplier.name == name)
+        while (cat.hasNext()) {
+            Product product = (Product) (cat.next());
+            System.out.println(product.toString());
+            }
     }
     
     public void setName(String name) {
         this.name = name;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public void setCatalog(List<Product> catalog) {
-        this.catalog = catalog;
+    public void insertProduct(Product product) {
+        catalog.add(product);
     }
 
     public boolean equals(String name) {
@@ -47,6 +49,8 @@ public class Supplier implements Serializable {
     }
 
     public String toString() {
-        return "Supplier name " + name + " address " + address;
+        return "Supplier name: " + name + " | address: " + address;
     }
+
+
 }

@@ -13,6 +13,11 @@ public class UserInterface {
   private static final int ADD_PRODUCT = 5;
   private static final int SHOW_PRODUCTS = 6;
   private static final int EDIT_PRODUCT_PRICE = 7;
+  private static final int ADD_SUPPLIER = 8;
+  private static final int SHOW_SUPPLIERS = 9;
+  private static final int EDIT_SUPPLIERS_ADDRESS = 10;
+  private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
+  private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int HELP = 15;
 
   private UserInterface() {
@@ -103,13 +108,18 @@ public class UserInterface {
     System.out.println(ADD_PRODUCT + " to add a product to the catalog");
     System.out.println(SHOW_PRODUCTS + " to display the list of products in the catalog");
     System.out.println(EDIT_PRODUCT_PRICE + " to edit the sales price of a product");
+    System.out.println(ADD_SUPPLIER + " to add a supplier");
+    System.out.println(SHOW_SUPPLIERS + " to display the list of suppliers");
+    System.out.println(EDIT_SUPPLIERS_ADDRESS + " to edit the address of a supplier");
+    System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
+    System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
   }
 
   public void addClient() {
-    String name = getToken("Enter member name");
-    String address = getToken("Enter address");
-    String phone = getToken("Enter phone");
-    String id = getToken("Enter ID");
+    String name = getToken("Enter member name: ");
+    String address = getToken("Enter address: ");
+    String phone = getToken("Enter phone number: ");
+    String id = getToken("Enter ID: ");
     Client result;
     result = warehouse.addClient(name, address, phone, id);
     if (result == null) {
@@ -122,13 +132,11 @@ public class UserInterface {
 
   public void addProduct() {
     Product result;
-    Scanner input = new Scanner(System.in);
 
     do {
-      String name = getToken("Enter product name");
-      String supplier = getToken("Enter supplier");
-      System.out.print("Enter product price ");
-      double price = input.nextDouble();
+      String name = getToken("Enter product name: ");
+      String supplier = getToken("Enter supplier: ");
+      Double price = Double.parseDouble(getToken("Enter Value: "));
 
       result = warehouse.addProduct(name, supplier, price);
       if (result != null) {
@@ -143,8 +151,8 @@ public class UserInterface {
   }
 
   public void addSupplier() {
-      String name = getToken("Enter member name");
-      String address = getToken("Enter address");
+      String name = getToken("Enter supplier name: ");
+      String address = getToken("Enter address: ");
       Supplier result = warehouse.addSupplier(name, address);
       if (result == null) {
         System.out.println("Unable to add supplier");
@@ -187,17 +195,17 @@ public class UserInterface {
   public void showSuppliers() {
     Iterator allSuppliers = warehouse.getSuppliers();
     while (allSuppliers.hasNext()) {
-      Product product = (Product) (allSuppliers.next());
-      System.out.println(product.toString());
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      System.out.println(supplier.toString());
     }
   }
 
   public void editClientAddress() {
     //Iterator allClients = warehouse.getClients();
     // get client id
-    String targetId = getToken("Please enter ID of target client");
+    String targetId = getToken("Please enter ID of target client: ");
     // get new address
-    String newAddress = getToken("Please enter new address of client");
+    String newAddress = getToken("Please enter new address of client: ");
     // search for client by id
     // pass information to warehouse (bool function, false if not found)
     if(warehouse.editClientAddress(targetId, newAddress)) {
@@ -210,9 +218,9 @@ public class UserInterface {
 
   public void editClientPhone() {
     // get client id
-    String targetId = getToken("Please enter ID of target client");
+    String targetId = getToken("Please enter ID of target client: ");
     // get new phone number
-    String newPhone = getToken("Please enter new phone number of client");
+    String newPhone = getToken("Please enter new phone number of client: ");
     // set client's phone number to the new value
     if(warehouse.editClientPhone(targetId, newPhone)) {
       System.out.println("Phone number updated.");
@@ -225,8 +233,8 @@ public class UserInterface {
   public void editProductPrice() {
     //Iterator allProducts = warehouse.getProducts();
   
-    String name = getToken("Please enter name of target product");
-    Double price = Double.parseDouble(getToken("Enter new product price "));
+    String name = getToken("Please enter name of target product: ");
+    Double price = Double.parseDouble(getToken("Enter new product price: "));
 
     if(warehouse.editProductPrice(name, price)) {
       System.out.println("Price updated.");
@@ -237,17 +245,42 @@ public class UserInterface {
   }
 
   public void editSupplierAddress() {
-    // Iterator allSuppliers = warehouse.getSuppliers();
     // get supplier name
-    String targetId = getToken("Please enter Name of target supplier");
+    String targetName = getToken("Please enter Name of target supplier: ");
     // get new address
-    String newAddress = getToken("Please enter new address of supplier");
+    String newAddress = getToken("Please enter new address of supplier: ");
     // search for supplier by name
     // pass information to warehouse (bool function, false if not found)
-    if (warehouse.editSupplierAddress(targetId, newAddress)) {
+    if (warehouse.editSupplierAddress(targetName, newAddress)) {
       System.out.println("Address updated.");
     } else {
-      System.out.println("Supplier ID " + targetId + " not found.");
+      System.out.println("Supplier Name " + targetName + " not found.");
+    }
+  }
+
+  public void addProductToSupplier() {
+    // get supplier name
+    String targetName = getToken("Please enter Name of target supplier: ");
+    // get name of product
+    String productName = getToken("Please enter Name of product to be added: ");
+    // search for product by name
+    Iterator allProducts = warehouse.getProducts();
+    Product product = (Product) (allProducts.next());
+    while (allProducts.hasNext() && product.getName() != productName) {
+      product = (Product) (allProducts.next());
+    }
+    if (warehouse.insertProductToSupplier(targetName, product)) {
+      System.out.println("Product added.");
+    } else {
+      System.out.println("Supplier Name " + targetName + " not found.");
+    }
+  }
+
+  public void displayProductsOfSupplier() {
+    String targetName = getToken("Please enter Name of target supplier: ");
+    // display
+    if (!warehouse.showProductsOfSupplier(targetName)) {
+      System.out.println("Supplier Name " + targetName + " not found.");
     }
   }
 
@@ -276,6 +309,21 @@ public class UserInterface {
         break;
       case EDIT_PRODUCT_PRICE:
         editProductPrice();
+        break;
+      case ADD_SUPPLIER:
+        addSupplier();
+        break;
+      case SHOW_SUPPLIERS:
+        showSuppliers();
+        break;
+      case EDIT_SUPPLIERS_ADDRESS:
+        editSupplierAddress();
+        break;
+      case ADD_PRODUCT_TO_SUPPLIER:
+        addProductToSupplier();
+        break;
+      case DISPLAY_PRODUCTS_OF_SUPPLIER:
+        displayProductsOfSupplier();
         break;
       case HELP:
         help();

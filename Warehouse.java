@@ -12,6 +12,7 @@ public class Warehouse implements Serializable {
     //catalog = Catalog.instance();
     clientList = ClientList.instance();
     productList = ProductList.instance();
+    supplierList = SupplierList.instance();
   }
   public static Warehouse instance() {
     if (warehouse == null) {
@@ -152,6 +153,40 @@ public class Warehouse implements Serializable {
       if (supplier.equals(targetName)) {
         System.out.println("Name " + targetName + " found.");
         supplier.setAddress(newAddress);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean insertProductToSupplier(String targetName, Product product) {
+    Iterator<Supplier> allSuppliers = getSuppliers();
+    // search for supplier by name
+    // (iterate until supplier.name == name)
+    while (allSuppliers.hasNext()) {
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      String name = supplier.getName();
+      System.out.println(name);
+      if (supplier.equals(targetName)) {
+        System.out.println("Name " + targetName + " found.");
+        supplier.insertProduct(product);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean showProductsOfSupplier(String targetName) {
+    Iterator<Supplier> allSuppliers = getSuppliers();
+    // search for supplier by name
+    // (iterate until supplier.name == name)
+    while (allSuppliers.hasNext()) {
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      String name = supplier.getName();
+      System.out.println(name);
+      if (supplier.equals(targetName)) {
+        System.out.println("Name " + targetName + " found.");
+        supplier.getCatalog();
         return true;
       }
     }
