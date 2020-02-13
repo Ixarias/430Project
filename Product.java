@@ -34,6 +34,9 @@ public class Product implements Serializable {
     this.price = price;
   }
 
+  public boolean equals(String name) {
+    return this.name.equals(name);
+  }
   public String toString() {
       return "name " + name + " supplier " + supplier + " price " + price;
   }
