@@ -1,7 +1,6 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-
 public class UserInterface {
   private static UserInterface userInterface;
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -117,10 +116,14 @@ public class UserInterface {
 
   public void addProduct() {
     Product result;
+    Scanner input = new Scanner(System.in);
+
     do {
       String name = getToken("Enter product name");
       String supplier = getToken("Enter supplier");
-      Double price = Double.parseDouble(getToken("Enter price"));
+      System.out.print("Enter product price ");
+      double price = input.nextDouble();
+
       result = warehouse.addProduct(name, supplier, price);
       if (result != null) {
         System.out.println(result);
@@ -157,9 +160,9 @@ public class UserInterface {
 
   public void showProducts() {
     Iterator allProducts = warehouse.getProducts();
-    while (allProducts.hasNext()) {
-      Product product = (Product) (allProducts.next());
-      System.out.println(product.toString());
+    while (allProducts.hasNext()){
+  Product product = (Product)(allProducts.next());
+        System.out.println(product.toString());
     }
   }
 
@@ -208,11 +211,13 @@ public class UserInterface {
   }
 
   public void editProductPrice() {
-    Iterator allClients = warehouse.getProducts();
-    // get client id
+    Scanner input = new Scanner(System.in);
+
+    Iterator allProducts = warehouse.getProducts();
+  
     String name = getToken("Please enter name of target product");
-    // get new phone number
-    String phone = getToken("Please enter new price for the product");
+    System.out.print("Enter new product price ");
+    double price = input.nextDouble();
   }
 
   /*
