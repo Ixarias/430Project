@@ -7,7 +7,7 @@ public class Supplier implements Serializable {
     private String address;
     private List<Product> catalogue = new LinkedList<Product>();
 
-    public Supplier (String name, String address, List<Product> catalogue) {
+    public Supplier(String name, String address, List<Product> catalogue) {
         this.name = name;
         this.address = address;
         this.catalogue = catalogue;

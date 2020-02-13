@@ -1,12 +1,15 @@
 import java.util.*;
 import java.io.*;
+
 public class ClientList implements Serializable {
   private static final long serialVersionUID = 1L;
   private List clients = new LinkedList(); // Linked list of clients
   private static ClientList clientList;
+
   private ClientList() {
   }
-  public static ClientList instance() {  // check if an instance exists (singleton)
+
+  public static ClientList instance() { // check if an instance exists (singleton)
     if (clientList == null) {
       return (clientList = new ClientList());
     } else {
@@ -19,18 +22,19 @@ public class ClientList implements Serializable {
     return true;
   }
 
-  public Iterator getClients(){
-     return clients.iterator();
+  public Iterator getClients() {
+    return clients.iterator();
   }
-  
+
   private void writeObject(java.io.ObjectOutputStream output) {
     try {
       output.defaultWriteObject();
       output.writeObject(clientList);
-    } catch(IOException ioe) {
+    } catch (IOException ioe) {
       ioe.printStackTrace();
     }
   }
+
   private void readObject(java.io.ObjectInputStream input) {
     try {
       if (clientList != null) {
@@ -43,12 +47,13 @@ public class ClientList implements Serializable {
           input.readObject();
         }
       }
-    } catch(IOException ioe) {
+    } catch (IOException ioe) {
       ioe.printStackTrace();
-    } catch(ClassNotFoundException cnfe) {
+    } catch (ClassNotFoundException cnfe) {
       cnfe.printStackTrace();
     }
   }
+
   public String toString() {
     return clients.toString();
   }
