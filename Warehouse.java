@@ -75,6 +75,27 @@ public class Warehouse implements Serializable {
       return null;
     }
   }
+
+
+
+  public boolean editClientAddress(String targetId, String newAddress) {
+    Iterator allClients = getClients();
+    // search for client by id
+    // (iterate until client.id == id)
+    while (allClients.hasNext()) {
+      Client client = (Client)(allClients.next());
+      String id = client.getId();
+      System.out.println(id);
+      if (client.equals(targetId)) {
+        System.out.println("ID " + targetId + " found.");
+        client.setAddress(newAddress);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  
   public static  boolean save() {
     try {
       FileOutputStream file = new FileOutputStream("WarehouseData");
