@@ -23,15 +23,6 @@ public class Warehouse implements Serializable {
     }
   }
   
-  /*
-  public Book addBook(String title, String author, String id) {
-    Book book = new Book(title, author, id);
-    if (catalog.insertBook(book)) {
-      return (book);
-    }
-    return null;
-  }
-  */
   public Client addClient(String name, String address, String phone, String id) {
     Client client = new Client(name, address, phone, id);
     if (clientList.insertClient(client)) {
@@ -56,12 +47,6 @@ public class Warehouse implements Serializable {
     return null;
   }
 
-/*
-  public Iterator getBooks() {
-      return catalog.getBooks();
-  }
-*/
-
   public Iterator getClients() {
       return clientList.getClients();
   }
@@ -79,7 +64,7 @@ public class Warehouse implements Serializable {
       FileInputStream file = new FileInputStream("WarehouseData");
       ObjectInputStream input = new ObjectInputStream(file);
       input.readObject();
-      //ClientIdServer.retrieve(input);
+      //ClientIdServer.retrieve(input); // Will need to implement later
       return warehouse;
     } catch(IOException ioe) {
       ioe.printStackTrace();
@@ -89,8 +74,6 @@ public class Warehouse implements Serializable {
       return null;
     }
   }
-
-
 
   public boolean editClientAddress(String targetId, String newAddress) {
     Iterator allClients = getClients();

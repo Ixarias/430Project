@@ -18,6 +18,7 @@ public class UserInterface {
   private static final int EDIT_SUPPLIERS_ADDRESS = 10;
   private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
+  private static final int SAVE = 13;
   private static final int HELP = 15;
 
   private UserInterface() {
@@ -113,10 +114,11 @@ public class UserInterface {
     System.out.println(EDIT_SUPPLIERS_ADDRESS + " to edit the address of a supplier");
     System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
+    System.out.println(SAVE + " to save changes to a file");
   }
 
   public void addClient() {
-    String name = getToken("Enter member name: ");
+    String name = getToken("Enter client name: ");
     String address = getToken("Enter address: ");
     String phone = getToken("Enter phone number: ");
     String id = getToken("Enter ID: ");
@@ -299,6 +301,16 @@ public class UserInterface {
     }
   }
 
+  private void save() {
+    System.out.println("Save selected. Saving to file WarehouseData...");
+    if (warehouse.save()) {
+      System.out.println("Save successful");
+    }
+    else {
+      System.out.println("Error: Save failed");
+    }
+  }
+
   public void process() {
     int command;
     help();
@@ -340,6 +352,8 @@ public class UserInterface {
       case DISPLAY_PRODUCTS_OF_SUPPLIER:
         displayProductsOfSupplier();
         break;
+      case SAVE:
+        save();
       case HELP:
         help();
         break;
