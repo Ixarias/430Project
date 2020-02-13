@@ -148,13 +148,20 @@ public class UserInterface {
   }
 
   public void editClientAddress() {
-    Iterator allClients = warehouse.getClients();
+    //Iterator allClients = warehouse.getClients();
     // get client id
     String targetId = getToken("Please enter ID of target client");
     // get new address
     String newAddress = getToken("Please enter new address of client");
     // search for client by id
-    // (iterate until client.id == id)
+    // pass information to warehouse (bool function, false if not found)
+    if(warehouse.editClientAddress(targetId, newAddress)) {
+      System.out.println("Address updated.");
+    }
+    else {
+      System.out.println("Client ID " + targetId + " not found.");
+    }
+    /*
     while (allClients.hasNext()) {
       Client client = (Client)(allClients.next());
       String id = client.getId();
@@ -167,8 +174,9 @@ public class UserInterface {
       }
 
     }
+    */
     // end of list reached without finding ID
-    System.out.println("Client ID " + targetId + " not found.");
+    
 
     // set client's address to the new value
 
