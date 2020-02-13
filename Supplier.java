@@ -7,6 +7,11 @@ public class Supplier implements Serializable {
     private String address;
     private List<Product> catalog = new LinkedList<Product>();
 
+    public Supplier(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public Supplier(String name, String address, List<Product> catalog) {
         this.name = name;
         this.address = address;
@@ -21,8 +26,20 @@ public class Supplier implements Serializable {
         return address;
     }
 
-    public List<Product> getCatalogue() {
+    public List<Product> getCatalog() {
         return catalog;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCatalog(List<Product> catalog) {
+        this.catalog = catalog;
     }
 
 }
