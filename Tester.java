@@ -27,8 +27,8 @@ public class Tester {
   }
   public static void main(String[] s) {
 	
-	 double price1 = 12.00;
-	 double price2 = 15.00;
+	 float price1 = 12.00;
+	 float price2 = 15.00;
 	
 	 Product b1 = new Product("product1", "supplier1", price1);
      Product b2 = new Product("product2", "supplier2", price2);
