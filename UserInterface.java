@@ -140,21 +140,35 @@ public class UserInterface {
 */
 
   public void showClients() {
-      Iterator allClients = warehouse.getClients();
-      while (allClients.hasNext()){
-	  Client client = (Client)(allClients.next());
-          System.out.println(client.toString());
-      }
+    Iterator allClients = warehouse.getClients();
+    while (allClients.hasNext()){
+      Client client = (Client)(allClients.next());
+      System.out.println(client.toString());
+    }
   }
 
   public void editClientAddress() {
     Iterator allClients = warehouse.getClients();
     // get client id
-    String id = getToken("Please enter ID of target client");
+    String targetId = getToken("Please enter ID of target client");
     // get new address
-    String address = getToken("Please enter new address of client");
+    String newAddress = getToken("Please enter new address of client");
     // search for client by id
     // (iterate until client.id == id)
+    while (allClients.hasNext()) {
+      Client client = (Client)(allClients.next());
+      String id = client.getId();
+      System.out.println(id);
+      if (client.equals(targetId)) {
+        System.out.println("ID " + targetId + " found.");
+        client.setAddress(newAddress);
+        System.out.println("Address updated.");
+        return;
+      }
+
+    }
+    // end of list reached without finding ID
+    System.out.println("Client ID " + targetId + " not found.");
 
     // set client's address to the new value
 
