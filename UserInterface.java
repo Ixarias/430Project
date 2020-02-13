@@ -10,6 +10,9 @@ public class UserInterface {
   private static final int SHOW_CLIENTS = 2;
   private static final int EDIT_CLIENT_ADDRESS = 3;
   private static final int EDIT_CLIENT_PHONE = 4;
+  private static final int ADD_PRODUCT = 5;
+  private static final int SHOW_PRODUCTS = 6;
+  private static final int EDIT_PRODUCT_PRICE = 7;
   private static final int HELP = 15;
 
   private UserInterface() {
@@ -105,6 +108,23 @@ public class UserInterface {
     System.out.println(result);
   }
 
+  public void addProduct() {
+    Product result;
+    do {
+      String name = getToken("Enter product name");
+      String supplier = getToken("Enter supplier");
+      String price = getToken("Enter price");
+      result = warehouse.addProduct(name, supplier, price);
+      if (result != null) {
+        System.out.println(result);
+      } else {
+        System.out.println("Product could not be added");
+      }
+      if (!yesOrNo("Add more Products?")) {
+        break;
+      }
+    } while (true);
+  }
 /*
   public void addBooks() {
     Book result;
@@ -147,6 +167,14 @@ public class UserInterface {
       }
   }
 
+  public void showProducts() {
+    Iterator allClients = warehouse.getProducts();
+    while (allProducts.hasNext()){
+  Product product = (Product)(allProducts.next());
+        System.out.println(product.toString());
+    }
+}
+
   public void editClientAddress() {
     Iterator allClients = warehouse.getClients();
     // get client id
@@ -169,6 +197,14 @@ public class UserInterface {
     // set client's phone number to the new value
   }
   
+  public void editProductPrice() {
+    Iterator allClients = warehouse.getProducts();
+    // get client id
+    String name = getToken("Please enter name of target product");
+    // get new phone number
+    String phone = getToken("Please enter new price for the product");
+  }
+
   /*
 
   public void returnBooks() {
@@ -232,6 +268,15 @@ public class UserInterface {
         case EDIT_CLIENT_PHONE:
           editClientPhone();
           break;
+        case ADD_PRODUCT:
+          addProduct();
+          break;
+        case SHOW_PRODUCTS:
+         showProducts();
+         break;
+        case EDIT_PRODUCT_PRICE:
+         editProductPrice();
+         break;
         case HELP:
           help();
           break;
