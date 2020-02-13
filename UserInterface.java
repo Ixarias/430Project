@@ -120,7 +120,7 @@ public class UserInterface {
     do {
       String name = getToken("Enter product name");
       String supplier = getToken("Enter supplier");
-      String price = getToken("Enter price");
+      Double price = Double.parseDouble(getToken("Enter price"));
       result = warehouse.addProduct(name, supplier, price);
       if (result != null) {
         System.out.println(result);
