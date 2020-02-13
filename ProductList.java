@@ -40,7 +40,7 @@ public class ProductList implements Serializable {
         } else {
           input.defaultReadObject();
           if (productlist == null) {
-              productlist = (Productlist) input.readObject();
+              productlist = (ProductList) input.readObject();
           } else {
             input.readObject();
           }
