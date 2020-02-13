@@ -141,11 +141,14 @@ public class UserInterface {
   }
 
   public void addSupplier() {
-      Supplier supplier;
-      Scanner in = new Scanner(System.in);
-
-      
-
+      String name = getToken("Enter member name");
+      String address = getToken("Enter address");
+      Supplier result = warehouse.addSupplier(name, address);
+      if (result == null) {
+        System.out.println("Unable to add supplier");
+      } else{
+        System.out.println(result);
+      }
   }
 
   /*
