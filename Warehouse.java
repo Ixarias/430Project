@@ -47,11 +47,11 @@ public class Warehouse implements Serializable {
     return null;
   }
 
-  public Iterator getClients() {
+  public Iterator<Client> getClients() {
       return clientList.getClients();
   }
 
-  public Iterator getProducts() {
+  public Iterator<Product> getProducts() {
     return productList.getProducts();
 }
 
@@ -64,6 +64,7 @@ public class Warehouse implements Serializable {
       FileInputStream file = new FileInputStream("WarehouseData");
       ObjectInputStream input = new ObjectInputStream(file);
       input.readObject();
+      input.close();
       //ClientIdServer.retrieve(input); // Will need to implement later
       return warehouse;
     } catch(IOException ioe) {
@@ -76,7 +77,7 @@ public class Warehouse implements Serializable {
   }
 
   public boolean editClientAddress(String targetId, String newAddress) {
-    Iterator allClients = getClients();
+    Iterator<Client> allClients = getClients();
     // search for client by id
     // (iterate until client.id == id)
     while (allClients.hasNext()) {
@@ -93,7 +94,7 @@ public class Warehouse implements Serializable {
   }
 
   public boolean editClientPhone(String targetId, String newPhone) {
-    Iterator allClients = getClients();
+    Iterator<Client> allClients = getClients();
     // search for client by id
     // (iterate until client.id == id)
     while (allClients.hasNext()) {
@@ -110,7 +111,7 @@ public class Warehouse implements Serializable {
   }
 
   public boolean editProductPrice(String targetName, double newPrice) {
-    Iterator allProducts = getProducts();
+    Iterator<Product> allProducts = getProducts();
       
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
@@ -181,6 +182,7 @@ public class Warehouse implements Serializable {
       FileOutputStream file = new FileOutputStream("WarehouseData");
       ObjectOutputStream output = new ObjectOutputStream(file);
       output.writeObject(warehouse);
+      output.close();
       //output.writeObject(ClientIdServer.instance());
       return true;
     } catch(IOException ioe) {

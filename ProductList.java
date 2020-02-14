@@ -1,9 +1,9 @@
 import java.util.*;
-import java.lang.*;
+// import java.lang.*;
 import java.io.*;
 public class ProductList implements Serializable {
     private static final long serialVersionUID = 1L;
-    private List products = new LinkedList();
+    private List<Product> products = new LinkedList<Product>();
     private static ProductList productlist;
     private ProductList() {
     }
@@ -20,7 +20,7 @@ public class ProductList implements Serializable {
       return true;
     }
 
-    public Iterator getProducts() {
+    public Iterator<Product> getProducts() {
       return products.iterator();
     }
 

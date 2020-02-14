@@ -1,4 +1,4 @@
-import java.util.*;
+// import java.util.*;
 import java.io.*;
 
 public class Client implements Serializable {
@@ -7,10 +7,10 @@ public class Client implements Serializable {
   private String address;
   private String phone;
   private String id;
-  private static final String CLIENT_STRING = "C";
+  // private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
   // private List booksOnHold = new LinkedList();
-  private List transactions = new LinkedList();
+  // private List transactions = new LinkedList();
 
   public Client(String name, String address, String phone, String id) {
     this.name = name;

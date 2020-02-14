@@ -179,7 +179,7 @@ public class UserInterface {
    */
 
   public void showClients() {
-    Iterator allClients = warehouse.getClients();
+    Iterator<Client> allClients = warehouse.getClients();
     while (allClients.hasNext()) {
       Client client = (Client) (allClients.next());
       System.out.println(client.toString());
@@ -187,7 +187,7 @@ public class UserInterface {
   }
 
   public void showProducts() {
-    Iterator allProducts = warehouse.getProducts();
+    Iterator<Product> allProducts = warehouse.getProducts();
     while (allProducts.hasNext()){
         Product product = (Product)(allProducts.next());
         System.out.println(product.toString());
@@ -195,7 +195,7 @@ public class UserInterface {
   }
 
   public void showSuppliers() {
-    Iterator allSuppliers = warehouse.getSuppliers();
+    Iterator<Supplier> allSuppliers = warehouse.getSuppliers();
     while (allSuppliers.hasNext()) {
       Supplier supplier = (Supplier) (allSuppliers.next());
       System.out.println(supplier.toString());
@@ -266,7 +266,7 @@ public class UserInterface {
     // get name of product
     String productName = getToken("Please enter Name of product to be added: ");
     // search for product by name
-    Iterator allProducts = warehouse.getProducts();
+    Iterator<Product> allProducts = warehouse.getProducts();
     Product product = (Product) (allProducts.next());
     while (allProducts.hasNext() && !(productName.equals(product.getName()))) {
       product = (Product) (allProducts.next());
