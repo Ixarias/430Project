@@ -268,7 +268,7 @@ public class UserInterface {
     // search for product by name
     Iterator allProducts = warehouse.getProducts();
     Product product = (Product) (allProducts.next());
-    while (allProducts.hasNext() && product.getName() != productName) {
+    while (allProducts.hasNext() && !(productName.equals(product.getName()))) {
       product = (Product) (allProducts.next());
     }
     if (warehouse.insertProductToSupplier(targetName, product)) {
