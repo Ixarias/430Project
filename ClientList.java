@@ -3,7 +3,7 @@ import java.io.*;
 
 public class ClientList implements Serializable {
   private static final long serialVersionUID = 1L;
-  private List clients = new LinkedList(); // Linked list of clients
+  private List<Client> clients = new LinkedList<Client>(); // Linked list of clients
   private static ClientList clientList;
 
   private ClientList() {
@@ -22,7 +22,7 @@ public class ClientList implements Serializable {
     return true;
   }
 
-  public Iterator getClients() {
+  public Iterator<Client> getClients() {
     return clients.iterator();
   }
 
