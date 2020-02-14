@@ -21,11 +21,11 @@ public class UserInterface {
   private static final int HELP = 15;
 
   private UserInterface() {
-    // if (yesOrNo("Look for saved data and use it?")) {
-    // retrieve();
-    // } else {
-    warehouse = Warehouse.instance(); // Instantiate Warehouse singleton
-    // }
+    if (yesOrNo("Look for saved data and use it?")) {
+    retrieve();
+    } else {
+      warehouse = Warehouse.instance(); // Instantiate Warehouse singleton
+    }
   }
 
   public static UserInterface instance() {
@@ -281,6 +281,21 @@ public class UserInterface {
     // display
     if (!warehouse.showProductsOfSupplier(targetName)) {
       System.out.println("Supplier Name " + targetName + " not found.");
+    }
+  }
+
+  private void retrieve() {
+    try {
+      Warehouse tempWarehouse = Warehouse.retrieve();
+      if (tempWarehouse != null) {
+        System.out.println(" The warehouse has been successfully retrieved from the file WarehouseData \n" );
+        warehouse = tempWarehouse;
+      } else {
+        System.out.println("File doesnt exist; creating new warehouse" );
+        warehouse = Warehouse.instance();
+      }
+    } catch(Exception cnfe) {
+      cnfe.printStackTrace();
     }
   }
 

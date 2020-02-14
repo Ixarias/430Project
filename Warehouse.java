@@ -228,6 +228,6 @@ public class Warehouse implements Serializable {
     }
   }
   public String toString() {
-    return /*catalog + "\n" + */ clientList.toString() + productList.toString();
+    return clientList.toString() + productList.toString() + supplierList.toString();
   }
 }
