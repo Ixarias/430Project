@@ -19,6 +19,7 @@ public class UserInterface {
   private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int SAVE = 13;
+  private static final int ADD_TO_CART = 14;
   private static final int HELP = 15;
 
   private UserInterface() {
@@ -163,21 +164,6 @@ public class UserInterface {
       }
   }
 
-  /*
-   * public void addBooks() { Book result; do { String title =
-   * getToken("Enter  title"); String bookID = getToken("Enter id"); String author
-   * = getToken("Enter author"); result = library.addBook(title, author, bookID);
-   * if (result != null) { System.out.println(result); } else {
-   * System.out.println("Book could not be added"); } if
-   * (!yesOrNo("Add more books?")) { break; } } while (true); } public void
-   * issueBooks() { System.out.println("Dummy Action"); } public void renewBooks()
-   * { System.out.println("Dummy Action"); }
-   * 
-   * public void showBooks() { Iterator allBooks = library.getBooks(); while
-   * (allBooks.hasNext()){ Book book = (Book)(allBooks.next());
-   * System.out.println(book.toString()); } }
-   */
-
   public void showClients() {
     Iterator<Client> allClients = warehouse.getClients();
     while (allClients.hasNext()) {
@@ -311,6 +297,14 @@ public class UserInterface {
     }
   }
 
+  private void addToCart() {  // Will need: clientName or id, productId, quantity
+    System.out.println("Add to Cart selected.");
+    String clientId = getToken("Enter Client ID");
+    String productId = getToken("Enter Product ID");
+    int quantity = getNumber("Enter quantity");
+    warehouse.addToCart(clientId, productId, quantity); // Implement
+  }
+
   public void process() {
     int command;
     help();
@@ -354,6 +348,8 @@ public class UserInterface {
         break;
       case SAVE:
         save();
+      case ADD_TO_CART:
+        addToCart(); // Dummy function; will need arguments
       case HELP:
         help();
         break;

@@ -85,7 +85,7 @@ public class Warehouse implements Serializable {
       String id = client.getId();
       System.out.println(id);
       if (client.equals(targetId)) {
-        System.out.println("ID " + targetId + " found.");
+        //System.out.println("ID " + targetId + " found.");
         client.setAddress(newAddress);
         return true;
       }
@@ -102,7 +102,7 @@ public class Warehouse implements Serializable {
       String id = client.getId();
       System.out.println(id);
       if (client.equals(targetId)) {
-        System.out.println("ID " + targetId + " found.");
+        //System.out.println("ID " + targetId + " found.");
         client.setPhone(newPhone);
         return true;
       }
@@ -190,6 +190,12 @@ public class Warehouse implements Serializable {
       return false;
     }
   }
+
+  public boolean addToCart(String clientId, String productId, int quantity) {
+    System.out.println("Dummy function");
+    return true;
+  }
+
   private void writeObject(java.io.ObjectOutputStream output) {
     try {
       output.defaultWriteObject();
