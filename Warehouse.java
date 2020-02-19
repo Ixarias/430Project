@@ -23,8 +23,8 @@ public class Warehouse implements Serializable {
     }
   }
   
-  public Client addClient(String name, String address, String phone, String id) {
-    Client client = new Client(name, address, phone, id);
+  public Client addClient(String name, String address, String phone) {
+    Client client = new Client(name, address, phone);
     if (clientList.insertClient(client)) {
       return (client);
     }
@@ -64,8 +64,8 @@ public class Warehouse implements Serializable {
       FileInputStream file = new FileInputStream("WarehouseData");
       ObjectInputStream input = new ObjectInputStream(file);
       input.readObject();
+      ClientIdServer.retrieve(input); 
       input.close();
-      //ClientIdServer.retrieve(input); // Will need to implement later
       return warehouse;
     } catch(IOException ioe) {
       ioe.printStackTrace();
@@ -182,8 +182,8 @@ public class Warehouse implements Serializable {
       FileOutputStream file = new FileOutputStream("WarehouseData");
       ObjectOutputStream output = new ObjectOutputStream(file);
       output.writeObject(warehouse);
+      output.writeObject(ClientIdServer.instance());
       output.close();
-      //output.writeObject(ClientIdServer.instance());
       return true;
     } catch(IOException ioe) {
       ioe.printStackTrace();

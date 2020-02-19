@@ -7,16 +7,16 @@ public class Client implements Serializable {
   private String address;
   private String phone;
   private String id;
-  // private static final String CLIENT_STRING = "C";
+  private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
   // private List booksOnHold = new LinkedList();
   // private List transactions = new LinkedList();
 
-  public Client(String name, String address, String phone, String id) {
+  public Client(String name, String address, String phone) {
     this.name = name;
     this.address = address;
     this.phone = phone;
-    this.id = id;
+    this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
     // id = CLIENT_STRING + (MemberIdServer.instance()).getId();
   }
 

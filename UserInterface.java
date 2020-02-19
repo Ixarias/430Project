@@ -122,9 +122,9 @@ public class UserInterface {
     String name = getToken("Enter client name: ");
     String address = getToken("Enter address: ");
     String phone = getToken("Enter phone number: ");
-    String id = getToken("Enter ID: ");
+    //String id = getToken("Enter ID: ");
     Client result;
-    result = warehouse.addClient(name, address, phone, id);
+    result = warehouse.addClient(name, address, phone);
     if (result == null) {
       System.out.println("Could not add member");
     }
@@ -348,8 +348,10 @@ public class UserInterface {
         break;
       case SAVE:
         save();
+        break;
       case ADD_TO_CART:
         addToCart(); // Dummy function; will need arguments
+        break;
       case HELP:
         help();
         break;
