@@ -1,4 +1,4 @@
-// import java.util.*;
+import java.util.*;
 import java.io.*;
 
 public class Client implements Serializable {
@@ -9,7 +9,7 @@ public class Client implements Serializable {
   private String id;
   private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
-  // private List booksOnHold = new LinkedList();
+  private List cart = new LinkedList(); // Cart containing items and quantities
   // private List transactions = new LinkedList();
 
   public Client(String name, String address, String phone) {
@@ -17,7 +17,6 @@ public class Client implements Serializable {
     this.address = address;
     this.phone = phone;
     this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
-    // id = CLIENT_STRING + (MemberIdServer.instance()).getId();
   }
 
   public String getName() {

@@ -191,8 +191,15 @@ public class Warehouse implements Serializable {
     }
   }
 
-  public boolean addToCart(String clientId, String productId, int quantity) {
+  public boolean addToCart(String clientId, String productName, int quantity) {
     System.out.println("Dummy function");
+
+    // First, find the client by id
+
+    // Next, find the product by name
+
+    // Finally, create a CartItem from Product and quantity, and then add this CartItem to Client.cart
+
     return true;
   }
 

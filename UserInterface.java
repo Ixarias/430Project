@@ -297,12 +297,12 @@ public class UserInterface {
     }
   }
 
-  private void addToCart() {  // Will need: clientName or id, productId, quantity
+  private void addToCart() {  // Will need: clientId, productName, quantity
     System.out.println("Add to Cart selected.");
     String clientId = getToken("Enter Client ID");
-    String productId = getToken("Enter Product ID");
+    String productName = getToken("Enter Product Name");
     int quantity = getNumber("Enter quantity");
-    warehouse.addToCart(clientId, productId, quantity); // Implement
+    warehouse.addToCart(clientId, productName, quantity); // Implement
   }
 
   public void process() {
