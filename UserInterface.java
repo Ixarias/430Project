@@ -18,9 +18,9 @@ public class UserInterface {
   private static final int EDIT_SUPPLIERS_ADDRESS = 10;
   private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
-  private static final int ADD_TO_CART = 13;
-  private static final int SAVE = 16;
-  private static final int RETRIEVE = 17;  
+  private static final int SAVE = 13;
+  private static final int ADD_TO_CART = 14;
+  private static final int DISPLAY_CART = 15;
   private static final int HELP = 20;
 
   private UserInterface() {
@@ -117,7 +117,8 @@ public class UserInterface {
     System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(SAVE + " to save changes to a file");
-    System.out.println(RETRIEVE + " to  retrieve");
+    System.out.println(ADD_TO_CART + " to add a product to a client's cart");
+    System.out.println(DISPLAY_CART + " to view the items in a client's cart");
   }
 
   public void addClient() {
@@ -299,12 +300,42 @@ public class UserInterface {
     }
   }
 
-  private void addToCart() {  // Will need: clientName or id, productId, quantity
+  private void addToCart() {  // Will need: clientId, productName, quantity
     System.out.println("Add to Cart selected.");
     String clientId = getToken("Enter Client ID");
-    String productId = getToken("Enter Product ID");
+    String productName = getToken("Enter Product Name");
     int quantity = getNumber("Enter quantity");
-    warehouse.addToCart(clientId, productId, quantity); // Implement
+
+    // Check if client exists
+    if (!warehouse.clientExists(clientId)) {
+      System.out.println("Error: client not found");
+      return; // Stop here if not found
+    }
+    else {
+      System.out.println("ID " + clientId + " found.");
+    }
+
+    // Check if product exists
+    if (!warehouse.productExists(productName)) {
+      System.out.println("Error: product not found");
+      return; // Stop here if not found
+    }
+    else {
+      System.out.println("Name " + productName + " found.");
+    }
+
+    // Next, instantiate a CartItem object and add it to the Client's cart (CartItem list)
+    if (warehouse.addToCart(clientId, productName, quantity)) {
+      System.out.println("Successfully added item to cart");
+    }
+    else {
+      System.out.println("Error: failed to add item to cart");
+    }
+  }
+
+  public void displayCart() {
+    String clientId = getToken("Please enter ID of target client: ");
+    warehouse.displayCart(clientId);
   }
 
   public void process() {
@@ -356,6 +387,9 @@ public class UserInterface {
         break;
       case RETRIEVE:
         retrieve();
+        break;
+      case DISPLAY_CART:
+        displayCart();
         break;
       case HELP:
         help();
