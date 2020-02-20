@@ -119,7 +119,7 @@ public class UserInterface {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
-l   System.out.println(SAVE + " to save changes to a file");
+    System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");    
   }
@@ -340,7 +340,7 @@ l   System.out.println(SAVE + " to save changes to a file");
     String clientId = getToken("Please enter ID of target client: ");
     //warehouse.displayCart(clientId);
 
-    Iterator<CartItem> cart = warehouse.getClientById(clientId).getCartItems();
+    Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) (cart.next());
       System.out.println(item.toString());
@@ -390,7 +390,7 @@ l   System.out.println(SAVE + " to save changes to a file");
         displayProductsOfSupplier();
         break;
       case ADD_TO_CART:
-        addToCart(); // Dummy function; will need arguments
+        addToCart(); 
         break;
       case DISPLAY_CART:
         displayCart();
