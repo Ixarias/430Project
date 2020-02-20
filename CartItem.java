@@ -1,6 +1,6 @@
-import java.util.*;
+// import java.util.*;
 import java.io.*;
-public class CartItem implements Serializable {
+public class CartItem {
   private Product product;
   private int quantity;
   public CartItem(Product product, int quantity) {
