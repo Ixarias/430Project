@@ -255,6 +255,7 @@ public class Warehouse implements Serializable {
     // Create a CartItem from Product and quantity, and then add this CartItem to Client.cart
     CartItem item = new CartItem(product, quantity);
     Client client = getClientById(clientId);
+    client.addToCart(item);
     return true;
   }
 
