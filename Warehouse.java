@@ -59,6 +59,34 @@ public class Warehouse implements Serializable {
     return supplierList.getSuppliers();
   }
 
+  public boolean clientExists(String targetId) {
+    Iterator<Client> allClients = getClients();
+    while (allClients.hasNext()) {
+      Client client = (Client)(allClients.next());
+      String id = client.getId();
+      System.out.println(id);
+      if (client.equals(targetId)) {
+        //System.out.println("ID " + targetId + " found.");
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean productExists(String targetName) {
+    Iterator<Product> allProducts = getProducts();
+    while (allProducts.hasNext()) {
+      Product product = (Product)(allProducts.next());
+      String name = product.getName();
+      //System.out.println(name);
+      if (product.equals(targetName)) {
+        //System.out.println("Name " + targetName + " found.");
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static Warehouse retrieve() {
     try {
       FileInputStream file = new FileInputStream("WarehouseData");
@@ -194,9 +222,9 @@ public class Warehouse implements Serializable {
   public boolean addToCart(String clientId, String productName, int quantity) {
     System.out.println("Dummy function");
 
-    // First, find the client by id
+    // First, find the client by id. Return false if not found.
 
-    // Next, find the product by name
+    // Next, find the product by name. Return false if not found.
 
     // Finally, create a CartItem from Product and quantity, and then add this CartItem to Client.cart
 

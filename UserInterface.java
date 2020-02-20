@@ -116,6 +116,7 @@ public class UserInterface {
     System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(SAVE + " to save changes to a file");
+    System.out.println(ADD_TO_CART + " to add a product to a client's cart");
   }
 
   public void addClient() {
@@ -302,6 +303,24 @@ public class UserInterface {
     String clientId = getToken("Enter Client ID");
     String productName = getToken("Enter Product Name");
     int quantity = getNumber("Enter quantity");
+
+    // Check if client exists
+    if (!warehouse.clientExists(clientId)) {
+      System.out.println("Error: client not found");
+      return;
+    }
+    else {
+      System.out.println("ID " + clientId + " found.");
+    }
+
+    // Check if product exists
+    if (!warehouse.productExists(productName)) {
+      System.out.println("Error: product not found");
+      return;
+    }
+    else {
+      System.out.println("Name " + productName + " found.");
+    }
     warehouse.addToCart(clientId, productName, quantity); // Implement
   }
 
