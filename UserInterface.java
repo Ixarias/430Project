@@ -20,6 +20,7 @@ public class UserInterface {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int ADD_TO_CART = 13;
   private static final int DISPLAY_CART = 14;
+  private static final int ACCEPT_ORDER  = 15;
   private static final int SAVE = 18;
   private static final int RETRIEVE = 19;
   private static final int HELP = 20;
@@ -102,27 +103,7 @@ public class UserInterface {
     } while (true);
   }
 
-  public void help() {
-    System.out.println("Enter a number corresponding to a command as indicated below:");
-    System.out.println(EXIT + " to Exit\n");
-    System.out.println(ADD_CLIENT + " to add a client");
-    System.out.println(SHOW_CLIENTS + " to display list of clients");
-    System.out.println(EDIT_CLIENT_ADDRESS + " to edit the address of a client");
-    System.out.println(EDIT_CLIENT_PHONE + " to edit the phone number of a client");
-    System.out.println(ADD_PRODUCT + " to add a product to the catalog");
-    System.out.println(SHOW_PRODUCTS + " to display the list of products in the catalog");
-    System.out.println(EDIT_PRODUCT_PRICE + " to edit the sales price of a product");
-    System.out.println(ADD_SUPPLIER + " to add a supplier");
-    System.out.println(SHOW_SUPPLIERS + " to display the list of suppliers");
-    System.out.println(EDIT_SUPPLIERS_ADDRESS + " to edit the address of a supplier");
-    System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
-    System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
-    System.out.println(ADD_TO_CART + " to add a product to a client's cart");
-    System.out.println(DISPLAY_CART + " to view the items in a client's cart");
-    System.out.println(SAVE + " to save changes to a file");
-    System.out.println(RETRIEVE + " to  retrieve");
-    System.out.println(HELP + " for help");    
-  }
+  // ADD_CLIENT : 1
 
   public void addClient() {
     String name = getToken("Enter client name: ");
@@ -138,6 +119,52 @@ public class UserInterface {
     System.out.println(result);
     }
   }
+
+  // SHOW_CLIENTS : 2
+
+  public void showClients() {
+    Iterator<Client> allClients = warehouse.getClients();
+    while (allClients.hasNext()) {
+      Client client = (Client) (allClients.next());
+      System.out.println(client.toString());
+    }
+  }
+
+  // EDIT_CLIENT_ADDRESS : 3
+
+  public void editClientAddress() {
+    //Iterator allClients = warehouse.getClients();
+    // get client id
+    String targetId = getToken("Please enter ID of target client: ");
+    // get new address
+    String newAddress = getToken("Please enter new address of client: ");
+    // search for client by id
+    // pass information to warehouse (bool function, false if not found)
+    if(warehouse.editClientAddress(targetId, newAddress)) {
+      System.out.println("Address updated.");
+    }
+    else {
+      System.out.println("Client ID " + targetId + " not found.");
+    }
+  }
+
+  // EDIT_CLIENT_PHONE : 4
+
+  public void editClientPhone() {
+    // get client id
+    String targetId = getToken("Please enter ID of target client: ");
+    // get new phone number
+    String newPhone = getToken("Please enter new phone number of client: ");
+    // set client's phone number to the new value
+    if(warehouse.editClientPhone(targetId, newPhone)) {
+      System.out.println("Phone number updated.");
+    }
+    else {
+      System.out.println("Client ID " + targetId + " not found.");
+    }
+  }
+
+  // ADD_PRODUCT : 5
 
   public void addProduct() {
     Product result;
@@ -159,70 +186,17 @@ public class UserInterface {
     } while (true);
   }
 
-  public void addSupplier() {
-      String name = getToken("Enter supplier name: ");
-      String address = getToken("Enter address: ");
-      Supplier result = warehouse.addSupplier(name, address);
-      if (result == null) {
-        System.out.println("Unable to add supplier");
-      } else {
-        System.out.println(result);
-      }
-  }
-
-  public void showClients() {
-    Iterator<Client> allClients = warehouse.getClients();
-    while (allClients.hasNext()) {
-      Client client = (Client) (allClients.next());
-      System.out.println(client.toString());
-    }
-  }
+  // SHOW_PRODUCTS : 6
 
   public void showProducts() {
     Iterator<Product> allProducts = warehouse.getProducts();
-    while (allProducts.hasNext()){
-        Product product = (Product)(allProducts.next());
-        System.out.println(product.toString());
+    while (allProducts.hasNext()) {
+      Product product = (Product) (allProducts.next());
+      System.out.println(product.toString());
     }
   }
 
-  public void showSuppliers() {
-    Iterator<Supplier> allSuppliers = warehouse.getSuppliers();
-    while (allSuppliers.hasNext()) {
-      Supplier supplier = (Supplier) (allSuppliers.next());
-      System.out.println(supplier.toString());
-    }
-  }
-
-  public void editClientAddress() {
-    //Iterator allClients = warehouse.getClients();
-    // get client id
-    String targetId = getToken("Please enter ID of target client: ");
-    // get new address
-    String newAddress = getToken("Please enter new address of client: ");
-    // search for client by id
-    // pass information to warehouse (bool function, false if not found)
-    if(warehouse.editClientAddress(targetId, newAddress)) {
-      System.out.println("Address updated.");
-    }
-    else {
-      System.out.println("Client ID " + targetId + " not found.");
-    }
-  }
-
-  public void editClientPhone() {
-    // get client id
-    String targetId = getToken("Please enter ID of target client: ");
-    // get new phone number
-    String newPhone = getToken("Please enter new phone number of client: ");
-    // set client's phone number to the new value
-    if(warehouse.editClientPhone(targetId, newPhone)) {
-      System.out.println("Phone number updated.");
-    }
-    else {
-      System.out.println("Client ID " + targetId + " not found.");
-    }
-  }
+  // EDIT_PRODUCT_PRICE : 7
 
   public void editProductPrice() {
     //Iterator allProducts = warehouse.getProducts();
@@ -238,6 +212,31 @@ public class UserInterface {
     }
   }
 
+  // ADD_SUPPLIER : 8
+
+  public void addSupplier() {
+    String name = getToken("Enter supplier name: ");
+    String address = getToken("Enter address: ");
+    Supplier result = warehouse.addSupplier(name, address);
+    if (result == null) {
+      System.out.println("Unable to add supplier");
+    } else {
+      System.out.println(result);
+    }
+  }
+
+  // SHOW_SUPPLIERS : 9
+
+  public void showSuppliers() {
+    Iterator<Supplier> allSuppliers = warehouse.getSuppliers();
+    while (allSuppliers.hasNext()) {
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      System.out.println(supplier.toString());
+    }
+  }
+
+  // EDIT_SUPPLIER_ADDRESS : 10
+
   public void editSupplierAddress() {
     // get supplier name
     String targetName = getToken("Please enter Name of target supplier: ");
@@ -251,6 +250,8 @@ public class UserInterface {
       System.out.println("Supplier Name " + targetName + " not found.");
     }
   }
+
+  // ADD_PRODUCT_TO_SUPPLIER : 11
 
   public void addProductToSupplier() {
     // get supplier name
@@ -270,6 +271,8 @@ public class UserInterface {
     }
   }
 
+  // DISPLAY_PRODUCTS_OF_SUPPLIER : 12
+
   public void displayProductsOfSupplier() {
     String targetName = getToken("Please enter Name of target supplier: ");
     // display
@@ -277,6 +280,89 @@ public class UserInterface {
       System.out.println("Supplier Name " + targetName + " not found.");
     }
   }
+
+  // ADD_TO_CART : 13
+
+  private void addToCart() { // Will need: clientId, productName, quantity
+    System.out.println("Add to Cart selected.");
+    String clientId = getToken("Enter Client ID");
+    String productName = getToken("Enter Product Name");
+    int quantity = getNumber("Enter quantity");
+
+    // Check if client exists
+    if (!warehouse.clientExists(clientId)) {
+      System.out.println("Error: client not found");
+      return; // Stop here if not found
+    } else {
+      System.out.println("ID " + clientId + " found.");
+    }
+
+    // Check if product exists
+    if (!warehouse.productExists(productName)) {
+      System.out.println("Error: product not found");
+      return; // Stop here if not found
+    } else {
+      System.out.println("Name " + productName + " found.");
+    }
+
+    // Next, instantiate a CartItem object and add it to the Client's cart (CartItem
+    // list)
+    if (warehouse.addToCart(clientId, productName, quantity)) {
+      System.out.println("Successfully added item to cart");
+    } else {
+      System.out.println("Error: failed to add item to cart");
+    }
+  }
+
+  // DISPLAY_CART : 14
+
+  public void displayCart() {
+    String clientId = getToken("Please enter ID of target client: ");
+    // warehouse.displayCart(clientId);
+
+    Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
+    while (cart.hasNext()) {
+      CartItem item = (CartItem) (cart.next());
+      System.out.println(item.toString());
+    }
+  }
+
+  // ACCEPT_ORDER : 15
+
+  public void acceptOrder() {
+    
+  }
+
+  // UNIMPLMENETED == GET_TRANSACTIONS
+
+  public void getTransactions() {
+    Iterator result;
+    String memberID = getToken("Enter member id");
+    Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
+    result = warehouse.getTransactions(memberID, date);
+    if (result == null) {
+      System.out.println("Invalid Member ID");
+    } else {
+      while (result.hasNext()) {
+        Transaction transaction = (Transaction) result.next();
+        System.out.println(transaction.getType() + "   " + transaction.getTitle() + "\n");
+      }
+      System.out.println("\n  There are no more transactions \n");
+    }
+  }
+
+  // SAVE : 18
+
+  private void save() {
+    System.out.println("Save selected. Saving to file WarehouseData...");
+    if (warehouse.save()) {
+      System.out.println("Save successful");
+    } else {
+      System.out.println("Error: Save failed");
+    }
+  }
+
+  // RETRIEVE : 19
 
   private void retrieve() {
     try {
@@ -293,74 +379,28 @@ public class UserInterface {
     }
   }
 
-  private void save() {
-    System.out.println("Save selected. Saving to file WarehouseData...");
-    if (warehouse.save()) {
-      System.out.println("Save successful");
-    }
-    else {
-      System.out.println("Error: Save failed");
-    }
-  }
+  // HELP : 20
 
-  private void addToCart() {  // Will need: clientId, productName, quantity
-    System.out.println("Add to Cart selected.");
-    String clientId = getToken("Enter Client ID");
-    String productName = getToken("Enter Product Name");
-    int quantity = getNumber("Enter quantity");
-
-    // Check if client exists
-    if (!warehouse.clientExists(clientId)) {
-      System.out.println("Error: client not found");
-      return; // Stop here if not found
-    }
-    else {
-      System.out.println("ID " + clientId + " found.");
-    }
-
-    // Check if product exists
-    if (!warehouse.productExists(productName)) {
-      System.out.println("Error: product not found");
-      return; // Stop here if not found
-    }
-    else {
-      System.out.println("Name " + productName + " found.");
-    }
-
-    // Next, instantiate a CartItem object and add it to the Client's cart (CartItem list)
-    if (warehouse.addToCart(clientId, productName, quantity)) {
-      System.out.println("Successfully added item to cart");
-    }
-    else {
-      System.out.println("Error: failed to add item to cart");
-    }
-  }
-
-  public void displayCart() {
-    String clientId = getToken("Please enter ID of target client: ");
-    //warehouse.displayCart(clientId);
-
-    Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
-    while (cart.hasNext()) {
-      CartItem item = (CartItem) (cart.next());
-      System.out.println(item.toString());
-    }
-  }
-
-  public void getTransactions() {
-    Iterator result;
-    String memberID = getToken("Enter member id");
-    Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
-    result = warehouse.getTransactions(memberID, date);
-    if (result == null) {
-      System.out.println("Invalid Member ID");
-    } else {
-      while (result.hasNext()) {
-        Transaction transaction = (Transaction) result.next();
-        System.out.println(transaction.getType() + "   " + transaction.getTitle() + "\n");
-      }
-      System.out.println("\n  There are no more transactions \n");
-    }
+  public void help() {
+    System.out.println("Enter a number corresponding to a command as indicated below:");
+    System.out.println(EXIT + " to Exit\n");
+    System.out.println(ADD_CLIENT + " to add a client");
+    System.out.println(SHOW_CLIENTS + " to display list of clients");
+    System.out.println(EDIT_CLIENT_ADDRESS + " to edit the address of a client");
+    System.out.println(EDIT_CLIENT_PHONE + " to edit the phone number of a client");
+    System.out.println(ADD_PRODUCT + " to add a product to the catalog");
+    System.out.println(SHOW_PRODUCTS + " to display the list of products in the catalog");
+    System.out.println(EDIT_PRODUCT_PRICE + " to edit the sales price of a product");
+    System.out.println(ADD_SUPPLIER + " to add a supplier");
+    System.out.println(SHOW_SUPPLIERS + " to display the list of suppliers");
+    System.out.println(EDIT_SUPPLIERS_ADDRESS + " to edit the address of a supplier");
+    System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
+    System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
+    System.out.println(ADD_TO_CART + " to add a product to a client's cart");
+    System.out.println(DISPLAY_CART + " to view the items in a client's cart");
+    System.out.println(SAVE + " to save changes to a file");
+    System.out.println(RETRIEVE + " to  retrieve");
+    System.out.println(HELP + " for help");
   }
 
   public void process() {
@@ -409,6 +449,9 @@ public class UserInterface {
         break;
       case DISPLAY_CART:
         displayCart();
+        break;
+      case ACCEPT_ORDER:
+        acceptOrder();
         break;
       case SAVE:
         save();
