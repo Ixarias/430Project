@@ -87,6 +87,20 @@ public class Warehouse implements Serializable {
     return false;
   }
 
+  public Product getByName(String targetName) {
+    Iterator<Product> allProducts = getProducts();
+    while (allProducts.hasNext()) {
+      Product product = (Product)(allProducts.next());
+      String name = product.getName();
+      //System.out.println(name);
+      if (product.equals(targetName)) {
+        System.out.println("Name " + targetName + " found.");
+        return product;
+      }
+    }
+    return null;
+  }
+
   public static Warehouse retrieve() {
     try {
       FileInputStream file = new FileInputStream("WarehouseData");
@@ -221,12 +235,11 @@ public class Warehouse implements Serializable {
 
   public boolean addToCart(String clientId, String productName, int quantity) {
     System.out.println("Dummy function");
-
-    // First, find the client by id. Return false if not found.
-
-    // Next, find the product by name. Return false if not found.
-
-    // Finally, create a CartItem from Product and quantity, and then add this CartItem to Client.cart
+    // Client and Product both exist, verified before this function is called
+    // First, get the Product so that it can be passed into the CartItem constructor
+    Product product = getByName(productName);
+    // Create a CartItem from Product and quantity, and then add this CartItem to Client.cart
+    CartItem item = new CartItem(product, quantity);
 
     return true;
   }

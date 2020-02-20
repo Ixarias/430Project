@@ -307,7 +307,7 @@ public class UserInterface {
     // Check if client exists
     if (!warehouse.clientExists(clientId)) {
       System.out.println("Error: client not found");
-      return;
+      return; // Stop here if not found
     }
     else {
       System.out.println("ID " + clientId + " found.");
@@ -316,11 +316,13 @@ public class UserInterface {
     // Check if product exists
     if (!warehouse.productExists(productName)) {
       System.out.println("Error: product not found");
-      return;
+      return; // Stop here if not found
     }
     else {
       System.out.println("Name " + productName + " found.");
     }
+
+    // Next, instantiate a CartItem object and add it to the Client's cart (CartItem list)
     warehouse.addToCart(clientId, productName, quantity); // Implement
   }
 
