@@ -335,7 +335,14 @@ public class UserInterface {
 
   public void displayCart() {
     String clientId = getToken("Please enter ID of target client: ");
-    warehouse.displayCart(clientId);
+    //warehouse.displayCart(clientId);
+
+    Iterator<CartItem> cart = warehouse.getClientById(clientId).getCartItems();
+    while (cart.hasNext()) {
+      CartItem item = (CartItem) (cart.next());
+      System.out.println(item.toString());
+    }
+
   }
 
   public void process() {
@@ -391,7 +398,6 @@ public class UserInterface {
       case HELP:
         help();
         break;
-
       }
     }
   }
