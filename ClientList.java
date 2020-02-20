@@ -35,6 +35,16 @@ public class ClientList implements Serializable {
     }
   }
 
+  public Client search(String clientId) {
+    for (Iterator iterator = clients.iterator(); iterator.hasNext();) {
+      Client Client = (Client) iterator.next();
+      if (Client.getId().equals(clientId)) {
+        return Client;
+      }
+    }
+    return null;
+  }
+
   private void readObject(java.io.ObjectInputStream input) {
     try {
       if (clientList != null) {

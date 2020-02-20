@@ -9,8 +9,8 @@ public class Client implements Serializable {
   private String id;
   private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
-  private List cart = new LinkedList(); // Cart containing items and quantities
-  // private List transactions = new LinkedList();
+  private List<CartItem> cart = new LinkedList<CartItem>(); // Cart containing items and quantities
+  private List<Transaction> transactions = new LinkedList<Transaction>();
 
   public Client(String name, String address, String phone) {
     this.name = name;
@@ -58,6 +58,17 @@ public class Client implements Serializable {
 
   public Iterator<CartItem> getCartItems() {
     return cart.iterator();
+  }
+
+  public Iterator getTransactions(Calendar date) {
+    List result = new LinkedList();
+    for (Iterator<Transaction> iterator = transactions.iterator(); iterator.hasNext();) {
+      Transaction transaction = (Transaction) iterator.next();
+      if (transaction.onDate(date)) {
+        result.add(transaction);
+      }
+    }
+    return (result.iterator());
   }
 
   public String toString() {

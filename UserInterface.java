@@ -345,7 +345,22 @@ public class UserInterface {
       CartItem item = (CartItem) (cart.next());
       System.out.println(item.toString());
     }
+  }
 
+  public void getTransactions() {
+    Iterator result;
+    String memberID = getToken("Enter member id");
+    Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
+    result = warehouse.getTransactions(memberID, date);
+    if (result == null) {
+      System.out.println("Invalid Member ID");
+    } else {
+      while (result.hasNext()) {
+        Transaction transaction = (Transaction) result.next();
+        System.out.println(transaction.getType() + "   " + transaction.getTitle() + "\n");
+      }
+      System.out.println("\n  There are no more transactions \n");
+    }
   }
 
   public void process() {

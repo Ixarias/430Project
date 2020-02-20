@@ -16,7 +16,7 @@ public class Warehouse implements Serializable {
   }
   public static Warehouse instance() {
     if (warehouse == null) {
-      //MemberIdServer.instance(); // instantiate all singletons
+      //ClientIdServer.instance(); // instantiate all singletons
       return (warehouse = new Warehouse());
     } else {
       return warehouse;
@@ -268,7 +268,14 @@ public class Warehouse implements Serializable {
       String itemString = cartItem.toString();
       System.out.println(itemString);
     }
-    
+  }
+
+  public Iterator getTransactions(String clientID, Calendar date) {
+    Client client = clientList.search(clientID);
+    if (client == null) {
+      return (null);
+    }
+    return client.getTransactions(date);
   }
 
   private void writeObject(java.io.ObjectOutputStream output) {
@@ -296,4 +303,5 @@ public class Warehouse implements Serializable {
   public String toString() {
     return clientList.toString() + productList.toString() + supplierList.toString();
   }
+
 }
