@@ -18,9 +18,10 @@ public class UserInterface {
   private static final int EDIT_SUPPLIERS_ADDRESS = 10;
   private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
-  private static final int SAVE = 13;
-  private static final int ADD_TO_CART = 14;
-  private static final int DISPLAY_CART = 15;
+  private static final int ADD_TO_CART = 13;
+  private static final int DISPLAY_CART = 14;
+  private static final int SAVE = 18;
+  private static final int RETRIEVE = 19;
   private static final int HELP = 20;
 
   private UserInterface() {
@@ -116,9 +117,11 @@ public class UserInterface {
     System.out.println(EDIT_SUPPLIERS_ADDRESS + " to edit the address of a supplier");
     System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
-    System.out.println(SAVE + " to save changes to a file");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
+l   System.out.println(SAVE + " to save changes to a file");
+    System.out.println(RETRIEVE + " to  retrieve");
+    System.out.println(HELP + " for help");    
   }
 
   public void addClient() {
@@ -386,14 +389,17 @@ public class UserInterface {
       case DISPLAY_PRODUCTS_OF_SUPPLIER:
         displayProductsOfSupplier();
         break;
-      case SAVE:
-        save();
-        break;
       case ADD_TO_CART:
         addToCart(); // Dummy function; will need arguments
         break;
       case DISPLAY_CART:
         displayCart();
+        break;
+      case SAVE:
+        save();
+        break;
+      case RETRIEVE:
+        retrieve();
         break;
       case HELP:
         help();
