@@ -18,9 +18,10 @@ public class UserInterface {
   private static final int EDIT_SUPPLIERS_ADDRESS = 10;
   private static final int ADD_PRODUCT_TO_SUPPLIER = 11;
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
-  private static final int SAVE = 13;
-  private static final int ADD_TO_CART = 14;
-  private static final int HELP = 15;
+  private static final int ADD_TO_CART = 13;
+  private static final int SAVE = 16;
+  private static final int RETRIEVE = 17;  
+  private static final int HELP = 20;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -116,6 +117,7 @@ public class UserInterface {
     System.out.println(ADD_PRODUCT_TO_SUPPLIER + " to add products to a suppliers catalog");
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(SAVE + " to save changes to a file");
+    System.out.println(RETRIEVE + " to  retrieve");
   }
 
   public void addClient() {
@@ -346,16 +348,18 @@ public class UserInterface {
       case DISPLAY_PRODUCTS_OF_SUPPLIER:
         displayProductsOfSupplier();
         break;
+      case ADD_TO_CART:
+        addToCart(); // Dummy function; will need arguments
+        break;
       case SAVE:
         save();
         break;
-      case ADD_TO_CART:
-        addToCart(); // Dummy function; will need arguments
+      case RETRIEVE:
+        retrieve();
         break;
       case HELP:
         help();
         break;
-
       }
     }
   }
