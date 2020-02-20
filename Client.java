@@ -51,6 +51,15 @@ public class Client implements Serializable {
     return this.id.equals(id);
   }
 
+  public boolean addToCart(CartItem item) {
+    cart.add(item);
+    return true;
+  }
+
+  public Iterator<CartItem> getCartItems() {
+    return cart.iterator();
+  }
+
   public String toString() {
     return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
   }

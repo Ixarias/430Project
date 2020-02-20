@@ -18,5 +18,8 @@ public class CartItem implements Serializable {
     return product.getPrice() * quantity;
   }
 
+  public String toString() {
+    return "name: " + product.getName()+ " | quantity: " + quantity + " | price: " + getPrice();
+  }
 }
 

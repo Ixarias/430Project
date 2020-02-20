@@ -87,7 +87,7 @@ public class Warehouse implements Serializable {
     return false;
   }
 
-  public Product getByName(String targetName) {
+  public Product getProductByName(String targetName) {
     Iterator<Product> allProducts = getProducts();
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
@@ -101,6 +101,20 @@ public class Warehouse implements Serializable {
     return null;
   }
 
+  public Client getClientById(String targetId) {
+    Iterator<Client> allClients = getClients();
+    while (allClients.hasNext()) {
+      Client client = (Client)(allClients.next());
+      String name = client.getName();
+      //System.out.println(name);
+      if (client.equals(targetId)) {
+        System.out.println("Client ID " + targetId + " found.");
+        return client;
+      }
+    }
+    return null;
+  }
+  
   public static Warehouse retrieve() {
     try {
       FileInputStream file = new FileInputStream("WarehouseData");
@@ -234,14 +248,26 @@ public class Warehouse implements Serializable {
   }
 
   public boolean addToCart(String clientId, String productName, int quantity) {
-    System.out.println("Dummy function");
+    //System.out.println("Dummy function");
     // Client and Product both exist, verified before this function is called
     // First, get the Product so that it can be passed into the CartItem constructor
-    Product product = getByName(productName);
+    Product product = getProductByName(productName);
     // Create a CartItem from Product and quantity, and then add this CartItem to Client.cart
     CartItem item = new CartItem(product, quantity);
-
+    Client client = getClientById(clientId);
     return true;
+  }
+
+  public void displayCart(String clientId) {
+    Client client = getClientById(clientId);
+    Iterator<CartItem> cart = client.getCartItems();
+    // Display ALL items
+    while (cart.hasNext()) {
+      CartItem cartItem = (CartItem) (cart.next());
+      String itemString = cartItem.toString();
+      System.out.println(itemString);
+    }
+    
   }
 
   private void writeObject(java.io.ObjectOutputStream output) {

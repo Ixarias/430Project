@@ -20,7 +20,8 @@ public class UserInterface {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int SAVE = 13;
   private static final int ADD_TO_CART = 14;
-  private static final int HELP = 15;
+  private static final int DISPLAY_CART = 15;
+  private static final int HELP = 20;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -117,6 +118,7 @@ public class UserInterface {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
+    System.out.println(DISPLAY_CART + " to view the items in a client's cart");
   }
 
   public void addClient() {
@@ -323,7 +325,17 @@ public class UserInterface {
     }
 
     // Next, instantiate a CartItem object and add it to the Client's cart (CartItem list)
-    warehouse.addToCart(clientId, productName, quantity); // Implement
+    if (warehouse.addToCart(clientId, productName, quantity)) {
+      System.out.println("Successfully added item to cart");
+    }
+    else {
+      System.out.println("Error: failed to add item to cart");
+    }
+  }
+
+  public void displayCart() {
+    String clientId = getToken("Please enter ID of target client: ");
+    warehouse.displayCart(clientId);
   }
 
   public void process() {
@@ -372,6 +384,9 @@ public class UserInterface {
         break;
       case ADD_TO_CART:
         addToCart(); // Dummy function; will need arguments
+        break;
+      case DISPLAY_CART:
+        displayCart();
         break;
       case HELP:
         help();
