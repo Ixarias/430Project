@@ -119,7 +119,7 @@ public class UserInterface {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
-l   System.out.println(SAVE + " to save changes to a file");
+    System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");    
   }
