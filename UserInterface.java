@@ -20,7 +20,7 @@ public class UserInterface {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int ADD_TO_CART = 13;
   private static final int DISPLAY_CART = 14;
-  private static final int ACCEPT_ORDER  = 15;
+  private static final int PLACE_ORDER  = 15;
   private static final int SAVE = 18;
   private static final int RETRIEVE = 19;
   private static final int HELP = 20;
@@ -327,9 +327,9 @@ public class UserInterface {
     }
   }
 
-  // ACCEPT_ORDER : 15
+  // PLACE_ORDER : 15
 
-  public void acceptOrder() {
+  public void placeOrder() {
     
   }
 
@@ -450,8 +450,8 @@ public class UserInterface {
       case DISPLAY_CART:
         displayCart();
         break;
-      case ACCEPT_ORDER:
-        acceptOrder();
+      case PLACE_ORDER:
+        placeOrder();
         break;
       case SAVE:
         save();

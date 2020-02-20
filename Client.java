@@ -74,4 +74,18 @@ public class Client implements Serializable {
   public String toString() {
     return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
   }
+
+  public void processCart() {
+    Iterator<CartItem> carti = cart.iterator();
+
+  // for (each item in cart) {
+  //  get price from product
+  //  qty available of product (product waitlist the rest)
+  //  (ship product)  
+  //  Create an invoice line with productqty, date, cost
+  //  Record waitlist entry if needed 
+  //  }
+  // Generate grand total 
+  // Creates invoice
+  }
 }

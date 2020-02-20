@@ -4,6 +4,7 @@ public class CartItem {
   private Product product;
   private int quantity;
   public CartItem(Product product, int quantity) {
+    // this.product should be changed to reference the product instead of storing it
     this.product = product;
     this.quantity = quantity;
   }
