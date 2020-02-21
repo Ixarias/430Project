@@ -26,12 +26,8 @@ public class Tester {
 			return true;
   }
   public static void main(String[] s) {
-	
-	 double price1 = 12.00;
-	 double price2 = 15.00;
-	
-	 Product b1 = new Product("product1", "supplier1", price1);
-     Product b2 = new Product("product2", "supplier2", price2);
+	 Product b1 = new Product("product1", 15, 12.00);
+     Product b2 = new Product("product2", 10, 15.00);
      
      ProductList productlist = ProductList.instance();
 	 productlist.insertProduct(b1);
