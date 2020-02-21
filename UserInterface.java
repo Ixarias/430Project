@@ -339,8 +339,13 @@ public class UserInterface {
 
   public void displayWaitlist() {
     String targetProduct = getToken("Please enter Product Name to display its waitlist");
-    // get product, iterate through it's waitlist and print each toString
-    Iterator waitlist = (warehouse.getProductByName(targetProduct)).getWaitlistItems();
+    // get product, iterate through it's waitlist and print each toString'
+    Iterator waitlist;
+    if (warehouse.getProductByName(targetProduct).getWaitlistItems() != null) {
+      waitlist = (warehouse.getProductByName(targetProduct)).getWaitlistItems();
+    } else {
+      return;
+    }
     while (waitlist.hasNext()) {
       WaitlistItem waitlistItem = (WaitlistItem) waitlist.next();
       System.out.println(waitlistItem.toString());

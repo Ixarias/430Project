@@ -6,13 +6,14 @@ public class Product implements Serializable {
   //private String supplier; // There could be more than one supplier, so we'll have to connect them in a different operation
   private double price;
   private int quantity; // Quantity available
-  private List<WaitlistItem> waitlist = new LinkedList<WaitlistItem>(); // List of WaitlistItems (Product-Client-Quantity pairings)
+  private List<WaitlistItem> waitlist; // List of WaitlistItems (Product-Client-Quantity pairings)
 
 
   public Product(String name, int quantity, double price) {
     this.name = name;
     this.quantity = quantity;
     this.price = price;
+    this.waitlist = new LinkedList<WaitlistItem>();
   }
 
   public String getName() {
@@ -56,6 +57,11 @@ public class Product implements Serializable {
   }
 
   public Iterator<WaitlistItem> getWaitlistItems() {
-    return waitlist.iterator();
+    if (waitlist.isEmpty()) {
+      System.out.println("There are no items on the waitlist for product: " + this.name);
+      return null;
+    } else {
+      return waitlist.iterator();
+    }
   }
 }
