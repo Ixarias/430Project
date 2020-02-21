@@ -79,7 +79,7 @@ public class Client implements Serializable {
     double totalPrice = 0;
     Iterator<CartItem> carti = cart.iterator();
 
-  // for (each item in cart) {
+    // for (each item in cart) {
     while (carti.hasNext()) {
       CartItem item = (CartItem) (carti.next());
     
@@ -117,6 +117,11 @@ public class Client implements Serializable {
         // add product/quantity to wait-list ***Still need to implement waitlist
         System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist (NOT IMPLEMENTED)");
         item.setQuantity(0); // Reset in-cart quantity
+        // create WaitlistItem object
+        Client client = item.getClient();
+        Product product = item.getProduct();
+
+        WaitlistItem waitlistItem = new WaitlistItem(client, product, quantRequested);
         // addToWaitlist(quantRequested);
       }
       System.out.println("Total price = " + totalPrice);

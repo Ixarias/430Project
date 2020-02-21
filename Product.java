@@ -50,8 +50,8 @@ public class Product implements Serializable {
   }
 
   // Wait list
-  public boolean addToWaitlist(Client client, int quantity) {
-    //
+  public boolean addToWaitlist(WaitlistItem waitlistItem) {
+    waitlist.add(waitlistItem);
     return true; // if successful
   }
 

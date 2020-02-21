@@ -5,10 +5,13 @@ public class WaitlistItem implements Serializable {
   private Client client;
   private Product product;
   private int quantity;
+
+  // Constructor
   public WaitlistItem(Client client, Product product, int quantity) {
     this.client = client;
     this.product = product;
     this.quantity = quantity;
+    System.out.println(toString());
   }
 
   public Client getClient() {
@@ -31,7 +34,7 @@ public class WaitlistItem implements Serializable {
   }
 
   public String toString() {
-    return "for client ID: " + client.getId() + "product name: " + product.getName() 
+    return "for client ID: " + client.getId() + " product name: " + product.getName() 
     + " | quantity needed: " + quantity + " | price: " + getPrice();
   }
 }
