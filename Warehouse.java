@@ -270,6 +270,12 @@ public class Warehouse implements Serializable {
     }
   }
 
+  public boolean processOrder(String clientId) {
+    Client client = getClientById(clientId);
+    client.processOrder();
+    return true; // if successful
+  }
+
   public Iterator getTransactions(String clientID, Calendar date) {
     Client client = clientList.search(clientID);
     if (client == null) {

@@ -20,7 +20,7 @@ public class UserInterface {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int ADD_TO_CART = 13;
   private static final int DISPLAY_CART = 14;
-  private static final int PLACE_ORDER  = 15;
+  private static final int PROCESS_ORDER  = 15;
   private static final int SAVE = 18;
   private static final int RETRIEVE = 19;
   private static final int HELP = 20;
@@ -327,10 +327,11 @@ public class UserInterface {
     }
   }
 
-  // PLACE_ORDER : 15
+  // PROCESS_ORDER : 15
 
-  public void placeOrder() {
-    
+  public void processOrder() {
+    String clientId = getToken("Please enter the ID of the client whose cart you'd like to process");
+    warehouse.processOrder(clientId);
   }
 
   // UNIMPLMENETED == GET_TRANSACTIONS
@@ -398,6 +399,7 @@ public class UserInterface {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
+    System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");
@@ -450,8 +452,8 @@ public class UserInterface {
       case DISPLAY_CART:
         displayCart();
         break;
-      case PLACE_ORDER:
-        placeOrder();
+      case PROCESS_ORDER:
+        processOrder();
         break;
       case SAVE:
         save();

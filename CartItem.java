@@ -1,6 +1,7 @@
 // import java.util.*;
 import java.io.*;
-public class CartItem {
+public class CartItem implements Serializable {
+  private static final long serialVersionUID = 1L;
   private Product product;
   private int quantity;
   public CartItem(Product product, int quantity) {
@@ -13,6 +14,10 @@ public class CartItem {
   }
   public int getQuantity() {
     return quantity;
+  }
+
+  public void setQuantity(int q) {
+    quantity = q;
   }
 
   public double getPrice() {
