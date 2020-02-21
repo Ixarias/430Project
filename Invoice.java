@@ -5,11 +5,11 @@ public class Invoice implements Serializable {
   private static final long serialVersionUID = 1L;
   private String id;
   private int grandTotal;
-  private static final String CLIENT_STRING = "I";
+  private static final String INVOICE_STRING = "I";
 
-  public Invoice(String id, int grandTotal{
+  public Invoice(String id, int grandTotal) {
     this.id = INVOICE_STRING + (InvoiceIdServer.instance()).getId();
-    this.grandTotal;
+    this.grandTotal = grandTotal;
   }
 
   public String getId() {
@@ -22,6 +22,7 @@ public class Invoice implements Serializable {
 
   public void setTotal(int newTotal) {
     grandTotal = newTotal;
+  }    
 
   public boolean equals(String id) {
     return this.id.equals(id);
