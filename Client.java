@@ -79,12 +79,18 @@ public class Client implements Serializable {
     Iterator<CartItem> carti = cart.iterator();
 
   // for (each item in cart) {
-  //  get price from product
-  //  qty available of product (product waitlist the rest)
-  //  (ship product)  
-  //  Create an invoice line with productqty, date, cost
-  //  Record waitlist entry if needed 
-  //  }
+    while (carti.hasNext()) {
+      CartItem item = (CartItem) (carti.next());
+    
+    //  get price from product
+    double price = item.getPrice(); // Total price for this CartItem after mutliplying by quantity
+    //  qty available of product (product waitlist the rest)
+    int quantAvailable = item.getProduct().getQuantity(); // Get the quantity available from the Product in the cart
+    int quantRequested = item.getQuantity(); // Get the quantity requested by the Order
+    //  (ship product)  
+    //  Create an invoice line with productqty, date, cost
+    //  Record waitlist entry if needed 
+    }
   // Generate grand total 
   // Creates invoice
   }

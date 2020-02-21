@@ -31,8 +31,8 @@ public class Warehouse implements Serializable {
     return null;
   }
 
-  public Product addProduct(String name, String supplier, double price) {
-    Product product = new Product(name, supplier, price);
+  public Product addProduct(String name, int quantity, double price) {
+    Product product = new Product(name, quantity, price);
     if (productList.insertProduct(product)) {
       return (product);
     }

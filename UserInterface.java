@@ -171,10 +171,10 @@ public class UserInterface {
 
     do {
       String name = getToken("Enter product name: ");
-      String supplier = getToken("Enter supplier: ");
+      int quantity = getNumber("Enter quantity: ");
       Double price = Double.parseDouble(getToken("Enter Value: "));
 
-      result = warehouse.addProduct(name, supplier, price);
+      result = warehouse.addProduct(name, quantity, price);
       if (result != null) {
         System.out.println(result);
       } else {

@@ -2,21 +2,22 @@ import java.io.*;
 public class Product implements Serializable {
   private static final long serialVersionUID = 1L;
   private String name;
-  private String supplier;
+  //private String supplier; // There could be more than one supplier, so we'll have to connect them in a different operation
   private double price;
+  private int quantity; // Quantity available
 
 
-  public Product(String name, String supplier, double price) {
+  public Product(String name, int quantity, double price) {
     this.name = name;
-    this.supplier = supplier;
+    this.quantity = quantity;
     this.price = price;
   }
 
   public String getName() {
     return name;
   }
-  public String getSupplier() {
-    return supplier;
+  public int getQuantity() { // Quantity available
+    return quantity;
   }
   public double getPrice() {
     return price;
@@ -25,9 +26,16 @@ public class Product implements Serializable {
   public void setName(String name) {
     this.name = name;
   }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
+  /*
   public void setSupplier(String supplier) {
     this.supplier = supplier;
   }
+  */
   public void setPrice(double price) {
     this.price = price;
   }
@@ -36,7 +44,7 @@ public class Product implements Serializable {
     return this.name.equals(name);
   }
   public String toString() {
-      return "name: " + name + " | supplier: " + supplier + " | price: " + price;
+      return "name: " + name + " | quantity available: " + quantity + " | price: " + price;
   }
 
   // Wait list
