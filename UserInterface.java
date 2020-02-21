@@ -21,6 +21,7 @@ public class UserInterface {
   private static final int ADD_TO_CART = 13;
   private static final int DISPLAY_CART = 14;
   private static final int PROCESS_ORDER  = 15;
+  private static final int DISPLAY_WAITLIST = 16;
   private static final int SAVE = 18;
   private static final int RETRIEVE = 19;
   private static final int HELP = 20;
@@ -322,7 +323,7 @@ public class UserInterface {
 
     Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
     while (cart.hasNext()) {
-      CartItem item = (CartItem) (cart.next());
+      CartItem item = (CartItem) cart.next();
       System.out.println(item.toString());
     }
   }
@@ -332,6 +333,18 @@ public class UserInterface {
   public void processOrder() {
     String clientId = getToken("Please enter the ID of the client whose cart you'd like to process");
     warehouse.processOrder(clientId);
+  }
+
+  // DISPLAY_WAITLIST : 16
+
+  public void displayWaitlist() {
+    String targetProduct = getToken("Please enter Product Name to display its waitlist");
+    // get product, iterate through it's waitlist and print each toString
+    Iterator waitlist = (warehouse.getProductByName(targetProduct)).getWaitlistItems();
+    while (waitlist.hasNext()) {
+      WaitlistItem waitlistItem = (WaitlistItem) waitlist.next();
+      System.out.println(waitlistItem.toString());
+    }
   }
 
   // UNIMPLMENETED == GET_TRANSACTIONS
@@ -400,6 +413,7 @@ public class UserInterface {
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
+    System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");
@@ -454,6 +468,9 @@ public class UserInterface {
         break;
       case PROCESS_ORDER:
         processOrder();
+        break;
+      case DISPLAY_WAITLIST:
+        displayWaitlist();
         break;
       case SAVE:
         save();

@@ -34,7 +34,7 @@ public class WaitlistItem implements Serializable {
   }
 
   public String toString() {
-    return "for client ID: " + client.getId() + " product name: " + product.getName() 
+    return "product name: " + product.getName() + " for client ID: " + client.getId()
     + " | quantity needed: " + quantity + " | price: " + getPrice();
   }
 }

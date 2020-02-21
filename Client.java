@@ -109,11 +109,7 @@ public class Client implements Serializable {
         quantAvailable = 0; // Out of stock
         item.getProduct().setQuantity(quantAvailable); // Update in-stock quantity to 0
         item.setQuantity(quantRequested); // Update in-cart quantity to how much remains (to be waitlisted)
-      }
-      System.out.println("available: " + quantAvailable);
-      System.out.println("requested: " + quantRequested);
-      // Need to wait-list the remaining quantity (quantRequested - quantAvailable)
-      if (quantRequested > 0) {
+        // Need to wait-list the remaining quantity (quantRequested - quantAvailable)
         // add product/quantity to wait-list ***Still need to implement waitlist
         System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist (NOT IMPLEMENTED)");
         item.setQuantity(0); // Reset in-cart quantity
@@ -122,7 +118,7 @@ public class Client implements Serializable {
         Product product = item.getProduct();
 
         WaitlistItem waitlistItem = new WaitlistItem(client, product, quantRequested);
-        // addToWaitlist(quantRequested);
+        product.addToWaitlist(waitlistItem);
       }
       System.out.println("Total price = " + totalPrice);
       //  (ship product)  
