@@ -1,20 +1,23 @@
 // import java.util.*;
 import java.io.*;
-public class CartItem implements Serializable {
+public class WaitlistItem implements Serializable {
   private static final long serialVersionUID = 1L;
   private Client client;
   private Product product;
   private int quantity;
-  public CartItem(Client client, Product product, int quantity) {
-    // this.product should be changed to reference the product instead of storing it
+
+  // Constructor
+  public WaitlistItem(Client client, Product product, int quantity) {
     this.client = client;
     this.product = product;
     this.quantity = quantity;
+    System.out.println(toString());
   }
 
   public Client getClient() {
     return client;
   }
+
   public Product getProduct() {
     return product;
   }
@@ -31,7 +34,8 @@ public class CartItem implements Serializable {
   }
 
   public String toString() {
-    return "name: " + product.getName()+ " | quantity: " + quantity + " | price: " + getPrice();
+    return "product name: " + product.getName() + " for client ID: " + client.getId()
+    + " | quantity needed: " + quantity + " | price: " + getPrice();
   }
 }
 

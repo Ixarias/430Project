@@ -253,8 +253,8 @@ public class Warehouse implements Serializable {
     // First, get the Product so that it can be passed into the CartItem constructor
     Product product = getProductByName(productName);
     // Create a CartItem from Product and quantity, and then add this CartItem to Client.cart
-    CartItem item = new CartItem(product, quantity);
     Client client = getClientById(clientId);
+    CartItem item = new CartItem(client, product, quantity);
     client.addToCart(item);
     return true;
   }
@@ -268,6 +268,12 @@ public class Warehouse implements Serializable {
       String itemString = cartItem.toString();
       System.out.println(itemString);
     }
+  }
+
+  public boolean processOrder(String clientId) {
+    Client client = getClientById(clientId);
+    client.processOrder();
+    return true; // if successful
   }
 
   public Iterator getTransactions(String clientID, Calendar date) {

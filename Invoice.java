@@ -22,7 +22,7 @@ public class Invoice implements Serializable {
 
   public void setTotal(int newTotal) {
     grandTotal = newTotal;
-  }
+  }    
 
   public boolean equals(String id) {
     return this.id.equals(id);

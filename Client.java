@@ -75,21 +75,55 @@ public class Client implements Serializable {
     return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
   }
 
-  public void processCart() {
+  public void processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
+    double totalPrice = 0;
     Iterator<CartItem> carti = cart.iterator();
 
-  // for (each item in cart) {
+    // for (each item in cart) {
     while (carti.hasNext()) {
       CartItem item = (CartItem) (carti.next());
     
-    //  get price from product
-    double price = item.getPrice(); // Total price for this CartItem after mutliplying by quantity
-    //  qty available of product (product waitlist the rest)
-    int quantAvailable = item.getProduct().getQuantity(); // Get the quantity available from the Product in the cart
-    int quantRequested = item.getQuantity(); // Get the quantity requested by the Order
-    //  (ship product)  
-    //  Create an invoice line with productqty, date, cost
-    //  Record waitlist entry if needed 
+      //  get price from product
+      double price = item.getProduct().getPrice(); // Price for one of this item
+      String itemName = item.getProduct().getName();
+      System.out.println("Processing item: " + itemName);
+      //  qty available of product (product waitlist the rest)
+      int quantAvailable = item.getProduct().getQuantity(); // Get the quantity available from the Product in the cart
+      int quantRequested = item.getQuantity(); // Get the quantity requested by the Order
+
+      System.out.println("available: " + quantAvailable); // for debug
+      System.out.println("requested: " + quantRequested);
+
+      // if enough are available:
+      if (quantRequested <= quantAvailable) { // Process one item at a time until all that remains are out-of-stock
+        totalPrice += (price * quantRequested);
+        quantAvailable -= quantRequested;
+        quantRequested = 0;
+        item.getProduct().setQuantity(quantAvailable); // Update quantity available in catalog
+        item.setQuantity(quantRequested);
+        System.out.println("CartItem available. Added to order");
+      }
+      else { // if not enough are available
+        totalPrice += (price * quantAvailable);
+        quantRequested -= quantAvailable;  // quantRequested now represents the amount leftover to be waitlisted
+        quantAvailable = 0; // Out of stock
+        item.getProduct().setQuantity(quantAvailable); // Update in-stock quantity to 0
+        item.setQuantity(quantRequested); // Update in-cart quantity to how much remains (to be waitlisted)
+        // Need to wait-list the remaining quantity (quantRequested - quantAvailable)
+        // add product/quantity to wait-list ***Still need to implement waitlist
+        System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist (NOT IMPLEMENTED)");
+        item.setQuantity(0); // Reset in-cart quantity
+        // create WaitlistItem object
+        Client client = item.getClient();
+        Product product = item.getProduct();
+
+        WaitlistItem waitlistItem = new WaitlistItem(client, product, quantRequested);
+        product.addToWaitlist(waitlistItem);
+      }
+      System.out.println("Total price = " + totalPrice);
+      //  (ship product)  
+      //  Create an invoice line with productqty, date, cost  (CartItem.toString()?)
+      //  Record waitlist entry if needed 
     }
   // Generate grand total 
   // Creates invoice
