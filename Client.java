@@ -114,7 +114,7 @@ public class Client implements Serializable {
         item.setQuantity(quantRequested); // Update in-cart quantity to how much remains (to be waitlisted)
         // Need to wait-list the remaining quantity (quantRequested - quantAvailable)
         // add product/quantity to wait-list ***Still need to implement waitlist
-        System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist (NOT IMPLEMENTED)");
+        System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist");
         item.setQuantity(0); // Reset in-cart quantity
         // create WaitlistItem object
         Client client = item.getClient();
