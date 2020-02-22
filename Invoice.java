@@ -6,10 +6,12 @@ public class Invoice implements Serializable {
   private String id;
   private int grandTotal;
   private static final String INVOICE_STRING = "I";
+  private List<CartItem> cart;
 
-  public Invoice(String id, int grandTotal) {
+  public Invoice(int grandTotal, List<CartItem> cart) {
     this.id = INVOICE_STRING + (InvoiceIdServer.instance()).getId();
     this.grandTotal = grandTotal;
+    this.cart = cart;
   }
 
   public String getId() {
@@ -28,7 +30,14 @@ public class Invoice implements Serializable {
     return this.id.equals(id);
   }
 
-  public String toString() {
-    return "Invoice id: " + id + " | Grand Total = " + grandTotal;
+  public void invoicePrint() { 
+    Iterator<CartItem> carti = cart.iterator();
+    // Display ALL items
+    while (carti.hasNext()) {
+      CartItem cartItem = (CartItem) (carti.next());
+      String itemString = cartItem.toString();
+      System.out.println(itemString);
+    }
+    System.out.println("Invoice id: " + id + " | Grand Total = " + grandTotal);
   }
 }

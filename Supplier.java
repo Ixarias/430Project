@@ -7,8 +7,8 @@ public class Supplier implements Serializable {
     private String address;
     private class Pair {
         public Product prod;
-        public float price;
-        public Pair(Product prod, float price) {
+        public double price;
+        public Pair(Product prod, double price) {
             this.prod = prod;
             this.price = price;
         }

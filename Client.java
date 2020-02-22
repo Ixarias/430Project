@@ -123,6 +123,7 @@ public class Client implements Serializable {
       System.out.println("Total price = " + totalPrice);
       //  (ship product)  
       //  Create an invoice line with productqty, date, cost  (CartItem.toString()?)
+      
       //  Record waitlist entry if needed 
     }
   // Generate grand total 
