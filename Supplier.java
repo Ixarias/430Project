@@ -5,7 +5,8 @@ public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String address;
-    private class Pair {
+    private class Pair implements Serializable {
+        private static final long serialVersionUID = 1L;
         public Product prod;
         public double price;
         public Pair(Product prod, double price) {
