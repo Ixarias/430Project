@@ -49,6 +49,9 @@ public class Product implements Serializable {
   public String toString() {
       return "name: " + name + " | quantity available: " + quantity + " | price: " + price;
   }
+  public String suppliersToString() {
+    return "name: " + name + " | quantity available: " + quantity;
+  }
 
   // Wait list
   public boolean addToWaitlist(WaitlistItem waitlistItem) {

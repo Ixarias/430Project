@@ -199,7 +199,7 @@ public class Warehouse implements Serializable {
     return false;
   }
 
-  public boolean insertProductToSupplier(String targetName, Product product) {
+  public boolean insertProductToSupplier(String targetName, Product product, float price) {
     Iterator<Supplier> allSuppliers = getSuppliers();
     // search for supplier by name
     // (iterate until supplier.name == name)
@@ -209,7 +209,7 @@ public class Warehouse implements Serializable {
       System.out.println(name);
       if (supplier.equals(targetName)) {
         System.out.println("Name " + targetName + " found.");
-        supplier.insertProduct(product);
+        supplier.insertProduct(product, price);
         return true;
       }
     }
@@ -222,8 +222,8 @@ public class Warehouse implements Serializable {
     // (iterate until supplier.name == name)
     while (allSuppliers.hasNext()) {
       Supplier supplier = (Supplier) (allSuppliers.next());
-      String name = supplier.getName();
-      System.out.println(name);
+      // String name = supplier.getName();
+      // System.out.println(name);
       if (supplier.equals(targetName)) {
         System.out.println("Name " + targetName + " found.");
         supplier.getCatalog();

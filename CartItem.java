@@ -31,7 +31,7 @@ public class CartItem implements Serializable {
   }
 
   public String toString() {
-    return "name: " + product.getName()+ " | quantity: " + quantity + " | price: " + getPrice();
+    return "name: " + product.getName()+ " | quantity: " + getQuantity() + " | price: " + getPrice();
   }
 }
 

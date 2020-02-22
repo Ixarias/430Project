@@ -5,14 +5,26 @@ public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String address;
-    private List<Product> catalog = new LinkedList<Product>();
+    private class Pair {
+        public Product prod;
+        public float price;
+        public Pair(Product prod, float price) {
+            this.prod = prod;
+            this.price = price;
+        }
+        public String toString() {
+            return "name: " + prod.getName() + " | quantity: " + prod.getQuantity() + " | price: " + price;
+        }
+    }
+    private List<Pair> catalog;
 
     public Supplier(String name, String address) {
         this.name = name;
         this.address = address;
+        this.catalog = new LinkedList<Pair>();
     }
 
-    public Supplier(String name, String address, List<Product> catalog) {
+    public Supplier(String name, String address, List<Pair> catalog) {
         this.name = name;
         this.address = address;
         this.catalog = catalog;
@@ -25,12 +37,12 @@ public class Supplier implements Serializable {
         return address;
     }
     public void getCatalog() {
-        Iterator<Product> cat = catalog.iterator();
+        Iterator<Pair> cat = catalog.iterator();
         // search for supplier by name
         // (iterate until supplier.name == name)
         while (cat.hasNext()) {
-            Product product = (Product) (cat.next());
-            System.out.println(product.toString());
+            Pair thispair = cat.next();
+            System.out.println(thispair.toString());
             }
     }
     
@@ -40,8 +52,9 @@ public class Supplier implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    public void insertProduct(Product product) {
-        catalog.add(product);
+    public void insertProduct(Product product, float price) {
+        Pair newpair = new Pair(product, price);
+        catalog.add(newpair);
     }
 
     public boolean equals(String name) {

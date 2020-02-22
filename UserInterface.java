@@ -94,7 +94,7 @@ public class UserInterface {
   public int getCommand() {
     do {
       try {
-        int value = Integer.parseInt(getToken("Enter command:" + HELP + " for help"));
+        int value = Integer.parseInt(getToken("Enter command (" + HELP + " for help) :"));
         if (value >= EXIT && value <= HELP) {
           return value;
         }
@@ -259,13 +259,15 @@ public class UserInterface {
     String targetName = getToken("Please enter Name of target supplier: ");
     // get name of product
     String productName = getToken("Please enter Name of product to be added: ");
+    // get suppliers price for product
+    float price = Float.parseFloat(getToken("Please enter the suppliers price of the product to be added: "));
     // search for product by name
     Iterator<Product> allProducts = warehouse.getProducts();
     Product product = (Product) (allProducts.next());
     while (allProducts.hasNext() && !(productName.equals(product.getName()))) {
       product = (Product) (allProducts.next());
     }
-    if (warehouse.insertProductToSupplier(targetName, product)) {
+    if (warehouse.insertProductToSupplier(targetName, product, price)) {
       System.out.println("Product added.");
     } else {
       System.out.println("Supplier Name " + targetName + " not found.");
