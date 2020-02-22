@@ -36,8 +36,8 @@ public class Invoice implements Serializable {
     while (carti.hasNext()) {
       CartItem cartItem = (CartItem) (carti.next());
       String itemString = cartItem.toString();
-      System.out.prdoubleln(itemString);
+      System.out.println(itemString);
     }
-    System.out.prdoubleln("Invoice id: " + id + " | Grand Total = " + grandTotal);
+    System.out.println("Invoice id: " + id + " | Grand Total = " + grandTotal);
   }
 }
