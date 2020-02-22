@@ -7,12 +7,14 @@ public class Warehouse implements Serializable {
   private ProductList productList;  
   private ClientList clientList;
   private SupplierList supplierList;
+  private InvoiceList invoiceList;
   private static Warehouse warehouse;
   private Warehouse() {
     //catalog = Catalog.instance();
     clientList = ClientList.instance();
     productList = ProductList.instance();
     supplierList = SupplierList.instance();
+    invoiceList = InvoiceList.instance();
   }
   public static Warehouse instance() {
     if (warehouse == null) {
@@ -272,7 +274,9 @@ public class Warehouse implements Serializable {
 
   public boolean processOrder(String clientId) {
     Client client = getClientById(clientId);
-    client.processOrder();
+    Invoice invoice = client.processOrder();
+    invoiceList.insertInvoice(invoice);
+
     return true; // if successful
   }
 

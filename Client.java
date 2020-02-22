@@ -9,14 +9,16 @@ public class Client implements Serializable {
   private String id;
   private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
-  private List<CartItem> cart = new LinkedList<CartItem>(); // Cart containing items and quantities
-  private List<Transaction> transactions = new LinkedList<Transaction>();
+  private List<CartItem> cart; // Cart containing items and quantities
+  private List<Transaction> transactions;
 
   public Client(String name, String address, String phone) {
     this.name = name;
     this.address = address;
     this.phone = phone;
     this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
+    this.transactions = new LinkedList<Transaction>();
+    this.cart = new LinkedList<CartItem>();
   }
 
   public String getName() {
@@ -75,7 +77,8 @@ public class Client implements Serializable {
     return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
   }
 
-  public void processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
+  public Invoice processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
+    double grandTotal = 0;
     double totalPrice = 0;
     Iterator<CartItem> carti = cart.iterator();
 
@@ -120,13 +123,17 @@ public class Client implements Serializable {
         WaitlistItem waitlistItem = new WaitlistItem(client, product, quantRequested);
         product.addToWaitlist(waitlistItem);
       }
-      System.out.println("Total price = " + totalPrice);
+      // Increment grandTotal
+      grandTotal += totalPrice;
+      // System.out.println("Total price = " + totalPrice);
       //  (ship product)  
       //  Create an invoice line with productqty, date, cost  (CartItem.toString()?)
-      
       //  Record waitlist entry if needed 
     }
-  // Generate grand total 
   // Creates invoice
+  List<CartItem> copycart = this.cart;
+  // reset cart
+  this.cart = new LinkedList<CartItem>();
+  return new Invoice(grandTotal, copycart);
   }
 }
