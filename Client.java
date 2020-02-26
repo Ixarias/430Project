@@ -64,8 +64,25 @@ public class Client implements Serializable {
       CartItem item = (CartItem) cart.next();
       if (itemName.equals(item.getProduct().getName())) {
         item.setQuantity(newQuant);
+        if (newQuant == 0) {
+          removeCart(itemName);
+          System.out.println("debug: item removed from cart");
+        }
       }
     }
+  }
+
+  public boolean removeCart(String targetName) {
+    Iterator cart = getCartItems();
+    while (cart.hasNext()) {
+      CartItem item = (CartItem) cart.next();
+      if (targetName.equals(item.getProduct().getName())) {
+        cart.remove();
+        return true; // removal successful
+      }
+    }
+    return false; // if removal did not occur
+
   }
 
   public Iterator<CartItem> getCartItems() {
