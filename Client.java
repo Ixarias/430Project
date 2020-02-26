@@ -58,8 +58,31 @@ public class Client implements Serializable {
     return true;
   }
 
+  public void editCart(String itemName, int newQuant) {
+    Iterator cart = getCartItems();
+    while (cart.hasNext()) {
+      CartItem item = (CartItem) cart.next();
+      if (itemName.equals(item.getProduct().getName())) {
+        item.setQuantity(newQuant);
+      }
+    }
+  }
+
   public Iterator<CartItem> getCartItems() {
     return cart.iterator();
+  }
+
+  public boolean inCart(String itemName) {
+    Iterator cart = getCartItems();
+    while (cart.hasNext()) {
+      CartItem item = (CartItem) cart.next();
+      if (itemName.equals(item.getProduct().getName())) {
+        System.out.println("debug: item IS in cart");
+        return true;
+      }
+    }
+    System.out.println("debug: item is NOT cart");
+    return false;
   }
 
   public Iterator getTransactions(Calendar date) {

@@ -338,8 +338,9 @@ public class UserInterface {
     if (warehouse.clientExists(clientId)) {  // Check if client exists
       warehouse.displayCart(clientId);
       String productName = getToken("Please enter the name of the product in the cart");
-      if (warehouse.productExists(productName)) {  // Check if product exists in the client's cart **** CHANGE CODE TO REFLECT THIS ****
+      if (warehouse.inCart(clientId, productName)) {  // Check if product exists in the client's cart **** CHANGE CODE TO REFLECT THIS ****
         int newQuant = getNumber("Please enter a new quantity for " + productName + ", or 0 to remove");
+        warehouse.editCart(clientId, productName, newQuant);
       }
     }
     else {

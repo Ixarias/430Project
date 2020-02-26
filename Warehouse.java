@@ -272,6 +272,16 @@ public class Warehouse implements Serializable {
     }
   }
 
+  public boolean inCart(String clientId, String targetName) { // Checks if item in client's cart
+    Client client = getClientById(clientId);
+    return client.inCart(targetName);
+  }
+
+  public void editCart(String clientId, String productName, int newQuant) {
+    Client client = getClientById(clientId);
+    client.editCart(productName, newQuant);
+  }
+
   public boolean processOrder(String clientId) {
     Client client = getClientById(clientId);
     Invoice invoice = client.processOrder();
