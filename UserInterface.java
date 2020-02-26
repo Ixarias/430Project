@@ -20,8 +20,9 @@ public class UserInterface {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 12;
   private static final int ADD_TO_CART = 13;
   private static final int DISPLAY_CART = 14;
-  private static final int PROCESS_ORDER  = 15;
-  private static final int DISPLAY_WAITLIST = 16;
+  private static final int EDIT_CART = 15;
+  private static final int PROCESS_ORDER  = 16;
+  private static final int DISPLAY_WAITLIST = 17;
   private static final int SAVE = 18;
   private static final int RETRIEVE = 19;
   private static final int HELP = 20;
@@ -330,14 +331,30 @@ public class UserInterface {
     }
   }
 
-  // PROCESS_ORDER : 15
+  // EDIT_CART : 15
+
+  public void editCart() {
+    String clientId = getToken("Please enter the ID of the client whose cart to edit");
+    if (warehouse.clientExists(clientId)) {  // Check if client exists
+      warehouse.displayCart(clientId);
+      String productName = getToken("Please enter the name of the product in the cart");
+      if (warehouse.productExists(productName)) {  // Check if product exists in the client's cart **** CHANGE CODE TO REFLECT THIS ****
+        int newQuant = getNumber("Please enter a new quantity for " + productName + ", or 0 to remove");
+      }
+    }
+    else {
+      System.out.println("ID not found");
+    }
+  }
+
+  // PROCESS_ORDER : 16
 
   public void processOrder() {
     String clientId = getToken("Please enter the ID of the client whose cart you'd like to process");
     warehouse.processOrder(clientId);
   }
 
-  // DISPLAY_WAITLIST : 16
+  // DISPLAY_WAITLIST : 17
 
   public void displayWaitlist() {
     String targetProduct = getToken("Please enter Product Name to display its waitlist");
@@ -419,6 +436,7 @@ public class UserInterface {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(ADD_TO_CART + " to add a product to a client's cart");
     System.out.println(DISPLAY_CART + " to view the items in a client's cart");
+    System.out.println(EDIT_CART + " to change the quantity of an item in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
     System.out.println(SAVE + " to save changes to a file");
@@ -472,6 +490,9 @@ public class UserInterface {
         break;
       case DISPLAY_CART:
         displayCart();
+        break;
+      case EDIT_CART:
+        editCart();
         break;
       case PROCESS_ORDER:
         processOrder();
