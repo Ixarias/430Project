@@ -182,10 +182,11 @@ public class Client implements Serializable {
       //  Record waitlist entry if needed 
     }
 
-    Client client = getClientById(clientId);
-    balance = client.getBalance();
+    balance = this.getBalance();
     balance = balance + grandTotal;
-    client.setBalance(balance);
+    this.setBalance(balance);
+
+    transactions.add(new Transaction ("Order Processed ", Double.toString(balance)));
     
     // Creates invoice
     List<CartItem> copycart = this.cart;

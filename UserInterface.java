@@ -115,7 +115,7 @@ public class UserInterface {
     String phone = getToken("Enter phone number: ");
     //String id = getToken("Enter ID: ");
     Client result;
-    result = warehouse.addClient(name, address, phone);
+    result = warehouse.addClient(name, address, phone, 0);
     if (result == null) {
       System.out.println("Could not add member");
     }

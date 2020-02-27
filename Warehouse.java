@@ -25,8 +25,8 @@ public class Warehouse implements Serializable {
     }
   }
   
-  public Client addClient(String name, String address, String phone) {
-    Client client = new Client(name, address, phone);
+  public Client addClient(String name, String address, String phone, double balance) {
+    Client client = new Client(name, address, phone, balance);
     if (clientList.insertClient(client)) {
       return (client);
     }
@@ -286,7 +286,6 @@ public class Warehouse implements Serializable {
       Client client = getClientById(clientId);
       Invoice invoice = client.processOrder();
       invoiceList.insertInvoice(invoice);
-      transactions.add(new Transaction ("Order Total: ", invoice.getTotal()));
 
       return true; // if successful
     }
@@ -302,15 +301,15 @@ public class Warehouse implements Serializable {
     public void acceptPayment(String clientID) {
       double balance = 0;
       
-      Client client = getClientById(id);
+      Client client = getClientById(clientID);
       balance = client.getBalance();
 
-      System.out.println("Client ID: " + clientId + " Balance: " + balance);
+      System.out.println("Client ID: " + clientID + " Balance: " + balance);
 
-      Double newPayment = Double.parseDouble(getToken("Enter payment: "));  
+      Double newPayment = Double.parseDouble(getToken("Enter payment: "));
       newPayment = grantTotal - newPayment;
       client.setBalance(newPayment);
-      System.out.println("Client ID: " + clientId + " Balance: " + newPayment);
+      System.out.println("Client ID: " + clientID + " Balance: " + newPayment);
     }
 
   private void writeObject(java.io.ObjectOutputStream output) {
