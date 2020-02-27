@@ -23,10 +23,11 @@ public class UserInterface {
   private static final int EDIT_CART = 15;
   private static final int PROCESS_ORDER  = 16;
   private static final int DISPLAY_WAITLIST = 17;
-  private static final int ACCEPT_PAYMENT = 18;
-  private static final int SAVE = 19;
-  private static final int RETRIEVE = 20;
-  private static final int HELP = 21;
+  private static final int GET_TRANSACTIONS = 18;
+  private static final int ACCEPT_PAYMENT = 19;
+  private static final int SAVE = 20;
+  private static final int RETRIEVE = 21;
+  private static final int HELP = 22;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -373,7 +374,7 @@ public class UserInterface {
     }
   }
 
-  // UNIMPLMENETED == GET_TRANSACTIONS
+  // GET_TRANSACTIONS : 18
 
   public void getTransactions() {
     Iterator result;
@@ -391,7 +392,7 @@ public class UserInterface {
     }
   }
 
-  // ACCEPT_PAYMENT : 18
+  // ACCEPT_PAYMENT : 19
 
   public void acceptPayment() {
     String clientId = getToken("Please enter the ID of the client you wish to accept payment");
@@ -403,7 +404,7 @@ public class UserInterface {
       System.out.println("Client ID doesnt exist.");
   } 
 
-  // SAVE : 19
+  // SAVE : 20
 
   private void save() {
     System.out.println("Save selected. Saving to file WarehouseData...");
@@ -414,7 +415,7 @@ public class UserInterface {
     }
   }
 
-  // RETRIEVE : 20
+  // RETRIEVE : 21
 
   private void retrieve() {
     try {
@@ -431,7 +432,7 @@ public class UserInterface {
     }
   }
 
-  // HELP : 21
+  // HELP : 22
 
   public void help() {
     System.out.println("Enter a number corresponding to a command as indicated below:");
@@ -453,6 +454,7 @@ public class UserInterface {
     System.out.println(EDIT_CART + " to change the quantity of an item in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
+    System.out.println(GET_TRANSACTIONS + " to print transactions");
     System.out.println(ACCEPT_PAYMENT + " to accept payment");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
@@ -514,6 +516,9 @@ public class UserInterface {
         break;
       case DISPLAY_WAITLIST:
         displayWaitlist();
+        break;
+      case GET_TRANSACTIONS:
+        getTransactions();
         break;
       case ACCEPT_PAYMENT:
         acceptPayment();

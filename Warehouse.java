@@ -286,6 +286,7 @@ public class Warehouse implements Serializable {
       Client client = getClientById(clientId);
       Invoice invoice = client.processOrder();
       invoiceList.insertInvoice(invoice);
+      transactions.add(new Transaction ("Order Total: ", invoice.getTotal()));
 
       return true; // if successful
     }
