@@ -307,7 +307,7 @@ public class Warehouse implements Serializable {
       System.out.println("Client ID: " + clientID + " Balance: " + balance);
 
       Double newPayment = Double.parseDouble(getToken("Enter payment: "));
-      newPayment = grantTotal - newPayment;
+      newPayment = balance - newPayment;
       client.setBalance(newPayment);
       System.out.println("Client ID: " + clientID + " Balance: " + newPayment);
     }
