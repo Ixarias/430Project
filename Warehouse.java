@@ -93,11 +93,21 @@ public class Warehouse implements Serializable {
     Iterator<Product> allProducts = getProducts();
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
-      String name = product.getName();
-      //System.out.println(name);
       if (product.equals(targetName)) {
         System.out.println("Name " + targetName + " found.");
         return product;
+      }
+    }
+    return null;
+  }
+
+  public Supplier getSupplierByName(String targetName) {
+    Iterator<Supplier> allSuppliers = getSuppliers();
+    while (allSuppliers.hasNext()) {
+      Supplier supplier = (Supplier) (allSuppliers.next());
+      if (supplier.equals(targetName)) {
+        System.out.println("Supplier " + targetName + " found.");
+        return supplier;
       }
     }
     return null;
@@ -201,7 +211,7 @@ public class Warehouse implements Serializable {
     return false;
   }
 
-  public boolean insertProductToSupplier(String targetName, Product product, float price) {
+  public boolean insertProductToSupplier(String targetName, Product product, double price) {
     Iterator<Supplier> allSuppliers = getSuppliers();
     // search for supplier by name
     // (iterate until supplier.name == name)

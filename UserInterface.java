@@ -23,9 +23,10 @@ public class UserInterface {
   private static final int EDIT_CART = 15;
   private static final int PROCESS_ORDER  = 16;
   private static final int DISPLAY_WAITLIST = 17;
-  private static final int SAVE = 18;
-  private static final int RETRIEVE = 19;
-  private static final int HELP = 20;
+  private static final int RECEIVE_SHIPMENT = 18;
+  private static final int SAVE = 20;
+  private static final int RETRIEVE = 21;
+  private static final int HELP = 22;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -372,6 +373,35 @@ public class UserInterface {
     }
   }
 
+  // RECEIVE_SHIPMENT : 18
+
+  public void receiveShipment() {
+    String targetSupplier = getToken("Please enter Supplier Name to receive a shipment for it");
+    // confirm targetSupplier exists
+    if (warehouse.getSupplierByName(targetSupplier) != null) {
+      Supplier supplier = warehouse.getSupplierByName(targetSupplier);
+      // check if product exists from Supplier
+      String targetProduct = getToken("Please enter Product name");
+      String targetQuantity = getToken("Please enter Quantity of product");
+      if (supplier.getPair(targetProduct) != null) {
+        // Update warehouse quantity
+
+      } else {
+        // Product not found, add to Supplier and warehouse
+        System.out.println("Product not found");
+        Double targetPrice = Double.parseDouble(getToken("Please enter price per unit of product"));
+        if (warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice) == false) {
+          warehouse.addProduct(targetProduct, Integer.parseInt(targetQuantity), targetPrice);
+          warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice);
+        }
+      }
+    } else {
+      // Supplier doesnt exist
+      System.out.println("Supplier not found");
+      return;
+    }
+  }
+
   // UNIMPLMENETED == GET_TRANSACTIONS
 
   public void getTransactions() {
@@ -390,7 +420,7 @@ public class UserInterface {
     }
   }
 
-  // SAVE : 18
+  // SAVE : 20
 
   private void save() {
     System.out.println("Save selected. Saving to file WarehouseData...");
@@ -401,7 +431,7 @@ public class UserInterface {
     }
   }
 
-  // RETRIEVE : 19
+  // RETRIEVE : 21
 
   private void retrieve() {
     try {
@@ -418,7 +448,7 @@ public class UserInterface {
     }
   }
 
-  // HELP : 20
+  // HELP : 22
 
   public void help() {
     System.out.println("Enter a number corresponding to a command as indicated below:");
@@ -440,6 +470,7 @@ public class UserInterface {
     System.out.println(EDIT_CART + " to change the quantity of an item in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
+    System.out.println(RECEIVE_SHIPMENT + " to view a product's waitlist");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");
@@ -501,6 +532,9 @@ public class UserInterface {
       case DISPLAY_WAITLIST:
         displayWaitlist();
         break;
+      case RECEIVE_SHIPMENT:
+        receiveShipment();
+        break;
       case SAVE:
         save();
         break;
@@ -513,6 +547,8 @@ public class UserInterface {
       }
     }
   }
+
+  
 
   public static void main(String[] s) {
     UserInterface.instance().process();
