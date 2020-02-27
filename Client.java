@@ -130,6 +130,7 @@ public class Client implements Serializable {
   public Invoice processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
     double grandTotal = 0;
     double totalPrice = 0;
+    double balance = 0;
     Iterator<CartItem> carti = cart.iterator();
 
     // for (each item in cart) {
@@ -180,10 +181,16 @@ public class Client implements Serializable {
       //  Create an invoice line with productqty, date, cost  (CartItem.toString()?)
       //  Record waitlist entry if needed 
     }
-  // Creates invoice
-  List<CartItem> copycart = this.cart;
-  // reset cart
-  this.cart = new LinkedList<CartItem>();
-  return new Invoice(grandTotal, copycart);
+
+    Client client = getClientById(clientId);
+    balance = client.getBalance();
+    balance = balance + grandTotal;
+    client.setBalance(balance);
+    
+    // Creates invoice
+    List<CartItem> copycart = this.cart;
+    // reset cart
+    this.cart = new LinkedList<CartItem>();
+    return new Invoice(grandTotal, copycart);
   }
 }
