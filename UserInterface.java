@@ -466,8 +466,8 @@ public class UserInterface {
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
     System.out.println(RECEIVE_SHIPMENT + " to receive a shipment");
-    System.out.println(GET_TRANSACTIONS + " to print transactions");
     System.out.println(ACCEPT_PAYMENT + " to accept payment");
+    System.out.println(GET_TRANSACTIONS + " to print transactions");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");
