@@ -23,11 +23,12 @@ public class UserInterface {
   private static final int EDIT_CART = 15;
   private static final int PROCESS_ORDER  = 16;
   private static final int DISPLAY_WAITLIST = 17;
-  private static final int GET_TRANSACTIONS = 18;
+  private static final int RECEIVE_SHIPMENT = 18;
   private static final int ACCEPT_PAYMENT = 19;
-  private static final int SAVE = 20;
-  private static final int RETRIEVE = 21;
-  private static final int HELP = 22;
+  private static final int GET_TRANSACTIONS = 20;
+  private static final int SAVE = 21;
+  private static final int RETRIEVE = 22;
+  private static final int HELP = 23;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -374,7 +375,48 @@ public class UserInterface {
     }
   }
 
-  // GET_TRANSACTIONS : 18
+  // RECEIVE_SHIPMENT : 18
+
+  public void receiveShipment() {
+    String targetSupplier = getToken("Please enter Supplier Name to receive a shipment for it");
+    // confirm targetSupplier exists
+    if (warehouse.getSupplierByName(targetSupplier) != null) {
+      Supplier supplier = warehouse.getSupplierByName(targetSupplier);
+      // check if product exists from Supplier
+      String targetProduct = getToken("Please enter Product name");
+      String targetQuantity = getToken("Please enter Quantity of product");
+      if (supplier.getPair(targetProduct) != null) {
+        // Update warehouse quantity
+
+      } else {
+        // Product not found, add to Supplier and warehouse
+        System.out.println("Product not found");
+        Double targetPrice = Double.parseDouble(getToken("Please enter price per unit of product"));
+        if (warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice) == false) {
+          warehouse.addProduct(targetProduct, Integer.parseInt(targetQuantity), targetPrice);
+          warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice);
+        }
+      }
+    } else {
+      // Supplier doesnt exist
+      System.out.println("Supplier not found");
+      return;
+    }
+  }
+
+  // ACCEPT_PAYMENT : 19
+
+  public void acceptPayment() {
+    String clientId = getToken("Please enter the ID of the client you wish to accept payment");
+    if (warehouse.clientExists(clientId)) {
+      warehouse.acceptPayment(clientId);
+    }
+
+    else
+      System.out.println("Client ID doesnt exist.");
+  } 
+
+  // GET_TRANSACTIONS : 20
 
   public void getTransactions() {
     Iterator result;
@@ -392,19 +434,7 @@ public class UserInterface {
     }
   }
 
-  // ACCEPT_PAYMENT : 19
-
-  public void acceptPayment() {
-    String clientId = getToken("Please enter the ID of the client you wish to accept payment");
-    if (warehouse.clientExists(clientId)) {
-      warehouse.acceptPayment(clientId);
-    }
-
-    else
-      System.out.println("Client ID doesnt exist.");
-  } 
-
-  // SAVE : 20
+  // SAVE : 21
 
   private void save() {
     System.out.println("Save selected. Saving to file WarehouseData...");
@@ -415,7 +445,7 @@ public class UserInterface {
     }
   }
 
-  // RETRIEVE : 21
+  // RETRIEVE : 22
 
   private void retrieve() {
     try {
@@ -432,7 +462,7 @@ public class UserInterface {
     }
   }
 
-  // HELP : 22
+  // HELP : 23
 
   public void help() {
     System.out.println("Enter a number corresponding to a command as indicated below:");
@@ -454,6 +484,7 @@ public class UserInterface {
     System.out.println(EDIT_CART + " to change the quantity of an item in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
+    System.out.println(RECEIVE_SHIPMENT + " to view a product's waitlist");
     System.out.println(GET_TRANSACTIONS + " to print transactions");
     System.out.println(ACCEPT_PAYMENT + " to accept payment");
     System.out.println(SAVE + " to save changes to a file");
@@ -517,11 +548,14 @@ public class UserInterface {
       case DISPLAY_WAITLIST:
         displayWaitlist();
         break;
-      case GET_TRANSACTIONS:
-        getTransactions();
+      case RECEIVE_SHIPMENT:
+        receiveShipment();
         break;
       case ACCEPT_PAYMENT:
         acceptPayment();
+        break;
+      case GET_TRANSACTIONS:
+        getTransactions();
         break;
       case SAVE:
         save();
@@ -535,6 +569,8 @@ public class UserInterface {
       }
     }
   }
+
+  
 
   public static void main(String[] s) {
     UserInterface.instance().process();

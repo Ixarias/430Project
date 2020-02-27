@@ -31,6 +31,19 @@ public class Supplier implements Serializable {
         this.catalog = catalog;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void insertProduct(Product product, double price) {
+        Pair newpair = new Pair(product, price);
+        catalog.add(newpair);
+    }
+
     public String getName() {
         return name;
     }
@@ -46,16 +59,15 @@ public class Supplier implements Serializable {
             System.out.println(thispair.toString());
             }
     }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public void insertProduct(Product product, float price) {
-        Pair newpair = new Pair(product, price);
-        catalog.add(newpair);
+    public Pair getPair(String inprod) {
+        Iterator<Pair> cat = catalog.iterator();
+        for (int i = 0; i < i; i++) {
+            Pair current = cat.next();
+            if (current.prod.getName() == inprod) {
+                return current;
+            } 
+        } 
+        return null;
     }
 
     public boolean equals(String name) {
