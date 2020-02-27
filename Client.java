@@ -7,15 +7,17 @@ public class Client implements Serializable {
   private String address;
   private String phone;
   private String id;
+  private double balance;
   private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
   private List<CartItem> cart; // Cart containing items and quantities
   private List<Transaction> transactions;
 
-  public Client(String name, String address, String phone) {
+  public Client(String name, String address, String phone, double balance) {
     this.name = name;
     this.address = address;
     this.phone = phone;
+    this.balance = balance;
     this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
     this.transactions = new LinkedList<Transaction>();
     this.cart = new LinkedList<CartItem>();
@@ -37,6 +39,10 @@ public class Client implements Serializable {
     return id;
   }
 
+  public double getBalance() {
+    return balance;
+  }
+
   public void setName(String newName) {
     name = newName;
   }
@@ -47,6 +53,10 @@ public class Client implements Serializable {
 
   public void setPhone(String newPhone) {
     phone = newPhone;
+  }
+
+  public void setBalance(double newBalance) {
+    balance = newBalance;
   }
 
   public boolean equals(String id) {
@@ -120,6 +130,7 @@ public class Client implements Serializable {
   public Invoice processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
     double grandTotal = 0;
     double totalPrice = 0;
+    double balance = 0;
     Iterator<CartItem> carti = cart.iterator();
 
     // for (each item in cart) {
@@ -170,10 +181,17 @@ public class Client implements Serializable {
       //  Create an invoice line with productqty, date, cost  (CartItem.toString()?)
       //  Record waitlist entry if needed 
     }
-  // Creates invoice
-  List<CartItem> copycart = this.cart;
-  // reset cart
-  this.cart = new LinkedList<CartItem>();
-  return new Invoice(grandTotal, copycart);
+
+    balance = this.getBalance();
+    balance = balance + grandTotal;
+    this.setBalance(balance);
+
+    transactions.add(new Transaction ("Order Processed ", Double.toString(balance)));
+    
+    // Creates invoice
+    List<CartItem> copycart = this.cart;
+    // reset cart
+    this.cart = new LinkedList<CartItem>();
+    return new Invoice(grandTotal, copycart);
   }
 }

@@ -24,9 +24,11 @@ public class UserInterface {
   private static final int PROCESS_ORDER  = 16;
   private static final int DISPLAY_WAITLIST = 17;
   private static final int RECEIVE_SHIPMENT = 18;
-  private static final int SAVE = 20;
-  private static final int RETRIEVE = 21;
-  private static final int HELP = 22;
+  private static final int ACCEPT_PAYMENT = 19;
+  private static final int GET_TRANSACTIONS = 20;
+  private static final int SAVE = 21;
+  private static final int RETRIEVE = 22;
+  private static final int HELP = 23;
 
   private UserInterface() {
     if (yesOrNo("Look for saved data and use it?")) {
@@ -114,7 +116,7 @@ public class UserInterface {
     String phone = getToken("Enter phone number: ");
     //String id = getToken("Enter ID: ");
     Client result;
-    result = warehouse.addClient(name, address, phone);
+    result = warehouse.addClient(name, address, phone, 0);
     if (result == null) {
       System.out.println("Could not add member");
     }
@@ -420,6 +422,18 @@ public class UserInterface {
     }
   }
 
+  // ACCEPT_PAYMENT : 19
+
+  public void acceptPayment() {
+    String clientId = getToken("Please enter the ID of the client you wish to accept payment");
+    if (warehouse.clientExists(clientId)) {
+      warehouse.acceptPayment(clientId);
+    }
+
+    else
+      System.out.println("Client ID doesnt exist.");
+  } 
+
   // SAVE : 20
 
   private void save() {
@@ -471,6 +485,8 @@ public class UserInterface {
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
     System.out.println(RECEIVE_SHIPMENT + " to view a product's waitlist");
+    System.out.println(GET_TRANSACTIONS + " to print transactions");
+    System.out.println(ACCEPT_PAYMENT + " to accept payment");
     System.out.println(SAVE + " to save changes to a file");
     System.out.println(RETRIEVE + " to  retrieve");
     System.out.println(HELP + " for help");
@@ -534,6 +550,12 @@ public class UserInterface {
         break;
       case RECEIVE_SHIPMENT:
         receiveShipment();
+        break;
+      case ACCEPT_PAYMENT:
+        acceptPayment();
+        break;
+      case GET_TRANSACTIONS:
+        getTransactions();
         break;
       case SAVE:
         save();
