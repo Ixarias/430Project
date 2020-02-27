@@ -409,7 +409,8 @@ public class UserInterface {
   public void acceptPayment() {
     String clientId = getToken("Please enter the ID of the client you wish to accept payment");
     if (warehouse.clientExists(clientId)) {
-      warehouse.acceptPayment(clientId);
+      Double newPayment = Double.parseDouble(getToken("Enter payment: "));
+      warehouse.acceptPayment(clientId, newPayment);
     }
 
     else

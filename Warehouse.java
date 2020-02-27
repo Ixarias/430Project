@@ -308,7 +308,7 @@ public class Warehouse implements Serializable {
       return client.getTransactions(date);
     }
 
-    public void acceptPayment(String clientID) {
+    public void acceptPayment(String clientID, Double payment) {
       double balance = 0;
       
       Client client = getClientById(clientID);
@@ -316,10 +316,9 @@ public class Warehouse implements Serializable {
 
       System.out.println("Client ID: " + clientID + " Balance: " + balance);
 
-      Double newPayment = Double.parseDouble(getToken("Enter payment: "));
-      newPayment = balance - newPayment;
-      client.setBalance(newPayment);
-      System.out.println("Client ID: " + clientID + " Balance: " + newPayment);
+      balance = balance - payment;
+      client.setBalance(balance);
+      System.out.println("Client ID: " + clientID + " Balance: " + balance);
     }
 
   private void writeObject(java.io.ObjectOutputStream output) {
