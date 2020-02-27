@@ -266,36 +266,49 @@ public class Warehouse implements Serializable {
     Iterator<CartItem> cart = client.getCartItems();
     // Display ALL items
     while (cart.hasNext()) {
-      CartItem cartItem = (CartItem) (cart.next());
-      String itemString = cartItem.toString();
-      System.out.println(itemString);
+        CartItem cartItem = (CartItem) (cart.next());
+        String itemString = cartItem.toString();
+        System.out.println(itemString);
+      }
     }
-  }
 
-  public boolean inCart(String clientId, String targetName) { // Checks if item in client's cart
-    Client client = getClientById(clientId);
-    return client.inCart(targetName);
-  }
-
-  public void editCart(String clientId, String productName, int newQuant) {
-    Client client = getClientById(clientId);
-    client.editCart(productName, newQuant);
-  }
-
-  public boolean processOrder(String clientId) {
-    Client client = getClientById(clientId);
-    Invoice invoice = client.processOrder();
-    invoiceList.insertInvoice(invoice);
-
-    return true; // if successful
-  }
-
-  public Iterator getTransactions(String clientID, Calendar date) {
-    Client client = clientList.search(clientID);
-    if (client == null) {
-      return (null);
+    public boolean inCart(String clientId, String targetName) { // Checks if item in client's cart
+      Client client = getClientById(clientId);
+      return client.inCart(targetName);
     }
-    return client.getTransactions(date);
+
+    public void editCart(String clientId, String productName, int newQuant) {
+      Client client = getClientById(clientId);
+      client.editCart(productName, newQuant);
+    }
+
+    public boolean processOrder(String clientId) {
+      Client client = getClientById(clientId);
+      Invoice invoice = client.processOrder();
+      invoiceList.insertInvoice(invoice);
+
+      return true; // if successful
+    }
+
+    public Iterator getTransactions(String clientID, Calendar date) {
+      Client client = clientList.search(clientID);
+      if (client == null) {
+        return (null);
+      }
+      return client.getTransactions(date);
+    }
+
+    public void acceptPayment(String clientID, double balance) {
+          System.out.println("Client ID: " + clientId + " Balance: " + balance);
+
+          Double newPayment = Double.parseDouble(getToken("Enter payment: "));  
+          newPayment = grantTotal - newPayment;
+          //set specified client id's balance to newBalance
+          System.out.println("Client ID: " + clientId + " Balance: " + newPayment);
+    }
+
+    public void getInvoiceTotal(String clientID) {
+      //set specified client id's balance to grandTotal
   }
 
   private void writeObject(java.io.ObjectOutputStream output) {

@@ -7,15 +7,17 @@ public class Client implements Serializable {
   private String address;
   private String phone;
   private String id;
+  private double balance;
   private static final String CLIENT_STRING = "C";
   // private List booksBorrowed = new LinkedList();
   private List<CartItem> cart; // Cart containing items and quantities
   private List<Transaction> transactions;
 
-  public Client(String name, String address, String phone) {
+  public Client(String name, String address, String phone, double balance) {
     this.name = name;
     this.address = address;
     this.phone = phone;
+    this.balance = balance;
     this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
     this.transactions = new LinkedList<Transaction>();
     this.cart = new LinkedList<CartItem>();
@@ -37,6 +39,10 @@ public class Client implements Serializable {
     return id;
   }
 
+  public double getBalance() {
+    return balance;
+  }
+
   public void setName(String newName) {
     name = newName;
   }
@@ -47,6 +53,10 @@ public class Client implements Serializable {
 
   public void setPhone(String newPhone) {
     phone = newPhone;
+  }
+
+  public void setBalance(double newBalance) {
+    balance = newBalance;
   }
 
   public boolean equals(String id) {
