@@ -404,7 +404,19 @@ public class UserInterface {
     }
   }
 
-  // UNIMPLMENETED == GET_TRANSACTIONS
+  // ACCEPT_PAYMENT : 19
+
+  public void acceptPayment() {
+    String clientId = getToken("Please enter the ID of the client you wish to accept payment");
+    if (warehouse.clientExists(clientId)) {
+      warehouse.acceptPayment(clientId);
+    }
+
+    else
+      System.out.println("Client ID doesnt exist.");
+  } 
+
+  // GET_TRANSACTIONS : 20
 
   public void getTransactions() {
     Iterator result;
@@ -422,19 +434,7 @@ public class UserInterface {
     }
   }
 
-  // ACCEPT_PAYMENT : 19
-
-  public void acceptPayment() {
-    String clientId = getToken("Please enter the ID of the client you wish to accept payment");
-    if (warehouse.clientExists(clientId)) {
-      warehouse.acceptPayment(clientId);
-    }
-
-    else
-      System.out.println("Client ID doesnt exist.");
-  } 
-
-  // SAVE : 20
+  // SAVE : 21
 
   private void save() {
     System.out.println("Save selected. Saving to file WarehouseData...");
@@ -445,7 +445,7 @@ public class UserInterface {
     }
   }
 
-  // RETRIEVE : 21
+  // RETRIEVE : 22
 
   private void retrieve() {
     try {
@@ -462,7 +462,7 @@ public class UserInterface {
     }
   }
 
-  // HELP : 22
+  // HELP : 23
 
   public void help() {
     System.out.println("Enter a number corresponding to a command as indicated below:");
