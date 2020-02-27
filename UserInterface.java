@@ -379,29 +379,9 @@ public class UserInterface {
 
   public void receiveShipment() {
     String targetSupplier = getToken("Please enter Supplier Name to receive a shipment for it");
-    // confirm targetSupplier exists
-    if (warehouse.getSupplierByName(targetSupplier) != null) {
-      Supplier supplier = warehouse.getSupplierByName(targetSupplier);
-      // check if product exists from Supplier
-      String targetProduct = getToken("Please enter Product name");
-      String targetQuantity = getToken("Please enter Quantity of product");
-      if (supplier.getPair(targetProduct) != null) {
-        // Update warehouse quantity
-
-      } else {
-        // Product not found, add to Supplier and warehouse
-        System.out.println("Product not found");
-        Double targetPrice = Double.parseDouble(getToken("Please enter price per unit of product"));
-        if (warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice) == false) {
-          warehouse.addProduct(targetProduct, Integer.parseInt(targetQuantity), targetPrice);
-          warehouse.insertProductToSupplier(targetSupplier, warehouse.getProductByName(targetProduct), targetPrice);
-        }
-      }
-    } else {
-      // Supplier doesnt exist
-      System.out.println("Supplier not found");
-      return;
-    }
+    String targetProduct = getToken("Please enter Product name");
+    String targetQuantity = getToken("Please enter Quantity of product");
+    warehouse.receiveShipment(targetSupplier, targetProduct, targetQuantity);
   }
 
   // ACCEPT_PAYMENT : 19
@@ -485,7 +465,7 @@ public class UserInterface {
     System.out.println(EDIT_CART + " to change the quantity of an item in a client's cart");
     System.out.println(PROCESS_ORDER + " to process order of items in a client's cart");
     System.out.println(DISPLAY_WAITLIST + " to view a product's waitlist");
-    System.out.println(RECEIVE_SHIPMENT + " to view a product's waitlist");
+    System.out.println(RECEIVE_SHIPMENT + " to receive a shipment");
     System.out.println(GET_TRANSACTIONS + " to print transactions");
     System.out.println(ACCEPT_PAYMENT + " to accept payment");
     System.out.println(SAVE + " to save changes to a file");

@@ -280,46 +280,61 @@ public class Warehouse implements Serializable {
         String itemString = cartItem.toString();
         System.out.println(itemString);
       }
+  }
+
+  public boolean inCart(String clientId, String targetName) { // Checks if item in client's cart
+    Client client = getClientById(clientId);
+    return client.inCart(targetName);
+  }
+
+  public void editCart(String clientId, String productName, int newQuant) {
+    Client client = getClientById(clientId);
+    client.editCart(productName, newQuant);
+  }
+
+  public boolean processOrder(String clientId) {
+    Client client = getClientById(clientId);
+    Invoice invoice = client.processOrder();
+    invoiceList.insertInvoice(invoice);
+
+    return true; // if successful
+  }
+
+  public Iterator getTransactions(String clientID, Calendar date) {
+    Client client = clientList.search(clientID);
+    if (client == null) {
+      return (null);
     }
+    return client.getTransactions(date);
+  }
 
-    public boolean inCart(String clientId, String targetName) { // Checks if item in client's cart
-      Client client = getClientById(clientId);
-      return client.inCart(targetName);
+  public void acceptPayment(String clientID, Double payment) {
+    double balance = 0;
+    
+    Client client = getClientById(clientID);
+    balance = client.getBalance();
+
+    System.out.println("Client ID: " + clientID + " Balance: " + balance);
+
+    balance = balance - payment;
+    client.setBalance(balance);
+    System.out.println("Client ID: " + clientID + " Balance: " + balance);
+  }
+
+  public void receiveShipment(String supp, String prod, String quan) {
+    if (warehouse.getSupplierByName(supp) != null) {
+      Supplier supplier = warehouse.getSupplierByName(supp);
+      // check if product exists from Supplier
+      if (supplier.getPair(prod) != null) {
+        // Update warehouse quantity
+        getProductByName(prod).addQuantity(Integer.parseInt(quan));
+      } else {
+        System.out.println("Product not found");
+      } 
+    } else {
+      System.out.println("Supplier not found");
     }
-
-    public void editCart(String clientId, String productName, int newQuant) {
-      Client client = getClientById(clientId);
-      client.editCart(productName, newQuant);
-    }
-
-    public boolean processOrder(String clientId) {
-      Client client = getClientById(clientId);
-      Invoice invoice = client.processOrder();
-      invoiceList.insertInvoice(invoice);
-
-      return true; // if successful
-    }
-
-    public Iterator getTransactions(String clientID, Calendar date) {
-      Client client = clientList.search(clientID);
-      if (client == null) {
-        return (null);
-      }
-      return client.getTransactions(date);
-    }
-
-    public void acceptPayment(String clientID, Double payment) {
-      double balance = 0;
-      
-      Client client = getClientById(clientID);
-      balance = client.getBalance();
-
-      System.out.println("Client ID: " + clientID + " Balance: " + balance);
-
-      balance = balance - payment;
-      client.setBalance(balance);
-      System.out.println("Client ID: " + clientID + " Balance: " + balance);
-    }
+  }
 
   private void writeObject(java.io.ObjectOutputStream output) {
     try {

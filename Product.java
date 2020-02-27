@@ -33,6 +33,10 @@ public class Product implements Serializable {
   public void setQuantity(int quantity) {
     this.quantity = quantity;
   }
+  
+  public void addQuantity(int quantity) {
+    this.quantity += quantity;
+  }
 
   /*
   public void setSupplier(String supplier) {
