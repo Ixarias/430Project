@@ -298,18 +298,19 @@ public class Warehouse implements Serializable {
       return client.getTransactions(date);
     }
 
-    public void acceptPayment(String clientID, double balance) {
-          System.out.println("Client ID: " + clientId + " Balance: " + balance);
+    public void acceptPayment(String clientID) {
+      double balance = 0;
+      
+      Client client = getClientById(id);
+      balance = client.getBalance();
 
-          Double newPayment = Double.parseDouble(getToken("Enter payment: "));  
-          newPayment = grantTotal - newPayment;
-          //set specified client id's balance to newBalance
-          System.out.println("Client ID: " + clientId + " Balance: " + newPayment);
+      System.out.println("Client ID: " + clientId + " Balance: " + balance);
+
+      Double newPayment = Double.parseDouble(getToken("Enter payment: "));  
+      newPayment = grantTotal - newPayment;
+      client.setBalance(newPayment);
+      System.out.println("Client ID: " + clientId + " Balance: " + newPayment);
     }
-
-    public void getInvoiceTotal(String clientID) {
-      //set specified client id's balance to grandTotal
-  }
 
   private void writeObject(java.io.ObjectOutputStream output) {
     try {

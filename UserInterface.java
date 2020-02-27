@@ -394,14 +394,13 @@ public class UserInterface {
   // ACCEPT_PAYMENT : 18
 
   public void acceptPayment() {
-
-    double grandTotal = 0;
-
     String clientId = getToken("Please enter the ID of the client you wish to accept payment");
     if (warehouse.clientExists(clientId)) {
-      grandTotal = warehouse.getInvoiceTotal(clientId);
-      warehouse.acceptPayment(clientId, grandTotal);
+      warehouse.acceptPayment(clientId);
     }
+
+    else
+      System.out.println("Client ID doesnt exist.");
   } 
 
   // SAVE : 19
