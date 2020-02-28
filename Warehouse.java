@@ -94,7 +94,7 @@ public class Warehouse implements Serializable {
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
       if (product.equals(targetName)) {
-        System.out.println("Name " + targetName + " found.");
+        //System.out.println("Name " + targetName + " found.");
         return product;
       }
     }
@@ -106,7 +106,7 @@ public class Warehouse implements Serializable {
     while (allSuppliers.hasNext()) {
       Supplier supplier = (Supplier) (allSuppliers.next());
       if (supplier.equals(targetName)) {
-        System.out.println("Supplier " + targetName + " found.");
+        //System.out.println("Supplier " + targetName + " found.");
         return supplier;
       }
     }
@@ -120,7 +120,7 @@ public class Warehouse implements Serializable {
       String name = client.getName();
       //System.out.println(name);
       if (client.equals(targetId)) {
-        System.out.println("Client ID " + targetId + " found.");
+        //System.out.println("Client ID " + targetId + " found.");
         return client;
       }
     }
@@ -186,7 +186,7 @@ public class Warehouse implements Serializable {
       String name = product.getName();
       System.out.println(name);
       if (product.equals(targetName)) {
-        System.out.println("Name " + targetName + " found.");
+        //System.out.println("Name " + targetName + " found.");
         product.setPrice(newPrice);
         return true;
       }
@@ -203,7 +203,7 @@ public class Warehouse implements Serializable {
       String name = supplier.getName();
       System.out.println(name);
       if (supplier.equals(targetName)) {
-        System.out.println("Name " + targetName + " found.");
+        //System.out.println("Name " + targetName + " found.");
         supplier.setAddress(newAddress);
         return true;
       }
@@ -220,7 +220,7 @@ public class Warehouse implements Serializable {
       String name = supplier.getName();
       System.out.println(name);
       if (supplier.equals(targetName)) {
-        System.out.println("Name " + targetName + " found.");
+        //System.out.println("Name " + targetName + " found.");
         supplier.insertProduct(product, price);
         return true;
       }
@@ -237,7 +237,7 @@ public class Warehouse implements Serializable {
       // String name = supplier.getName();
       // System.out.println(name);
       if (supplier.equals(targetName)) {
-        System.out.println("Name " + targetName + " found.");
+        //System.out.println("Name " + targetName + " found.");
         supplier.getCatalog();
         return true;
       }

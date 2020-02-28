@@ -76,7 +76,7 @@ public class Client implements Serializable {
         item.setQuantity(newQuant);
         if (newQuant == 0) {
           removeCart(itemName);
-          System.out.println("debug: item removed from cart");
+          //System.out.println("debug: item removed from cart");
         }
       }
     }
@@ -104,11 +104,11 @@ public class Client implements Serializable {
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       if (itemName.equals(item.getProduct().getName())) {
-        System.out.println("debug: item IS in cart");
+        //System.out.println("debug: item IS in cart");
         return true;
       }
     }
-    System.out.println("debug: item is NOT cart");
+    //System.out.println("debug: item is NOT cart");
     return false;
   }
 
@@ -124,7 +124,7 @@ public class Client implements Serializable {
   }
 
   public String toString() {
-    return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone;
+    return "Client name: " + name + " | address: " + address + " | id: " + id + " | phone: " + phone + " | balance: " + balance;
   }
 
   public Invoice processOrder() { // For each item in cart, subtract requested from available quantity. Leftover requested will be waitlisted
@@ -140,7 +140,7 @@ public class Client implements Serializable {
       //  get price from product
       double price = item.getProduct().getPrice(); // Price for one of this item
       String itemName = item.getProduct().getName();
-      System.out.println("Processing item: " + itemName);
+      //System.out.println("Processing item: " + itemName);
       //  qty available of product (product waitlist the rest)
       int quantAvailable = item.getProduct().getQuantity(); // Get the quantity available from the Product in the cart
       int quantRequested = item.getQuantity(); // Get the quantity requested by the Order
@@ -164,7 +164,7 @@ public class Client implements Serializable {
         item.getProduct().setQuantity(quantAvailable); // Update in-stock quantity to 0
         item.setQuantity(quantRequested); // Update in-cart quantity to how much remains (to be waitlisted)
         // Need to wait-list the remaining quantity (quantRequested - quantAvailable)
-        // add product/quantity to wait-list ***Still need to implement waitlist
+        // add product/quantity to wait-list 
         System.out.println("Adding " + quantRequested + " of " + itemName + " to waitlist");
         item.setQuantity(0); // Reset in-cart quantity
         // create WaitlistItem object
