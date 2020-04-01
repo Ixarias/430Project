@@ -1,10 +1,23 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class Userstate extends LibState {
-  private static Userstate userstate;
+public class ClientState extends WarState {
+  private static ClientState clientstate;
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-  private static Library library;
+  private static Warehouse warehouse;
+
+  // ***** REPLACE THESE CONSTANTS WTIH CORRESPONDING WAREHOUSE EQUIVALENTS *****
+
+  // Constants to implement:
+  /***************************************************************************
+  show client details for THIS client (client id from WarContext)
+  show list of products with sales prices
+  show transactions for THIS client (client id from WarContext)
+  edit this client's cart (facade provides the iterator)
+  add item to this client's shopping cart
+  display this client's waitlist
+  logout, transitioning to previous state (either OpeningState or ClerkState)
+  ****************************************************************************/
   private static final int EXIT = 0;
   private static final int ISSUE_BOOKS = 3;
   private static final int RENEW_BOOKS = 5;
@@ -12,17 +25,23 @@ public class Userstate extends LibState {
   private static final int REMOVE_HOLD = 8;
   private static final int GET_TRANSACTIONS = 10;
   private static final int HELP = 13;
-  private Userstate() {
-    library = Library.instance();
+
+  // Constructor
+  private ClientState() {
+    warehouse = Warehouse.instance();
   }
 
-  public static Userstate instance() {
-    if (userstate == null) {
-      return userstate = new Userstate();
+  // Singleton guard
+  public static ClientState instance() {
+    if (clientstate == null) {
+      return clientstate = new ClientState();
     } else {
-      return userstate;
+      return clientstate;
     }
   }
+
+  // Input/Output functions
+
   public String getToken(String prompt) {
     do {
       try {
@@ -81,6 +100,21 @@ public class Userstate extends LibState {
     } while (true);
   }
 
+
+  // ***** REPLACE THIS WITH CLIENT OPTIONS FROM UserInterface.java *****
+
+  // Help-Prompts to implement:
+  /***************************************************************************
+  show client details for THIS client (client id from WarContext)
+  show list of products with sales prices
+  show transactions for THIS client (client id from WarContext)
+  edit this client's cart (facade provides the iterator)
+  add item to this client's shopping cart
+  display this client's waitlist
+  logout, transitioning to previous state (either OpeningState or ClerkState)
+  ****************************************************************************/
+
+  /*
   public void help() {
     System.out.println("Enter a number between 0 and 12 as explained below:");
     System.out.println(EXIT + " to Exit\n");
@@ -91,8 +125,22 @@ public class Userstate extends LibState {
     System.out.println(GET_TRANSACTIONS + " to  print transactions");
     System.out.println(HELP + " for help");
   }
+  */
 
+  // ***** REPLACE THESE FUNCTIONS WITH CLIENT FUNCTIONS FROM UserInterface.java *****
 
+  // Functions to implement:
+  /***************************************************************************
+  show client details for THIS client (client id from WarContext)
+  show list of products with sales prices
+  show transactions for THIS client (client id from WarContext)
+  edit this client's cart (facade provides the iterator)
+  add item to this client's shopping cart
+  display this client's waitlist
+  logout, transitioning to previous state (either OpeningState or ClerkState)
+  ****************************************************************************/
+
+  /*
   public void issueBooks() {
     Book result;
     String memberID = LibContext.instance().getUser();
@@ -185,7 +233,22 @@ public class Userstate extends LibState {
       System.out.println("\n  There are no more transactions \n" );
     }
   }
+  */
 
+  // ***** End of functions callable from ClientState UI *****
+
+
+  // ***** REPLACE THIS WITH PROCESS FUNCTIONS FOR CLIENT FROM UserInterface.java *****
+  // Commands to implement:
+  /***************************************************************************
+  show client details for THIS client (client id from WarContext)
+  show list of products with sales prices
+  show transactions for THIS client (client id from WarContext)
+  edit this client's cart (facade provides the iterator)
+  add item to this client's shopping cart
+  display this client's waitlist
+  logout, transitioning to previous state (either OpeningState or ClerkState)
+  ****************************************************************************/
   public void process() {
     int command;
     help();
@@ -206,25 +269,26 @@ public class Userstate extends LibState {
                                 break;
       }
     }
-    logout();
+    logout();  // Logout must occur OUTSIDE the loop, as shown
   }
-
+  
+  // Start prompts for ClientState
   public void run() {
     process();
   }
 
   public void logout()
   {
-    if ((LibContext.instance()).getLogin() == LibContext.IsClerk)
+    if ((WarContext.instance()).getLogin() == WarContext.IsClerk)
        { //stem.out.println(" going to clerk \n ");
-         (LibContext.instance()).changeState(1); // exit with a code 1
+         (WarContext.instance()).changeState(1); // exit with a code 1
         }
-    else if (LibContext.instance().getLogin() == LibContext.IsUser)
+    else if (WarContext.instance().getLogin() == WarContext.IsUser)
        {  //stem.out.println(" going to login \n");
-        (LibContext.instance()).changeState(0); // exit with a code 2
+        (WarContext.instance()).changeState(0); // exit with a code 2
        }
     else 
-       (LibContext.instance()).changeState(2); // exit code 2, indicates error
+       (WarContext.instance()).changeState(2); // exit code 2, indicates error
   }
  
 }
