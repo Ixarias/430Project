@@ -1,18 +1,18 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class LibContext {
+public class WarContext {
   
   private int currentState;
-  private static Library library;
-  private static LibContext context;
+  private static Warehouse warehouse;
+  private static WarContext context;
   private int currentUser;
   private String userID;
   private BufferedReader reader = new BufferedReader(new 
                                       InputStreamReader(System.in));
   public static final int IsClerk = 0;
   public static final int IsUser = 1;
-  private LibState[] states;
+  private WarState[] states;
   private int[][] nextState;
 
   public String getToken(String prompt) {
@@ -40,13 +40,13 @@ public class LibContext {
 
   private void retrieve() {
     try {
-      Library tempLibrary = Library.retrieve();
-      if (tempLibrary != null) {
-        System.out.println(" The library has been successfully retrieved from the file LibraryData \n" );
-        library = tempLibrary;
+      Warehouse tempWarehouse = Warehouse.retrieve();
+      if (tempWarehouse != null) {
+        System.out.println(" The library has been successfully retrieved from the file WarehouseData \n" );
+        warehouse = tempWarehouse;
       } else {
         System.out.println("File doesnt exist; creating new library" );
-        library = Library.instance();
+        warehouse = Warehouse.instance();
       }
     } catch(Exception cnfe) {
       cnfe.printStackTrace();
@@ -65,15 +65,15 @@ public class LibContext {
   public String getUser()
   { return userID;}
 
-  private LibContext() { //constructor
+  private WarContext() { //constructor
     System.out.println("In Libcontext constructor");
     if (yesOrNo("Look for saved data and  use it?")) {
       retrieve();
     } else {
-      library = Library.instance();
+      warehouse = Warehouse.instance();
     }
     // set up the FSM and transition table;
-    states = new LibState[3];
+    states = new WarState[3];
     states[0] = Clerkstate.instance();
     states[1] = Userstate.instance(); 
     states[2]=  Loginstate.instance();
@@ -99,7 +99,7 @@ public class LibContext {
   private void terminate()
   {
    if (yesOrNo("Save data?")) {
-      if (library.save()) {
+      if (warehouse.save()) {
          System.out.println(" The library has been successfully saved in the file LibraryData \n" );
        } else {
          System.out.println(" There has been an error in saving \n" );
@@ -108,10 +108,10 @@ public class LibContext {
    System.out.println(" Goodbye \n "); System.exit(0);
   }
 
-  public static LibContext instance() {
+  public static WarContext instance() {
     if (context == null) {
        System.out.println("calling constructor");
-      context = new LibContext();
+      context = new WarContext();
     }
     return context;
   }
@@ -121,7 +121,7 @@ public class LibContext {
   }
   
   public static void main (String[] args){
-    LibContext.instance().process(); 
+    WarContext.instance().process(); 
   }
 
 

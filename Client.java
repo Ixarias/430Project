@@ -13,11 +13,11 @@ public class Client implements Serializable {
   private List<CartItem> cart; // Cart containing items and quantities
   private List<Transaction> transactions;
 
-  public Client(String name, String address, String phone, double balance) {
+  public Client(String name, String address, String phone) {
     this.name = name;
     this.address = address;
     this.phone = phone;
-    this.balance = balance;
+    this.balance = 0;
     this.id = CLIENT_STRING + (ClientIdServer.instance()).getId();
     this.transactions = new LinkedList<Transaction>();
     this.cart = new LinkedList<CartItem>();

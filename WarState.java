@@ -1,6 +1,6 @@
-public abstract class LibState {
-  protected static LibContext context;
-  protected LibState() {
+public abstract class WarState {
+  protected static WarContext context;
+  protected WarState() {
     //context = LibContext.instance();
   }
   public abstract void run();
