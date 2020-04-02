@@ -1,21 +1,21 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class Loginstate extends LibState{
+public class OpeningState extends WarState{
   private static final int CLERK_LOGIN = 0;
   private static final int USER_LOGIN = 1;
   private static final int EXIT = 2;
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));  
-  private LibContext context;
-  private static Loginstate instance;
-  private Loginstate() {
+  private WarContext context;
+  private static OpeningState instance;
+  private OpeningState() {
       super();
-     // context = LibContext.instance();
+     // context = WarContext.instance();
   }
 
-  public static Loginstate instance() {
+  public static OpeningState instance() {
     if (instance == null) {
-      instance = new Loginstate();
+      instance = new OpeningState();
     }
     return instance;
   }
@@ -57,25 +57,25 @@ public class Loginstate extends LibState{
   }
 
   private void clerk(){
-    (LibContext.instance()).setLogin(LibContext.IsClerk);
-    (LibContext.instance()).changeState(0);
+    (WarContext.instance()).setLogin(WarContext.IsClerk);
+    (WarContext.instance()).changeState(0);
   }
 
   private void user(){
-    String userID = getToken("Please input the user id: ");
-    if (Library.instance().searchMembership(userID) != null){
-      (LibContext.instance()).setLogin(LibContext.IsUser);
-      (LibContext.instance()).setUser(userID);      
-      (LibContext.instance()).changeState(1);
+    String userID = getToken("Please input the client id: ");
+    if (Warehouse.instance().getClientById(userID) != null){
+      (WarContext.instance()).setLogin(WarContext.IsUser);
+      (WarContext.instance()).setUser(userID);      
+      (WarContext.instance()).changeState(1);
     }
     else 
-      System.out.println("Invalid user id.");
+      System.out.println("Invalid client id.");
   } 
 
   public void process() {
     int command;
     System.out.println("Please input 0 to login as Clerk\n"+ 
-                        "input 1 to login as user\n" +
+                        "input 1 to login as client\n" +
                         "input 2 to exit the system\n");     
     while ((command = getCommand()) != EXIT) {
 
@@ -88,10 +88,10 @@ public class Loginstate extends LibState{
                                 
       }
       System.out.println("Please input 0 to login as Clerk\n"+ 
-                        "input 1 to login as user\n" +
+                        "input 1 to login as client\n" +
                         "input 2 to exit the system\n"); 
     }
-    (LibContext.instance()).changeState(2);
+    (WarContext.instance()).changeState(2);
   }
 
   public void run() {

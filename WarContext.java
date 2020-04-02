@@ -75,8 +75,8 @@ public class WarContext {
     // set up the FSM and transition table;
     states = new WarState[3];
     states[0] = Clerkstate.instance();
-    states[1] = Userstate.instance(); 
-    states[2]=  Loginstate.instance();
+    states[1] = ClientState.instance(); 
+    states[2]=  OpeningState.instance();
     nextState = new int[3][3];
     nextState[0][0] = 2;nextState[0][1] = 1;nextState[0][2] = -2;
     nextState[1][0] = 2;nextState[1][1] = 0;nextState[1][2] = -2;
