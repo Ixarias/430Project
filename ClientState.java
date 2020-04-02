@@ -19,12 +19,15 @@ public class ClientState extends WarState {
   logout, transitioning to previous state (either OpeningState or ClerkState)
   ****************************************************************************/
   private static final int EXIT = 0;
-  private static final int ISSUE_BOOKS = 3;
-  private static final int RENEW_BOOKS = 5;
-  private static final int PLACE_HOLD = 7;
-  private static final int REMOVE_HOLD = 8;
-  private static final int GET_TRANSACTIONS = 10;
-  private static final int HELP = 13;
+  private static final int SHOW_CLIENT = 1;
+  private static final int SHOW_PRODUCTS = 2;
+  private static final int GET_TRANSACTIONS = 3;
+  private static final int ADD_TO_CART = 4;
+  private static final int EDIT_CART = 5;
+  // ***** might need "show cart" *****
+  private static final int DISPLAY_WAITLIST = 6;
+  private static final int LOGOUT = 9;
+  private static final int HELP = 10;
 
   // Constructor
   private ClientState() {
@@ -114,18 +117,19 @@ public class ClientState extends WarState {
   logout, transitioning to previous state (either OpeningState or ClerkState)
   ****************************************************************************/
 
-  /*
+  
   public void help() {
     System.out.println("Enter a number between 0 and 12 as explained below:");
     System.out.println(EXIT + " to Exit\n");
-    System.out.println(ISSUE_BOOKS + " to  issue books to a  member");
-    System.out.println(RENEW_BOOKS + " to  renew books ");
-    System.out.println(PLACE_HOLD + " to  place a hold on a book");
-    System.out.println(REMOVE_HOLD + " to  remove a hold on a book");
-    System.out.println(GET_TRANSACTIONS + " to  print transactions");
+    System.out.println(SHOW_CLIENT + " to display the details of this client");
+    System.out.println(SHOW_PRODUCTS + " to display the catalog of products");
+    System.out.println(ADD_TO_CART + " to add an item to this client's cart");
+    System.out.println(EDIT_CART + " to edit this client's cart");
+    System.out.println(DISPLAY_WAITLIST + " to display this client's waitlist");
+    System.out.println(LOGOUT + " to logout of this client's menu");
     System.out.println(HELP + " for help");
   }
-  */
+  
 
   // ***** REPLACE THESE FUNCTIONS WITH CLIENT FUNCTIONS FROM UserInterface.java *****
 
@@ -140,100 +144,25 @@ public class ClientState extends WarState {
   logout, transitioning to previous state (either OpeningState or ClerkState)
   ****************************************************************************/
 
-  /*
-  public void issueBooks() {
-    Book result;
-    String memberID = LibContext.instance().getUser();
-    do {
-      String bookID = getToken("Enter book id");
-      result = library.issueBook(memberID, bookID);
-      if (result != null){
-        System.out.println(result.getTitle()+ "   " +  result.getDueDate());
-      } else {
-          System.out.println("Book could not be issued");
-      }
-      if (!yesOrNo("Issue more books?")) {
-        break;
-      }
-    } while (true);
-  }
+  // Must show only THIS client's details
+  public void showClient() {}
+  
+  // Show full catalog of products with sales prices
+  public void showProducts() {}
 
-  public void renewBooks() {
-    Book result;
-    String memberID = LibContext.instance().getUser();
-    Iterator issuedBooks = library.getBooks(memberID);
-    while (issuedBooks.hasNext()){
-      Book book = (Book)(issuedBooks.next());
-      if (yesOrNo(book.getTitle())) {
-        result = library.renewBook(book.getId(), memberID);
-        if (result != null){
-          System.out.println(result.getTitle()+ "   " + result.getDueDate());
-        } else {
-          System.out.println("Book is not renewable");
-        }
-      }
-    }
-  }
+  // Must show all transactions for THIS client
+  public void showTransactions() {}
 
+  // Add item to this client's cart
+  public void addToCart() {}
 
-  public void placeHold() {
-    String memberID = LibContext.instance().getUser();
-    String bookID = getToken("Enter book id");
-    int duration = getNumber("Enter duration of hold");
-    int result = library.placeHold(memberID, bookID, duration);
-    switch(result){
-      case Library.BOOK_NOT_FOUND:
-        System.out.println("No such Book in Library");
-        break;
-      case Library.BOOK_NOT_ISSUED:
-        System.out.println(" Book is not checked out");
-        break;
-      case Library.NO_SUCH_MEMBER:
-        System.out.println("Not a valid member ID");
-        break;
-      case Library.HOLD_PLACED:
-        System.out.println("A hold has been placed");
-        break;
-      default:
-        System.out.println("An error has occurred");
-    }
-  }
+  // Edit this client's cart
+  public void editCart() {}
 
-  public void removeHold() {
-    String memberID = LibContext.instance().getUser();
-    String bookID = getToken("Enter book id");
-    int result = library.removeHold(memberID, bookID);
-    switch(result){
-      case Library.BOOK_NOT_FOUND:
-        System.out.println("No such Book in Library");
-        break;
-      case Library.NO_SUCH_MEMBER:
-        System.out.println("Not a valid member ID");
-        break;
-      case Library.OPERATION_COMPLETED:
-        System.out.println("The hold has been removed");
-        break;
-      default:
-        System.out.println("An error has occurred");
-    }
-  }
+  // ***** Need showCart() *****
 
-  public void getTransactions() {
-    Iterator result;
-    String memberID = LibContext.instance().getUser();
-    Calendar date  = getDate("Please enter the date for which you want records as mm/dd/yy");
-    result = library.getTransactions(memberID,date);
-    if (result == null) {
-      System.out.println("Invalid Member ID");
-    } else {
-      while(result.hasNext()) {
-        Transaction transaction = (Transaction) result.next();
-        System.out.println(transaction.getType() + "   "   + transaction.getTitle() + "\n");
-      }
-      System.out.println("\n  There are no more transactions \n" );
-    }
-  }
-  */
+  public void displayWaitlist() {}
+
 
   // ***** End of functions callable from ClientState UI *****
 
@@ -255,15 +184,18 @@ public class ClientState extends WarState {
     while ((command = getCommand()) != EXIT) {
       switch (command) {
 
-        case ISSUE_BOOKS:       issueBooks();
+        case SHOW_CLIENT:       showClient();
                                 break;
-        case RENEW_BOOKS:       renewBooks();
+        case SHOW_PRODUCTS:     showProducts();
                                 break;
-        case PLACE_HOLD:        placeHold();
+        case GET_TRANSACTIONS:  showTransactions();
                                 break;
-        case REMOVE_HOLD:       removeHold();
+        case ADD_TO_CART:       addToCart();
                                 break;
-        case GET_TRANSACTIONS:  getTransactions();
+        case EDIT_CART:         editCart();
+                                break;
+        // ***** Need showCart() *****
+        case DISPLAY_WAITLIST:  displayWaitlist();
                                 break;
         case HELP:              help();
                                 break;
