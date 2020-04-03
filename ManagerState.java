@@ -1,32 +1,32 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class ClerkState extends WarState {
+public class ManagerState extends WarState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
   private WarContext context;
-  private static ClerkState instance;
-  private static final int EXIT = 0;
-  private static final int ADD_MEMBER = 1;
-  private static final int ADD_BOOKS = 2;
-  private static final int ISSUE_BOOKS = 3;
-  private static final int RETURN_BOOKS = 4;
-  private static final int REMOVE_BOOKS = 6;
-  private static final int PLACE_HOLD = 7;
-  private static final int REMOVE_HOLD = 8;
-  private static final int PROCESS_HOLD = 9;
-  private static final int GET_TRANSACTIONS = 10;
-  private static final int USERMENU = 11;
-  private static final int HELP = 13;
-  private ClerkState() {
+  private static ManagerState instance;
+  private static final int q = 0;
+  private static final int w = 1;
+  private static final int e = 2;
+  private static final int r = 3;
+  private static final int t = 4;
+  private static final int y = 6;
+  private static final int u = 7;
+  private static final int i = 8;
+  private static final int o = 9;
+  private static final int p = 10;
+  private static final int a = 11;
+  private static final int s = 13;
+  private ManagerState() {
       super();
       warehouse = Warehouse.instance();
       //context = LibContext.instance();
   }
 
-  public static ClerkState instance() {
+  public static ManagerState instance() {
     if (instance == null) {
-      instance = new ClerkState();
+      instance = new ManagerState();
     }
     return instance;
   }
