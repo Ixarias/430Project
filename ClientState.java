@@ -1,6 +1,9 @@
 // ***** Still need: implement "showWaitlist()" function
 
 import java.util.*;
+
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
 import java.text.*;
 import java.io.*;
 public class ClientState extends WarState {
@@ -208,6 +211,25 @@ public class ClientState extends WarState {
     //  loop through all products, checking to see if this
     //  client's ID is present in any product waitlists
     //  and displaying the requested quantity for each
+
+    // Get iterator for ProductList
+    Iterator productList = warehouse.getProducts();
+    while (productList.hasNext()) {
+      // For each Product:
+      Product product = (Product) productList.next();
+      //   Get iterator for it's Waitlist
+      Iterator waitlist = product.getWaitlistItems();
+      //   For each WaitlistItem:
+      while (waitlist.hasNext()) {
+        WaitlistItem waitlistItem = (WaitlistItem) waitlist.next();
+        // if Client = this Client, display Product + Quantity
+        if (waitlistItem.getClient().getId().equals(WarContext.instance().getUser())) {
+          System.out.println(waitlistItem.getProduct().getName() + " : " + waitlistItem.getQuantity());
+        }
+      }
+    }
+
+
   }
 
 
