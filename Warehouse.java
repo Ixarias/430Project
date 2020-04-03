@@ -25,8 +25,8 @@ public class Warehouse implements Serializable {
     }
   }
   
-  public Client addClient(String name, String address, String phone) {
-    Client client = new Client(name, address, phone);
+  public Client addClient(String name, String address, String phone, double balance) {
+    Client client = new Client(name, address, phone, balance);
     if (clientList.insertClient(client)) {
       return (client);
     }
@@ -228,6 +228,23 @@ public class Warehouse implements Serializable {
     return false;
   }
 
+  public boolean showSuppliersOfProduct(String targetName) {
+    Iterator<Product> allProducts = getProducts();
+    // search for product by name
+    // (iterate until product.name == name)
+    while (allProducts.hasNext()) {
+      Product product = (Product) (allProducts.next());
+      // String name = product.getName();
+      // System.out.println(name);
+      if (product.equals(targetName)) {
+        //System.out.println("Name " + targetName + " found.");
+        product.getCatalog();
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public boolean showProductsOfSupplier(String targetName) {
     Iterator<Supplier> allSuppliers = getSuppliers();
     // search for supplier by name
