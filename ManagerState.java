@@ -209,7 +209,7 @@ public class ManagerState extends WarehouseState implements ActionListener{
       if (SecuritySubsystem.instance().validateSalesClerk(sID, sPW)) {
         (WarehouseContext.instance()).setLogin(WarehouseContext.IsSalesClerk);
         (WarehouseContext.instance()).setUser(sID);
-		clear();
+		    clear();
         (WarehouseContext.instance()).changeState(2);
       }
     }
@@ -243,19 +243,19 @@ public class ManagerState extends WarehouseState implements ActionListener{
     //client
     if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsClient) 
 	{
-	  clear();
+	    clear();
 		(WarehouseContext.instance()).changeState(1);
 	}
     //sales clerk
     else if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsSalesClerk) 
 	{
-	  clear();
+	    clear();
 		(WarehouseContext.instance()).changeState(2);
 	}
     //manager
     else if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsManager) 
 	{
-       clear();
+        clear();
 		(WarehouseContext.instance()).changeState(3);
 	}
     //error

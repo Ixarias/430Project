@@ -3,7 +3,7 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class ClientState extends WarState {
+public class ClientState extends WarehouseState {
   private static ClientState clientstate;
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
@@ -106,7 +106,7 @@ public class ClientState extends WarState {
 
   // Show only THIS client's details
   public void showClient() {
-    String id = WarContext.instance().getUser();
+    String id = WarehouseContext.instance().getUser();
     Iterator<Client> allClients = warehouse.getClients();
     while (allClients.hasNext()) {
       Client client = (Client) (allClients.next());
@@ -129,7 +129,7 @@ public class ClientState extends WarState {
   // Must show all transactions for THIS client
   public void showTransactions() {
     Iterator result;
-    String clientId = WarContext.instance().getUser();
+    String clientId = WarehouseContext.instance().getUser();
     Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
     result = warehouse.getTransactions(clientId, date);
     if (result == null) {
@@ -146,7 +146,7 @@ public class ClientState extends WarState {
   // Add item to this client's cart
   public void addToCart() {
     System.out.println("Add to Cart selected.");
-    String clientId = WarContext.instance().getUser();
+    String clientId = WarehouseContext.instance().getUser();
     String productName = getToken("Enter Product Name");
     int quantity = getNumber("Enter quantity");
 
@@ -177,7 +177,7 @@ public class ClientState extends WarState {
 
   // Edit this client's cart
   public void editCart() {
-    String clientId = WarContext.instance().getUser();
+    String clientId = WarehouseContext.instance().getUser();
     if (warehouse.clientExists(clientId)) {  // Check if client exists
       warehouse.displayCart(clientId);
       String productName = getToken("Please enter the name of the product in the cart");
@@ -192,7 +192,7 @@ public class ClientState extends WarState {
   }
 
   public void showCart() {
-    String clientId = WarContext.instance().getUser();
+    String clientId = WarehouseContext.instance().getUser();
     // warehouse.displayCart(clientId);
 
     Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
@@ -247,16 +247,16 @@ public class ClientState extends WarState {
 
   public void logout()
   {
-    if ((WarContext.instance()).getLogin() == WarContext.IsClerk)
+    if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsClerk)
        { //stem.out.println(" going to clerk \n ");
-         (WarContext.instance()).changeState(1); // exit with a code 1
+         (WarehouseContext.instance()).changeState(1); // exit with a code 1
         }
-    else if (WarContext.instance().getLogin() == WarContext.IsUser)
+    else if (WarehouseContext.instance().getLogin() == WarehouseContext.IsUser)
        {  //stem.out.println(" going to login \n");
-        (WarContext.instance()).changeState(0); // exit with a code 2
+        (WarehouseContext.instance()).changeState(0); // exit with a code 2
        }
     else 
-       (WarContext.instance()).changeState(2); // exit code 2, indicates error
+       (WarehouseContext.instance()).changeState(2); // exit code 2, indicates error
   }
  
 }

@@ -2,10 +2,10 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 
-public class Loginstate extends WarehouseState {
+public class LoginState extends WarehouseState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private WarehouseContext context;
-  private static Loginstate instance;
+  private static LoginState instance;
   private SecuritySubsystem securitySubsystem;
   private static final int EXIT = 0;
   private static final int CLIENT_LOGIN = 1;
@@ -13,9 +13,9 @@ public class Loginstate extends WarehouseState {
   private static final int MANAGER_LOGIN = 3;
   private static final int HELP = 4;
 
-  public static Loginstate instance() {
+  public static LoginState instance() {
     if (instance == null) {
-      instance = new Loginstate();
+      instance = new LoginState();
     }
     return instance;
   }

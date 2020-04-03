@@ -83,9 +83,9 @@ public class WarehouseContext {
     }
     // set up the FSM and transition table;
     states = new WarehouseState[4];
-    states[0] = Loginstate.instance();            //0 login state
+    states[0] = LoginState.instance();            //0 login state
     states[1] = ClientState.instance();           //1 user state
-    states[2] = SalesClerkState.instance();       //2 clerk state
+    states[2] = ClerkState.instance();       //2 clerk state
     states[3] = ManagerState.instance();          //3 manager state
     nextState = new int[4][4];                    //-2 = error, -1 = logout
     nextState[0][0] = -2;nextState[0][1] = 1;nextState[0][2] = 2;nextState[0][3] = 3;

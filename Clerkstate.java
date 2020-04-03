@@ -1,10 +1,10 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
-public class ClerkState extends WarState {
+public class ClerkState extends WarehouseState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
-  private WarContext context;
+  private WarehouseContext context;
   private static ClerkState instance;
   private static final int EXIT = 0;
   private static final int ADD_MEMBER = 1;
