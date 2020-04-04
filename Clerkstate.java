@@ -5,7 +5,7 @@ import java.io.*;
 public class ClerkState extends WarState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
-  // private WarContext context; not used
+  private WarContext context;
   private static ClerkState instance;
 
   private static final int EXIT = 0;
@@ -22,7 +22,7 @@ public class ClerkState extends WarState {
   private static final int HELP = 11;
 
   private ClerkState() {
-    warehouse = Warehouse.instance();
+    Warehouse = Warehouse.instance();
   }
 
   public static ClerkState instance() {
@@ -45,10 +45,6 @@ public class ClerkState extends WarState {
       }
     } while (true);
   }
-	/* public void clear() { //clean up stuff
-    frame.getContentPane().removeAll();
-    frame.paint(frame.getGraphics());   
-  }  */
   
   private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
@@ -105,7 +101,7 @@ public class ClerkState extends WarState {
     String phone = getToken("Enter phone number: ");
     //String id = getToken("Enter ID: ");
     Client result;
-    result = warehouse.addClient(name, address, phone);
+    result = warehouse.addClient(name, address, phone, 0);
     if (result == null) {
       System.out.println("Could not add member");
     }
@@ -123,7 +119,8 @@ public class ClerkState extends WarState {
   }
 
   public void getOutstandingOrders() {
-    // 
+    
+
   }
 
   public void acceptPayment() {
@@ -141,10 +138,10 @@ public class ClerkState extends WarState {
     String clientID = getToken("Enter client ID: ");
     int cID = Integer.parseInt(clientID);
 
-    if(warehouse.instance().clientExists(clientID)) {
-      (WarContext.instance()).setUser(clientID);
-		  // clear();
-      (WarContext.instance()).changeState(1);
+    if(Warhouse.instance().clientExists(clientID)) {
+      (WarehouseContext.instance()).setUser(clientID);
+		  clear();
+      (WarehouseContext.instance()).changeState(1);
     }
 
     else 
@@ -152,10 +149,6 @@ public class ClerkState extends WarState {
   }
 
   //************************* PRODUCT FUNCTIONS ******************************//
-
-  public void getWaitListProducts() {
-    //
-  }
 
   public void getProducts() {
     Iterator allProducts = warehouse.getProducts();
@@ -187,10 +180,6 @@ public class ClerkState extends WarState {
     warehouse.receiveShipment(targetSupplier, targetProduct, targetQuantity);
   }
 
-  public void acceptClientPayment() {
-    // 
-  }
-
   private void save() {
     if (warehouse.save()) {
       System.out.println(" The warehouse has been successfully saved in the file WarehouseData \n" );
@@ -219,25 +208,25 @@ public class ClerkState extends WarState {
     //client
     if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
 	{
-	  // clear();
+	  clear();
 		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
-    else if ((WarContext.instance()).getLogin() == WarContext.IsClerk) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
 	{
-	  // clear();
+	  clear();
 		(WarContext.instance()).changeState(2);
 	}
     //manager
     else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
 	{
-    // clear();
+       clear();
 		(WarContext.instance()).changeState(3);
 	}
     //error
     else 
 	{
-		// clear();
+		clear();
 		(WarContext.instance()).changeState(0);}
   }
 
@@ -272,11 +261,11 @@ public class ClerkState extends WarState {
                                                 break;
         case SWITCH_TO_CLIENT:                  clientMenu();
                                                 break;
-        case GET_WAITLIST_PRODUCTS:             getWaitListProducts();
+        case GET_WAITLIST_PRODUCTS:             displayWaitlist();
                                                 break;
         case RECEIVE_SHIPMENT:                  receiveShipment();
                                                 break;
-        case ACCEPT_CLIENT_PAYMENT:             acceptClientPayment();
+        case ACCEPT_CLIENT_PAYMENT:             acceptPayment();
                                                 break;                                       
         case SAVE:                              save();
                                                 break;
