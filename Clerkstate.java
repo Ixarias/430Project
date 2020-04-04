@@ -22,7 +22,7 @@ public class ClerkState extends WarState {
   private static final int HELP = 11;
 
   private ClerkState() {
-    Warehouse = Warehouse.instance();
+    warehouse = Warehouse.instance();
   }
 
   public static ClerkState instance() {
@@ -101,7 +101,7 @@ public class ClerkState extends WarState {
     String phone = getToken("Enter phone number: ");
     //String id = getToken("Enter ID: ");
     Client result;
-    result = warehouse.addClient(name, address, phone, 0);
+    result = warehouse.addClient(name, address, phone);
     if (result == null) {
       System.out.println("Could not add member");
     }
@@ -138,10 +138,9 @@ public class ClerkState extends WarState {
     String clientID = getToken("Enter client ID: ");
     int cID = Integer.parseInt(clientID);
 
-    if(Warhouse.instance().clientExists(clientID)) {
-      (WarehouseContext.instance()).setUser(clientID);
-		  clear();
-      (WarehouseContext.instance()).changeState(1);
+    if(warehouse.instance().clientExists(clientID)) {
+      (WarContext.instance()).setUser(clientID);
+      (WarContext.instance()).changeState(1);
     }
 
     else 
@@ -208,25 +207,21 @@ public class ClerkState extends WarState {
     //client
     if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
 	{
-	  clear();
 		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
-    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsClerk) 
 	{
-	  clear();
 		(WarContext.instance()).changeState(2);
 	}
     //manager
     else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
 	{
-       clear();
 		(WarContext.instance()).changeState(3);
 	}
     //error
     else 
 	{
-		clear();
 		(WarContext.instance()).changeState(0);}
   }
 
