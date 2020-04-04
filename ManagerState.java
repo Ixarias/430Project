@@ -15,11 +15,16 @@ public class ManagerState extends WarState {
   private static final int DISPLAY_PRODUCTS_OF_SUPPLIER = 5;
   private static final int ASSIGN_PRODUCT_TO_SUPPLIER = 6;
   private static final int CHANGE_PRODUCT_PRICE = 7;
-  private static final int SWITCH_TO_SALES_CLERK = 8;
+  private static final int SWITCH_TO_CLERK = 8;
   private static final int SAVE = 9;
   private static final int RETRIEVE = 10;
   private static final int HELP = 11;
   private static final String USERNAME = "manager";
+
+  private ManagerState() {
+    super();
+    Warehouse = Warehouse.instance();
+  }
 
   public static ManagerState instance() {
     if (instance == null)
@@ -179,14 +184,14 @@ public class ManagerState extends WarState {
       }
   }
 
-  public void salesClerkMenu() {
+  public void ClerkMenu() {
       String sID = getToken("Please enter clerk ID: ");
-      String sPW = getToken("Please enter clerk password: ");
+      int cID = Integer.parseInt(sID);
 
-        (WarContext.instance()).setLogin(WarContext.IsSalesClerk);
-        (WarContext.instance()).setUser(sID);
-		clear();
-        (WarContext.instance()).changeState(2);
+      (WarContext.instance()).setUser(sID);
+      clear();
+      
+      (WarContext.instance()).changeState(2);
   }
 
   private void save() {
@@ -236,7 +241,7 @@ public class ManagerState extends WarState {
     else 
 	{
 		clear();
-		(WarehouseContext.instance()).changeState(0);}
+		(WarContext.instance()).changeState(0);}
   }
 
   public void help() {
@@ -249,7 +254,7 @@ public class ManagerState extends WarState {
     System.out.println(DISPLAY_PRODUCTS_OF_SUPPLIER + " to display products in a suppliers catalog");
     System.out.println(ASSIGN_PRODUCT_TO_SUPPLIER + " to link product to supplier");
     System.out.println(CHANGE_PRODUCT_PRICE + " to change a product price");
-    System.out.println(SWITCH_TO_SALES_CLERK + " to switch to sales clerk");
+    System.out.println(SWITCH_TO_CLERK + " to switch to sales clerk");
     System.out.println(SAVE + " to save data");
     System.out.println(RETRIEVE + " to retrieve");
     System.out.println(HELP + " for help");
@@ -275,7 +280,7 @@ public class ManagerState extends WarState {
                                             break;
         case CHANGE_PRODUCT_PRICE:          changeProductPrice();
                                             break;
-        case SWITCH_TO_SALES_CLERK:         salesClerkMenu();
+        case SWITCH_TO_CLERK:               ClerkMenu();
                                             break;
         case SAVE:                          save();
                                             break;

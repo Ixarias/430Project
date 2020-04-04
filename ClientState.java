@@ -267,18 +267,30 @@ public class ClientState extends WarState {
     process();
   }
 
-  public void logout()
-  {
-    if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk)
-       { //stem.out.println(" going to clerk \n ");
-         (WarContext.instance()).changeState(1); // exit with a code 1
-        }
-    else if (WarContext.instance().getLogin() == WarContext.IsClient)
-       {  //stem.out.println(" going to login \n");
-        (WarContext.instance()).changeState(0); // exit with a code 2
-       }
+  public void logout() {
+    //client
+    if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
+	{
+	  clear();
+		(WarContext.instance()).changeState(1);
+	}
+    //sales clerk
+    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
+	{
+	  clear();
+		(WarContext.instance()).changeState(2);
+	}
+    //manager
+    else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
+	{
+       clear();
+		(WarContext.instance()).changeState(3);
+	}
+    //error
     else 
-       (WarContext.instance()).changeState(2); // exit code 2, indicates error
+	{
+		clear();
+		(WarContext.instance()).changeState(0);}
   }
  
 }
