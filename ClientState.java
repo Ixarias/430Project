@@ -273,7 +273,7 @@ public class ClientState extends WarState {
        { //stem.out.println(" going to clerk \n ");
          (WarContext.instance()).changeState(1); // exit with a code 1
         }
-    else if (WarContext.instance().getLogin() == WarContext.IsUser)
+    else if (WarContext.instance().getLogin() == WarContext.IsClient)
        {  //stem.out.println(" going to login \n");
         (WarContext.instance()).changeState(0); // exit with a code 2
        }

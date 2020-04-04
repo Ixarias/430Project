@@ -123,8 +123,7 @@ public class ClerkState extends WarState {
   }
 
   public void getOutstandingOrders() {
-    
-
+    // 
   }
 
   public void acceptPayment() {
@@ -154,8 +153,8 @@ public class ClerkState extends WarState {
 
   //************************* PRODUCT FUNCTIONS ******************************//
 
-  public int getWaitListProducts() {
-    return 1;
+  public void getWaitListProducts() {
+    //
   }
 
   public void getProducts() {
@@ -189,7 +188,7 @@ public class ClerkState extends WarState {
   }
 
   public void acceptClientPayment() {
-
+    // 
   }
 
   private void save() {
@@ -224,7 +223,7 @@ public class ClerkState extends WarState {
 		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
-    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsClerk) 
 	{
 	  // clear();
 		(WarContext.instance()).changeState(2);

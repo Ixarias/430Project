@@ -11,7 +11,7 @@ public class WarContext {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   public static final int IsLogin = 0;
   public static final int IsClient = 1;
-  public static final int IsSalesClerk = 2;
+  public static final int IsClerk = 2;
   public static final int IsManager = 3;
   private WarState[] states;
   private int[][] nextState;

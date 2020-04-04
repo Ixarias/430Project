@@ -188,9 +188,9 @@ public class ManagerState extends WarState {
       String sID = getToken("Please enter clerk ID: ");
       String sPW = getToken("Please enter clerk password: ");
 
-        (WarContext.instance()).setLogin(WarContext.IsSalesClerk);
+        (WarContext.instance()).setLogin(WarContext.IsClerk);
         (WarContext.instance()).setUser(sID);
-		clear();
+		    // clear();
         (WarContext.instance()).changeState(2);
   }
 
@@ -222,26 +222,26 @@ public class ManagerState extends WarState {
     //client
     if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
 	{
-	  clear();
+	  // clear();
 		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
-    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsClerk) 
 	{
-	  clear();
+	  // clear();
 		(WarContext.instance()).changeState(2);
 	}
     //manager
     else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
 	{
-       clear();
+    // clear();
 		(WarContext.instance()).changeState(3);
 	}
     //error
     else 
 	{
-		clear();
-		(WarehouseContext.instance()).changeState(0);}
+		// clear();
+		(WarContext.instance()).changeState(0);}
   }
 
   public void help() {

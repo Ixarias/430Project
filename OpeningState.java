@@ -64,7 +64,7 @@ public class OpeningState extends WarState{
   private void user(){
     String userID = getToken("Please input the client id: ");
     if (Warehouse.instance().getClientById(userID) != null){
-      (WarContext.instance()).setLogin(WarContext.IsUser);
+      (WarContext.instance()).setLogin(WarContext.IsClient);
       (WarContext.instance()).setUser(userID);      
       (WarContext.instance()).changeState(1);
     }
