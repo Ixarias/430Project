@@ -21,6 +21,10 @@ public class ClerkState extends WarState {
   private static final int RETRIEVE = 10;
   private static final int HELP = 11;
 
+  private ClerkState() {
+    Warehouse = Warehouse.instance();
+  }
+
   public static ClerkState instance() {
     if (instance == null)
       instance = new ClerkState();
@@ -138,13 +142,14 @@ public class ClerkState extends WarState {
     String clientID = getToken("Enter client ID: ");
     int cID = Integer.parseInt(clientID);
 
-    /* if cID exists do this {
-      (WarehouseContext.instance()).setLogin(WarehouseContext.IsClient);
+    if(Warhouse.instance().clientExists(clientID)) {
       (WarehouseContext.instance()).setUser(clientID);
-    
-		clear();
+		  clear();
       (WarehouseContext.instance()).changeState(1);
-    } */
+    }
+
+    else 
+      System.out.println("Invalid client ID.");
   }
 
   //************************* PRODUCT FUNCTIONS ******************************//
@@ -205,23 +210,29 @@ public class ClerkState extends WarState {
 
   public void logout() {
     //client
-    if ((WarContext.instance()).getLogin() == WarContext.IsClient){
-		clear();
-      (WarContext.instance()).changeState(1);}
+    if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
+	{
+	  clear();
+		(WarContext.instance()).changeState(1);
+	}
     //sales clerk
-    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk){
-		clear();
-      (WarContext.instance()).changeState(2);}
+    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
+	{
+	  clear();
+		(WarContext.instance()).changeState(2);
+	}
     //manager
-    else if ((WarContext.instance()).getLogin() == WarContext.IsManager){
-		clear();
-      (WarContext.instance()).changeState(3);}
+    else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
+	{
+       clear();
+		(WarContext.instance()).changeState(3);
+	}
     //error
-    else{
+    else 
+	{
 		clear();
-      (WarContext.instance()).changeState(0);}
+		(WarContext.instance()).changeState(0);}
   }
-
 
   public void help() {
     System.out.println("Enter a number corresponding to a command as indicated below:");

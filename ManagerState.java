@@ -21,6 +21,11 @@ public class ManagerState extends WarState {
   private static final int HELP = 11;
   private static final String USERNAME = "manager";
 
+  private ManagerState() {
+    super();
+    Warehouse = Warehouse.instance();
+  }
+
   public static ManagerState instance() {
     if (instance == null)
       instance = new ManagerState();
@@ -183,12 +188,10 @@ public class ManagerState extends WarState {
       String sID = getToken("Please enter clerk ID: ");
       int cID = Integer.parseInt(sID);
 
-      /* if cID exists do this {
-        (WarContext.instance()).setLogin(WarContext.IsSalesClerk);
-        (WarContext.instance()).setUser(sID);
-		clear();
-        (WarContext.instance()).changeState(2);
-      } */
+      (WarContext.instance()).setUser(sID);
+      clear();
+      
+      (WarContext.instance()).changeState(2);
   }
 
   private void save() {
@@ -238,7 +241,7 @@ public class ManagerState extends WarState {
     else 
 	{
 		clear();
-		(WarehouseContext.instance()).changeState(0);}
+		(WarContext.instance()).changeState(0);}
   }
 
   public void help() {
