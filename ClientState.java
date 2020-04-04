@@ -209,7 +209,7 @@ public class ClientState extends WarState {
       //   Get iterator for it's Waitlist
       Iterator waitlist = product.getWaitlistItems();
       //   For each WaitlistItem:
-      while (waitlist.hasNext()) {
+      while (waitlist != null && waitlist.hasNext()) {
         WaitlistItem waitlistItem = (WaitlistItem) waitlist.next();
         // if Client = this Client, display Product + Quantity
         if (waitlistItem.getClient().getId().equals(WarContext.instance().getUser())) {
@@ -217,10 +217,7 @@ public class ClientState extends WarState {
         }
       }
     }
-
-
   }
-
 
   // ***** End of functions callable from ClientState UI *****
 
