@@ -236,7 +236,7 @@ public class ManagerState extends WarState {
     else 
 	{
 		clear();
-		(WarContext.instance()).changeState(0);}
+		(WarehouseContext.instance()).changeState(0);}
   }
 
   public void help() {

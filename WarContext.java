@@ -1,17 +1,18 @@
 import java.util.*;
 import java.text.*;
 import java.io.*;
+
 public class WarContext {
-  
   private int currentState;
   private static Warehouse warehouse;
   private static WarContext context;
   private int currentUser;
   private String userID;
-  private BufferedReader reader = new BufferedReader(new 
-                                      InputStreamReader(System.in));
-  public static final int IsClerk = 0;
-  public static final int IsUser = 1;
+  private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+  public static final int IsLogin = 0;
+  public static final int IsClient = 1;
+  public static final int IsSalesClerk = 2;
+  public static final int IsManager = 3;
   private WarState[] states;
   private int[][] nextState;
 
@@ -29,7 +30,7 @@ public class WarContext {
       }
     } while (true);
   }
-  
+
   private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
     if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
@@ -42,57 +43,57 @@ public class WarContext {
     try {
       Warehouse tempWarehouse = Warehouse.retrieve();
       if (tempWarehouse != null) {
-        System.out.println(" The library has been successfully retrieved from the file WarehouseData \n" );
+        System.out.println("The warehouse has been successfully retrieved from the file WarehouseData \n" );
         warehouse = tempWarehouse;
       } else {
-        System.out.println("File doesnt exist; creating new library" );
+        System.out.println("File doesnt exist; creating new warehouse");
         warehouse = Warehouse.instance();
       }
     } catch(Exception cnfe) {
-      cnfe.printStackTrace();
-    }
+        cnfe.printStackTrace();
+      }
   }
 
-  public void setLogin(int code)
-  {currentUser = code;}
-
-  public void setUser(String uID)
-  { userID = uID;}
-
-  public int getLogin()
-  { return currentUser;}
-
-  public String getUser()
-  { return userID;}
+  public void setLogin(int code) {
+    currentUser = code;
+  }
+  public void setUser(String uID) {
+    userID = uID;
+  }
+  public int getLogin() {
+    return currentUser;
+  }
+  public String getUser() {
+    return userID;
+  }
 
   private WarContext() { //constructor
-    System.out.println("In Libcontext constructor");
+    System.out.println("In Warehouse context constructor.");
     if (yesOrNo("Look for saved data and  use it?")) {
       retrieve();
     } else {
       warehouse = Warehouse.instance();
     }
     // set up the FSM and transition table;
-    states = new WarState[3];
-    states[0] = ClerkState.instance();
-    states[1] = ClientState.instance(); 
-    states[2]=  OpeningState.instance();
-    nextState = new int[3][3];
-    nextState[0][0] = 2;nextState[0][1] = 1;nextState[0][2] = -2;
-    nextState[1][0] = 2;nextState[1][1] = 0;nextState[1][2] = -2;
-    nextState[2][0] = 0;nextState[2][1] = 1;nextState[2][2] = -1;
-    currentState = 2;
+    states = new WarState[4];
+    states[0] = OpeningState.instance();            //0 login state
+    states[1] = ClientState.instance();           //1 user state
+    states[2] = ClerkState.instance();       //2 clerk state
+    states[3] = ManagerState.instance();          //3 manager state
+    nextState = new int[4][4];                    //-2 = error, -1 = logout
+    nextState[0][0] = -2;nextState[0][1] = 1;nextState[0][2] = 2;nextState[0][3] = 3;
+    nextState[1][0] = 0;nextState[1][1] = 0;nextState[1][2] = 2;nextState[1][3] = 3;
+    nextState[2][0] = 0;nextState[2][1] = 1;nextState[2][2] = 0;nextState[2][3] = 3;
+    nextState[3][0] = 0;nextState[3][1] = 1;nextState[3][2] = 2;nextState[3][3] = 0;
+    currentState = 0;
   }
 
-  public void changeState(int transition)
-  {
-    //System.out.println("current state " + currentState + " \n \n ");
+  public void changeState(int transition) {
     currentState = nextState[currentState][transition];
-    if (currentState == -2) 
+    if (currentState == -2)
       {System.out.println("Error has occurred"); terminate();}
-    if (currentState == -1) 
+    if (currentState == -1)
       terminate();
-    //System.out.println("current state " + currentState + " \n \n ");
     states[currentState].run();
   }
 
@@ -100,18 +101,18 @@ public class WarContext {
   {
    if (yesOrNo("Save data?")) {
       if (warehouse.save()) {
-         System.out.println(" The library has been successfully saved in the file LibraryData \n" );
+         System.out.println("The warehouse has been successfully saved in the file WarehouseData.\n");
        } else {
-         System.out.println(" There has been an error in saving \n" );
+         System.out.println("There has been an error in saving.\n");
        }
      }
-   System.out.println(" Goodbye \n "); System.exit(0);
+   System.out.println("Goodbye.\n"); System.exit(0);
   }
 
   public static WarContext instance() {
     if (context == null) {
-       System.out.println("calling constructor");
-      context = new WarContext();
+        System.out.println("calling constructor...");
+        context = new WarContext();
     }
     return context;
   }
@@ -119,10 +120,8 @@ public class WarContext {
   public void process(){
     states[currentState].run();
   }
-  
+
   public static void main (String[] args){
-    WarContext.instance().process(); 
+    WarContext.instance().process();
   }
-
-
 }
