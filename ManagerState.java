@@ -23,7 +23,7 @@ public class ManagerState extends WarState {
 
   private ManagerState() {
     super();
-    Warehouse = Warehouse.instance();
+    warehouse = Warehouse.instance();
   }
 
   public static ManagerState instance() {
