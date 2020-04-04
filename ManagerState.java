@@ -2,10 +2,10 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 
-public class ManagerState extends WarehouseState {
+public class ManagerState extends WarState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
-  private WarehouseContext context;
+  private WarContext context;
   private static ManagerState instance;
   private static final int EXIT = 0;
   private static final int ADD_PRODUCT = 1;
@@ -183,10 +183,10 @@ public class ManagerState extends WarehouseState {
       String sID = getToken("Please enter clerk ID: ");
       String sPW = getToken("Please enter clerk password: ");
 
-        (WarehouseContext.instance()).setLogin(WarehouseContext.IsSalesClerk);
-        (WarehouseContext.instance()).setUser(sID);
+        (WarContext.instance()).setLogin(WarContext.IsSalesClerk);
+        (WarContext.instance()).setUser(sID);
 		clear();
-        (WarehouseContext.instance()).changeState(2);
+        (WarContext.instance()).changeState(2);
   }
 
   private void save() {
@@ -215,28 +215,28 @@ public class ManagerState extends WarehouseState {
 
   public void logout() {
     //client
-    if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsClient) 
+    if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
 	{
 	  clear();
-		(WarehouseContext.instance()).changeState(1);
+		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
-    else if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsSalesClerk) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsSalesClerk) 
 	{
 	  clear();
-		(WarehouseContext.instance()).changeState(2);
+		(WarContext.instance()).changeState(2);
 	}
     //manager
-    else if ((WarehouseContext.instance()).getLogin() == WarehouseContext.IsManager) 
+    else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
 	{
        clear();
-		(WarehouseContext.instance()).changeState(3);
+		(WarContext.instance()).changeState(3);
 	}
     //error
     else 
 	{
 		clear();
-		(WarehouseContext.instance()).changeState(0);}
+		(WarContext.instance()).changeState(0);}
   }
 
   public void help() {
