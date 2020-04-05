@@ -79,7 +79,7 @@ public class Warehouse implements Serializable {
     Iterator<Product> allProducts = getProducts();
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
-      String name = product.getName();
+      //String name = product.getName();
       //System.out.println(name);
       if (product.equals(targetName)) {
         //System.out.println("Name " + targetName + " found.");
@@ -117,7 +117,7 @@ public class Warehouse implements Serializable {
     Iterator<Client> allClients = getClients();
     while (allClients.hasNext()) {
       Client client = (Client)(allClients.next());
-      String name = client.getName();
+      //String name = client.getName();
       //System.out.println(name);
       if (client.equals(targetId)) {
         //System.out.println("Client ID " + targetId + " found.");
@@ -317,7 +317,7 @@ public class Warehouse implements Serializable {
     return true; // if successful
   }
 
-  public Iterator getTransactions(String clientID, Calendar date) {
+  public Iterator<Transaction> getTransactions(String clientID, Calendar date) {
     Client client = clientList.search(clientID);
     if (client == null) {
       return (null);

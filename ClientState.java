@@ -46,13 +46,13 @@ public class ClientState extends WarState {
       }
     } while (true);
   }
-  private boolean yesOrNo(String prompt) {
+  /*private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
     if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
       return false;
     }
     return true;
-  }
+  }*/
   public int getNumber(String prompt) {
     do {
       try {

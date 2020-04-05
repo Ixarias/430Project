@@ -69,7 +69,7 @@ public class Client implements Serializable {
   }
 
   public void editCart(String itemName, int newQuant) {
-    Iterator cart = getCartItems();
+    Iterator<CartItem> cart = getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       if (itemName.equals(item.getProduct().getName())) {
@@ -83,7 +83,7 @@ public class Client implements Serializable {
   }
 
   public boolean removeCart(String targetName) {
-    Iterator cart = getCartItems();
+    Iterator<CartItem> cart = getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       if (targetName.equals(item.getProduct().getName())) {
@@ -100,7 +100,7 @@ public class Client implements Serializable {
   }
 
   public boolean inCart(String itemName) {
-    Iterator cart = getCartItems();
+    Iterator<CartItem> cart = getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       if (itemName.equals(item.getProduct().getName())) {
@@ -112,8 +112,8 @@ public class Client implements Serializable {
     return false;
   }
 
-  public Iterator getTransactions(Calendar date) {
-    List result = new LinkedList();
+  public Iterator<Transaction> getTransactions(Calendar date) {
+    List<Transaction> result = new LinkedList<Transaction>();
     for (Iterator<Transaction> iterator = transactions.iterator(); iterator.hasNext();) {
       Transaction transaction = (Transaction) iterator.next();
       if (transaction.onDate(date)) {

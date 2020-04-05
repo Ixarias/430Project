@@ -5,7 +5,6 @@ import java.io.*;
 public class ClerkState extends WarState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
-  private WarContext context;
   private static ClerkState instance;
 
   private static final int EXIT = 0;
@@ -46,13 +45,13 @@ public class ClerkState extends WarState {
     } while (true);
   }
   
-  private boolean yesOrNo(String prompt) {
+  /*private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
     if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
       return false;
     }
     return true;
-  }
+  }*/
 
   public int getNumber(String prompt) {
     do {
