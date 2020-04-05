@@ -119,8 +119,19 @@ public class ClerkState extends WarState {
   }
 
   public void getOutstandingOrders() {
-    
+    double balance;
+   
+    Iterator<Client> allClients = warehouse.getClients();
+    while (allClients.hasNext()) {
+      Client client = (Client) (allClients.next());
+      
+      balance = client.getBalance();
 
+      if(balance > 0)
+      {
+        System.out.println(client.toString());
+      }
+    }
   }
 
   public void acceptPayment() {
