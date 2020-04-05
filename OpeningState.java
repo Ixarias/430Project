@@ -57,7 +57,7 @@ public class OpeningState extends WarState {
 
   private void clientLogin() {
     String clientID = getToken("Enter client ID: ");
-    int cID = Integer.parseInt(clientID);
+    //int cID = Integer.parseInt(clientID);
 
     (WarContext.instance()).setLogin(WarContext.IsClient);
     (WarContext.instance()).setUser(clientID);
@@ -83,7 +83,7 @@ public class OpeningState extends WarState {
   public void help() {
     System.out.println("--LOGIN MENU--");
     System.out.println(EXIT + " to exit the program.");
-    System.out.println(CLIENT_LOGIN + " Client login. (ID and pass = integers 1,2,3...)");
+    System.out.println(CLIENT_LOGIN + " Client login. (ID = C1, C2, etc. and pass = integers 1,2,3...)");
     System.out.println(SALES_CLERK_LOGIN + " Sales clerk login. (ID and pass = salesclerk)");
     System.out.println(MANAGER_LOGIN + " Manager login. (ID and pass = manager)");
     System.out.println(HELP + " to display this menu.");
