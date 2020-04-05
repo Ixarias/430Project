@@ -59,25 +59,25 @@ public class OpeningState extends WarState {
     String clientID = getToken("Enter client ID: ");
     int cID = Integer.parseInt(clientID);
 
-    (WarehouseContext.instance()).setLogin(WarehouseContext.IsClient);
-    (WarehouseContext.instance()).setUser(clientID);
-    (WarehouseContext.instance()).changeState(CLIENT_LOGIN);
+    (WarContext.instance()).setLogin(WarContext.IsClient);
+    (WarContext.instance()).setUser(clientID);
+    (WarContext.instance()).changeState(CLIENT_LOGIN);
   }
 
   private void salesClerkLogin() {
     String sID = getToken("Enter sales clerk ID: ");
     
-    (WarehouseContext.instance()).setLogin(WarehouseContext.IsSalesClerk);
-    (WarehouseContext.instance()).setUser(sID);
-    (WarehouseContext.instance()).changeState(SALES_CLERK_LOGIN);
+    (WarContext.instance()).setLogin(WarContext.IsClerk);
+    (WarContext.instance()).setUser(sID);
+    (WarContext.instance()).changeState(SALES_CLERK_LOGIN);
   }
 
   private void managerLogin() {
     String mID = getToken("Enter manager ID: ");
     
-    (WarehouseContext.instance()).setLogin(WarehouseContext.IsManager);
-    (WarehouseContext.instance()).setUser(mID);
-    (WarehouseContext.instance()).changeState(MANAGER_LOGIN);
+    (WarContext.instance()).setLogin(WarContext.IsManager);
+    (WarContext.instance()).setUser(mID);
+    (WarContext.instance()).changeState(MANAGER_LOGIN);
   }
 
   public void help() {
@@ -106,7 +106,7 @@ public class OpeningState extends WarState {
         default:                System.out.println("Invalid choice.");
       }
     }
-    (WarehouseContext.instance()).changeState(EXIT);
+    (WarContext.instance()).changeState(EXIT);
   }
 
   public void run() {
