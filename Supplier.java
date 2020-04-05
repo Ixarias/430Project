@@ -5,18 +5,6 @@ public class Supplier implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String address;
-    private class Pair implements Serializable {
-        private static final long serialVersionUID = 1L;
-        public Product prod;
-        public double price;
-        public Pair(Product prod, double price) {
-            this.prod = prod;
-            this.price = price;
-        }
-        public String toString() {
-            return "name: " + prod.getName() + " | quantity: " + prod.getQuantity() + " | price: " + price;
-        }
-    }
     private List<Pair> catalog;
 
     public Supplier(String name, String address) {
@@ -40,7 +28,7 @@ public class Supplier implements Serializable {
     }
 
     public void insertProduct(Product product, double price) {
-        Pair newpair = new Pair(product, price);
+        Pair newpair = new Pair(this, product, price);
         catalog.add(newpair);
     }
 
