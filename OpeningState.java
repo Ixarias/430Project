@@ -1,12 +1,11 @@
 import java.util.*;
-import java.text.*;
 import java.io.*;
 public class OpeningState extends WarState{
   private static final int CLERK_LOGIN = 0;
   private static final int USER_LOGIN = 1;
   private static final int EXIT = 2;
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));  
-  private WarContext context;
+  // private WarContext context;
   private static OpeningState instance;
   private OpeningState() {
       super();
@@ -48,13 +47,13 @@ public class OpeningState extends WarState{
     } while (true);
   }
  
-  private boolean yesOrNo(String prompt) {
+  /*private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
     if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
       return false;
     }
     return true;
-  }
+  }*/
 
   private void clerk(){
     (WarContext.instance()).setLogin(WarContext.IsClerk);

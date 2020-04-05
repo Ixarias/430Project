@@ -126,10 +126,9 @@ public class ClientState extends WarState {
 
   // Must show all transactions for THIS client
   public void showTransactions() {
-    Iterator result;
     String clientId = WarContext.instance().getUser();
     Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
-    result = warehouse.getTransactions(clientId, date);
+    Iterator<Transaction> result = warehouse.getTransactions(clientId, date);
     if (result == null) {
       System.out.println("Invalid Member ID");
     } else {
@@ -192,8 +191,7 @@ public class ClientState extends WarState {
   public void showCart() {
     String clientId = WarContext.instance().getUser();
     // warehouse.displayCart(clientId);
-
-    Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
+    Iterator<CartItem> cart = (warehouse.getClientById(clientId)).getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       System.out.println(item.toString());
@@ -202,12 +200,12 @@ public class ClientState extends WarState {
 
   public void showWaitlist() {
     // Get iterator for ProductList
-    Iterator productList = warehouse.getProducts();
+    Iterator<Product> productList = warehouse.getProducts();
     while (productList.hasNext()) {
       // For each Product:
       Product product = (Product) productList.next();
       //   Get iterator for it's Waitlist
-      Iterator waitlist = product.getWaitlistItems();
+      Iterator<WaitlistItem> waitlist = product.getWaitlistItems();
       //   For each WaitlistItem:
       while (waitlist != null && waitlist.hasNext()) {
         WaitlistItem waitlistItem = (WaitlistItem) waitlist.next();

@@ -5,7 +5,7 @@ import java.io.*;
 public class ManagerState extends WarState {
   private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static Warehouse warehouse;
-  private WarContext context;
+  //private WarContext context;
   private static ManagerState instance;
   private static final int EXIT = 0;
   private static final int ADD_PRODUCT = 1;
@@ -19,7 +19,7 @@ public class ManagerState extends WarState {
   private static final int SAVE = 9;
   private static final int RETRIEVE = 10;
   private static final int HELP = 11;
-  private static final String USERNAME = "manager";
+  //private static final String USERNAME = "manager";
 
   private ManagerState() {
     super();
@@ -186,7 +186,7 @@ public class ManagerState extends WarState {
 
   public void salesClerkMenu() {
       String sID = getToken("Please enter clerk ID: ");
-      String sPW = getToken("Please enter clerk password: ");
+      //String sPW = getToken("Please enter clerk password: ");
 
         (WarContext.instance()).setLogin(WarContext.IsClerk);
         (WarContext.instance()).setUser(sID);

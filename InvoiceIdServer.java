@@ -1,6 +1,6 @@
 import java.io.*;
 public class InvoiceIdServer implements Serializable {
-  private  int idCounter;
+  private int idCounter;
   private static InvoiceIdServer server;
   private InvoiceIdServer() {
     idCounter = 1;

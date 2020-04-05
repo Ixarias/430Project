@@ -327,7 +327,7 @@ public class UserInterface {
     String clientId = getToken("Please enter ID of target client: ");
     // warehouse.displayCart(clientId);
 
-    Iterator cart = (warehouse.getClientById(clientId)).getCartItems();
+    Iterator<CartItem> cart = (warehouse.getClientById(clientId)).getCartItems();
     while (cart.hasNext()) {
       CartItem item = (CartItem) cart.next();
       System.out.println(item.toString());
@@ -363,7 +363,7 @@ public class UserInterface {
   public void displayWaitlist() {
     String targetProduct = getToken("Please enter Product Name to display its waitlist");
     // get product, iterate through it's waitlist and print each toString'
-    Iterator waitlist;
+    Iterator<WaitlistItem> waitlist;
     if (warehouse.getProductByName(targetProduct).getWaitlistItems() != null) {
       waitlist = (warehouse.getProductByName(targetProduct)).getWaitlistItems();
     } else {
@@ -400,10 +400,9 @@ public class UserInterface {
   // GET_TRANSACTIONS : 20
 
   public void getTransactions() {
-    Iterator result;
     String memberID = getToken("Enter member id");
     Calendar date = getDate("Please enter the date for which you want records as mm/dd/yy");
-    result = warehouse.getTransactions(memberID, date);
+    Iterator<Transaction> result = warehouse.getTransactions(memberID, date);
     if (result == null) {
       System.out.println("Invalid Member ID");
     } else {

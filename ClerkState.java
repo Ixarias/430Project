@@ -146,8 +146,7 @@ public class ClerkState extends WarState {
 
   public void clientMenu() {
     String clientID = getToken("Enter client ID: ");
-    int cID = Integer.parseInt(clientID);
-
+    // int cID = Integer.parseInt(clientID); unused
     if(warehouse.instance().clientExists(clientID)) {
       (WarContext.instance()).setUser(clientID);
       (WarContext.instance()).changeState(1);
@@ -160,7 +159,7 @@ public class ClerkState extends WarState {
   //************************* PRODUCT FUNCTIONS ******************************//
 
   public void getProducts() {
-    Iterator allProducts = warehouse.getProducts();
+    Iterator<Product> allProducts = warehouse.getProducts();
     while (allProducts.hasNext()) {
       Product product = (Product)(allProducts.next());
       System.out.println(product.toString());
@@ -170,7 +169,7 @@ public class ClerkState extends WarState {
   public void displayWaitlist() {
     String targetProduct = getToken("Please enter Product Name to display its waitlist");
     // get product, iterate through it's waitlist and print each toString'
-    Iterator waitlist;
+    Iterator<WaitlistItem> waitlist;
     if (warehouse.getProductByName(targetProduct).getWaitlistItems() != null) {
       waitlist = (warehouse.getProductByName(targetProduct)).getWaitlistItems();
     } else {
