@@ -1,16 +1,16 @@
 import java.util.*;
+import java.text.*;
 import java.io.*;
-public class OpeningState extends WarState{
-  private static final int CLERK_LOGIN = 0;
-  private static final int USER_LOGIN = 1;
-  private static final int EXIT = 2;
-  private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));  
-  // private WarContext context;
+
+public class OpeningState extends WarState {
+  private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+  private WarContext context;
   private static OpeningState instance;
-  private OpeningState() {
-      super();
-     // context = WarContext.instance();
-  }
+  private static final int EXIT = 0;
+  private static final int CLIENT_LOGIN = 1;
+  private static final int SALES_CLERK_LOGIN = 2;
+  private static final int MANAGER_LOGIN = 3;
+  private static final int HELP = 4;
 
   public static OpeningState instance() {
     if (instance == null) {
@@ -23,7 +23,7 @@ public class OpeningState extends WarState{
     do {
       try {
         int value = Integer.parseInt(getToken("Enter command:" ));
-        if (value <= EXIT && value >= CLERK_LOGIN) {
+        if ((value >= EXIT) && (value <= HELP)) {
           return value;
         }
       } catch (NumberFormatException nfe) {
@@ -46,54 +46,70 @@ public class OpeningState extends WarState{
       }
     } while (true);
   }
- 
-  /*private boolean yesOrNo(String prompt) {
+
+  private boolean yesOrNo(String prompt) {
     String more = getToken(prompt + " (Y|y)[es] or anything else for no");
     if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
       return false;
     }
     return true;
-  }*/
-
-  private void clerk(){
-    (WarContext.instance()).setLogin(WarContext.IsClerk);
-    (WarContext.instance()).changeState(0);
   }
 
-  private void user(){
-    String userID = getToken("Please input the client id: ");
-    if (Warehouse.instance().getClientById(userID) != null){
-      (WarContext.instance()).setLogin(WarContext.IsClient);
-      (WarContext.instance()).setUser(userID);      
-      (WarContext.instance()).changeState(1);
-    }
-    else 
-      System.out.println("Invalid client id.");
-  } 
+  private void clientLogin() {
+    String clientID = getToken("Enter client ID: ");
+    int cID = Integer.parseInt(clientID);
+
+    (WarehouseContext.instance()).setLogin(WarehouseContext.IsClient);
+    (WarehouseContext.instance()).setUser(clientID);
+    (WarehouseContext.instance()).changeState(CLIENT_LOGIN);
+  }
+
+  private void salesClerkLogin() {
+    String sID = getToken("Enter sales clerk ID: ");
+    
+    (WarehouseContext.instance()).setLogin(WarehouseContext.IsSalesClerk);
+    (WarehouseContext.instance()).setUser(sID);
+    (WarehouseContext.instance()).changeState(SALES_CLERK_LOGIN);
+  }
+
+  private void managerLogin() {
+    String mID = getToken("Enter manager ID: ");
+    
+    (WarehouseContext.instance()).setLogin(WarehouseContext.IsManager);
+    (WarehouseContext.instance()).setUser(mID);
+    (WarehouseContext.instance()).changeState(MANAGER_LOGIN);
+  }
+
+  public void help() {
+    System.out.println("--LOGIN MENU--");
+    System.out.println(EXIT + " to exit the program.");
+    System.out.println(CLIENT_LOGIN + " Client login. (ID and pass = integers 1,2,3...)");
+    System.out.println(SALES_CLERK_LOGIN + " Sales clerk login. (ID and pass = salesclerk)");
+    System.out.println(MANAGER_LOGIN + " Manager login. (ID and pass = manager)");
+    System.out.println(HELP + " to display this menu.");
+    System.out.println("Enter a number between 0 and 4.");
+  }
 
   public void process() {
     int command;
-    System.out.println("Please input 0 to login as Clerk\n"+ 
-                        "input 1 to login as client\n" +
-                        "input 2 to exit the system\n");     
+    help();
     while ((command = getCommand()) != EXIT) {
-
       switch (command) {
-        case CLERK_LOGIN:       clerk();
+        case CLIENT_LOGIN:      clientLogin();
                                 break;
-        case USER_LOGIN:        user();
+        case SALES_CLERK_LOGIN: salesClerkLogin();
                                 break;
-        default:                System.out.println("Invalid choice");
-                                
+        case MANAGER_LOGIN:     managerLogin();
+                                break;
+        case HELP:              help();
+                                break;
+        default:                System.out.println("Invalid choice.");
       }
-      System.out.println("Please input 0 to login as Clerk\n"+ 
-                        "input 1 to login as client\n" +
-                        "input 2 to exit the system\n"); 
     }
-    (WarContext.instance()).changeState(2);
+    (WarehouseContext.instance()).changeState(EXIT);
   }
 
   public void run() {
-    process();
+      process();
   }
 }
