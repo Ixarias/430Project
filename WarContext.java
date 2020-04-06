@@ -80,7 +80,7 @@ public class WarContext {
     states[2] = ClerkState.instance();       //2 clerk state
     states[3] = ManagerState.instance();          //3 manager state
     nextState = new int[4][4];                    //-2 = error, -1 = logout
-    nextState[0][0] = -2;nextState[0][1] = 1;nextState[0][2] = 2;nextState[0][3] = 3;
+    nextState[0][0] = -1;nextState[0][1] = 1;nextState[0][2] = 2;nextState[0][3] = 3;
     nextState[1][0] = 0;nextState[1][1] = 0;nextState[1][2] = 2;nextState[1][3] = 3;
     nextState[2][0] = 0;nextState[2][1] = 1;nextState[2][2] = 0;nextState[2][3] = 3;
     nextState[3][0] = 0;nextState[3][1] = 1;nextState[3][2] = 2;nextState[3][3] = 0;

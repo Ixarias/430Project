@@ -216,21 +216,25 @@ public class ClerkState extends WarState {
     //client
     if ((WarContext.instance()).getLogin() == WarContext.IsClient) 
 	{
+    System.out.println("getLogin() == IsClient");
 		(WarContext.instance()).changeState(1);
 	}
     //sales clerk
     else if ((WarContext.instance()).getLogin() == WarContext.IsClerk) 
 	{
+    System.out.println("getLogin() == IsClerk");
 		(WarContext.instance()).changeState(2);
 	}
     //manager
     else if ((WarContext.instance()).getLogin() == WarContext.IsManager) 
 	{
+    System.out.println("getLogin() == IsManager");
 		(WarContext.instance()).changeState(3);
 	}
     //error
     else 
 	{
+    System.out.println("getLogin() is something else");
 		(WarContext.instance()).changeState(0);}
   }
 
