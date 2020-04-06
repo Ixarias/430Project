@@ -76,7 +76,7 @@ public class Product implements Serializable {
 
   public Iterator<WaitlistItem> getWaitlistItems() {
     if (waitlist.isEmpty()) {
-      System.out.println("There are no items on the waitlist for product: " + this.name);
+      //System.out.println("There are no items on the waitlist for product: " + this.name);
       return null;
     } else {
       return waitlist.iterator();

@@ -188,7 +188,7 @@ public class ManagerState extends WarState {
       String sID = getToken("Please enter clerk ID: ");
       //String sPW = getToken("Please enter clerk password: ");
 
-        (WarContext.instance()).setLogin(WarContext.IsClerk);
+        //(WarContext.instance()).setLogin(WarContext.IsClerk);
         (WarContext.instance()).setUser(sID);
 		    // clear();
         (WarContext.instance()).changeState(2);

@@ -253,7 +253,8 @@ public class ClientState extends WarState {
 
   public void logout()
   {
-    if ((WarContext.instance()).getLogin() == WarContext.IsClerk)
+    if ((WarContext.instance()).getLogin() == WarContext.IsClerk
+    || (WarContext.instance()).getLogin() == WarContext.IsManager)
        { //stem.out.println(" going to clerk \n ");
          (WarContext.instance()).changeState(2); // exit with a code 1
         }
